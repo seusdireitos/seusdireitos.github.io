@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Guia completo sobre Salário-Maternidade e Direitos Previdenciários. Saiba quem tem direito, como solicitar e proteja seu futuro.">
-  <!-- Open Graph – visual rico ao compartilhar no WhatsApp, Facebook, etc. -->
   <meta property="og:title" content="Salário-Maternidade — Guia Completo de Direitos Previdenciários">
   <meta property="og:description" content="Descubra se você tem direito ao salário-maternidade, quanto vai receber e como solicitar. Quiz, calculadora e glossário jurídico gratuitos.">
   <meta property="og:type" content="website">
@@ -188,15 +187,15 @@
     /* ===== ANIMAÇÕES INTERATIVAS ===== */
     @keyframes blink {
       0%, 100% { opacity: 1; }
-      50%       { opacity: 0.25; }
+      50%      { opacity: 0.25; }
     }
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 0 0   rgba(255,255,255,0.25); }
-      60%       { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+      60%      { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
     }
     @keyframes tts-pulse {
       0%, 100% { box-shadow: 0 0 0 0   rgba(255,209,102,0.5); }
-      60%       { box-shadow: 0 0 0 10px rgba(255,209,102,0); }
+      60%      { box-shadow: 0 0 0 10px rgba(255,209,102,0); }
     }
     @keyframes popIn {
       0%   { opacity: 0; transform: scale(0.85) translateY(12px); }
@@ -226,11 +225,17 @@
     }
     @keyframes floatY {
       0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-7px); }
+      50%      { transform: translateY(-7px); }
     }
     @keyframes shimmer {
       0%   { background-position: -200% center; }
       100% { background-position:  200% center; }
+    }
+
+    /* ===== ALINHAMENTO JUSTIFICADO (PEDIDO PROFESSORA) ===== */
+    .section-desc, .who-card p, .men-card p, .accordion-body p, .faq-a, .myth-explanation, .grace-block p {
+      text-align: justify;
+      line-height: 1.65;
     }
 
     /* ===== HERO ===== */
@@ -402,7 +407,7 @@
     }
     .hero-text h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem,5vw,3.6rem); font-weight: 900; line-height: 1.05; margin-bottom: 18px; text-shadow: 0 2px 16px rgba(0,0,0,0.18); }
     .hero-text h1 span { color: var(--yellow); }
-    .hero-text p { font-size: clamp(1rem,2vw,1.15rem); font-weight: 600; opacity: 0.92; margin-bottom: 32px; line-height: 1.65; }
+    .hero-text p { font-size: clamp(1rem,2vw,1.15rem); font-weight: 600; opacity: 0.92; margin-bottom: 32px; line-height: 1.65; text-align: justify; }
     .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
 
     /* ===== 4 CARDS NO DESTAQUE ===== */
@@ -465,7 +470,7 @@
     .section-badge { display: inline-block; background: rgba(255,255,255,0.18); border-radius: 50px; padding: 6px 18px; font-size: 0.78rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
     .section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(1.7rem,4vw,2.7rem); font-weight: 900; margin-bottom: 12px; line-height: 1.1; }
     .section-title span { color: var(--yellow); }
-    .section-desc { font-size: 1.02rem; opacity: 0.88; line-height: 1.65; max-width: 620px; margin-bottom: 40px; }
+    .section-desc { font-size: 1.02rem; opacity: 0.88; max-width: 620px; margin-bottom: 40px; }
 
     /* ===== WHO SECTION ===== */
     .who-section { background: var(--blue-dark); }
@@ -474,7 +479,7 @@
     .who-card::before { content:''; position:absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; background:rgba(255,255,255,0.06); }
     .who-card .num { font-family:'Montserrat',sans-serif; font-size:3.2rem; font-weight:900; opacity:0.12; line-height:1; margin-bottom:4px; }
     .who-card h3 { font-size:1.08rem; font-weight:800; margin-bottom:10px; color:var(--yellow); }
-    .who-card p { font-size:0.9rem; line-height:1.65; opacity:0.9; }
+    .who-card p { font-size:0.9rem; opacity:0.9; }
     .who-card .tag { display:inline-block; background:rgba(255,255,255,0.15); border-radius:50px; padding:4px 12px; font-size:0.74rem; font-weight:700; margin-top:14px; }
     .acc-highlight { background:rgba(255,255,255,0.12); border-left:4px solid var(--yellow); border-radius:8px; padding:12px 14px; font-size:0.88rem; font-weight:700; margin:10px 0; }
 
@@ -498,7 +503,7 @@
     .accordion-header .acc-arrow { margin-left: auto; font-size: 1.2rem; }
     .accordion-body { max-height: 0; overflow: hidden; padding: 0 22px; }
     .accordion-item.open .accordion-body { max-height: 700px; padding: 0 22px 22px; }
-    .accordion-body p { font-size: 0.93rem; line-height: 1.7; opacity: 0.92; margin-bottom: 12px; }
+    .accordion-body p { font-size: 0.93rem; opacity: 0.92; margin-bottom: 12px; }
 
     /* ===== PERÍODO DE GRAÇA ===== */
     .grace-timeline { display: flex; border-radius: 22px; overflow: hidden; margin-top: 36px; box-shadow: var(--shadow-md); flex-wrap: wrap; }
@@ -508,7 +513,7 @@
     .grace-block:nth-child(3) { background: var(--yellow); color: var(--text-dark); }
     .grace-block h4 { font-family:'Montserrat',sans-serif; font-size:1.05rem; font-weight:900; }
     .grace-block .period { font-size:2.2rem; font-weight:900; font-family:'Montserrat',sans-serif; }
-    .grace-block p { font-size:0.87rem; line-height:1.55; opacity:0.9; }
+    .grace-block p { font-size:0.87rem; opacity:0.9; }
     .grace-block:nth-child(3) p { opacity:0.72; }
 
     /* ===== CALCULADORA — REDESENHADA ===== */
@@ -522,7 +527,7 @@
       border: 2px solid rgba(255,255,255,0.2);
     }
     .calc-box h3 { font-family:'Montserrat',sans-serif; font-size:1.35rem; font-weight:900; margin-bottom:8px; }
-    .calc-box > p { font-size:0.92rem; opacity:0.85; margin-bottom:24px; line-height:1.6; }
+    .calc-box > p { font-size:0.92rem; opacity:0.85; margin-bottom:24px; line-height:1.6; text-align: justify; }
 
     /* Etapas da calculadora */
     .calc-steps-indicator {
@@ -550,7 +555,7 @@
     .calc-step-panel.active { display: block; }
     @keyframes stepIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
 
-    .calc-group { margin-bottom: 20px; }
+    .calc-group { margin-bottom: 20px; text-align: left; }
     .calc-group label { display:block; font-weight:800; font-size:0.95rem; margin-bottom:10px; line-height:1.4; }
     .calc-group .calc-hint { font-size:0.8rem; font-weight:600; opacity:0.7; margin-bottom:10px; display:block; }
     .calc-radio-group { display:flex; flex-wrap:wrap; gap:10px; }
@@ -638,7 +643,7 @@
     .men-card { background:rgba(255,255,255,0.14); border-radius:22px; padding:28px 24px; border:2px solid rgba(255,255,255,0.2); }
     .men-card .men-icon { font-size:2.4rem; margin-bottom:12px; display:block; }
     .men-card h3 { font-size:1.08rem; font-weight:800; margin-bottom:10px; color:var(--yellow); }
-    .men-card p { font-size:0.9rem; line-height:1.65; opacity:0.9; }
+    .men-card p { font-size:0.9rem; opacity:0.9; }
 
     /* ===== STEPS ===== */
     .how-section { background: var(--blue-dark); }
@@ -657,7 +662,7 @@
     .faq-q:hover { background:rgba(255,255,255,0.08); }
     .faq-q .arrow { flex-shrink:0; font-size:1rem; }
     .faq-item.open .faq-q .arrow { transform:rotate(180deg); }
-    .faq-a { max-height:0; overflow:hidden; padding:0 20px; font-size:0.88rem; line-height:1.65; opacity:0.88; }
+    .faq-a { max-height:0; overflow:hidden; padding:0 20px; font-size:0.88rem; opacity:0.88; }
     .faq-item.open .faq-a { max-height:400px; padding:0 20px 18px; }
 
     /* ===== MITOS E VERDADES ===== */
@@ -669,7 +674,7 @@
     .myth-label.verdade { background: rgba(6,214,160,0.25); color: #6ee7b7; }
     .myth-statement { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 900; line-height: 1.4; margin-bottom: 14px; }
     .myth-flip-hint { font-size: 0.78rem; opacity: 0.6; font-weight: 700; display: flex; align-items: center; gap: 5px; }
-    .myth-explanation { display: none; margin-top: 14px; background: rgba(255,255,255,0.12); border-left: 4px solid var(--yellow); border-radius: 8px; padding: 14px 16px; font-size: 0.9rem; line-height: 1.65; font-weight: 600; animation: fadeExplain 0.3s ease; }
+    .myth-explanation { display: none; margin-top: 14px; background: rgba(255,255,255,0.12); border-left: 4px solid var(--yellow); border-radius: 8px; padding: 14px 16px; font-size: 0.9rem; font-weight: 600; animation: fadeExplain 0.3s ease; }
     @keyframes fadeExplain { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
     .myth-card.revealed .myth-explanation { display: block; }
     .myth-card.revealed .myth-flip-hint { display: none; }
@@ -1001,13 +1006,10 @@
 </head>
 <body>
 
-<!-- Barra de progresso de leitura -->
 <div id="reading-progress" role="progressbar" aria-label="Progresso de leitura"></div>
 
-<!-- Toast de notificação -->
 <div id="toast" role="status" aria-live="polite"></div>
 
-<!-- VLibras – Tradutor de Libras (acessibilidade para surdos) -->
 <div vw class="enabled">
   <div vw-access-button class="active"></div>
   <div vw-plugin-wrapper>
@@ -1017,7 +1019,6 @@
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 
-<!-- Banner LGPD -->
 <div id="lgpd-banner" role="complementary" aria-label="Aviso de privacidade">
   <p>🔒 Este site utiliza tecnologias para melhorar sua experiência. Ao continuar navegando, você concorda com nossa política de uso conforme a <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>. Nenhum dado pessoal é coletado ou vendido.</p>
   <div class="lgpd-btns">
@@ -1036,7 +1037,6 @@
   </svg>
 </div>
 
-<!-- Barra de acessibilidade -->
 <div class="a11y-bar" role="toolbar" aria-label="Acessibilidade">
   <button type="button" class="a11y-btn" onclick="changeFontSize(-1)" title="Diminuir fonte" aria-label="Diminuir fonte">A-</button>
   <button type="button" class="a11y-btn" onclick="changeFontSize(0)" title="Fonte padrão" aria-label="Fonte padrão">A</button>
@@ -1091,7 +1091,6 @@
   <button type="button" class="pdf-btn" onclick="savePDF();"><i class="fas fa-file-pdf"></i> Salvar como PDF</button>
 </div>
 
-<!-- Hero -->
 <section class="hero" id="inicio">
   <div class="hero-inner">
     <div class="hero-text">
@@ -1103,10 +1102,9 @@
         <a href="#calculadora" class="btn-secondary"><i class="fas fa-calculator"></i> Calcular meu prazo</a>
       </div>
       <div class="reading-time-badge" aria-label="Tempo estimado de leitura">
-        📖 Leitura completa: ~10 min &nbsp;|&nbsp; 🎯 Quiz + Calculadora incluídos
+        📖 Leitura completa: ~10 min  |  🎯 Quiz + Calculadora incluídos
       </div>
     </div>
-    <!-- 4 CARDS -->
     <div class="hero-cards">
       <div class="hero-card accent"><span class="icon">🍼</span><h3>120 dias garantidos</h3><p>Para CLT, sem carência mínima de INSS.</p></div>
       <div class="hero-card"><span class="icon">⏳</span><h3>Período de Graça</h3><p>Proteção por até 36 meses após demissão.</p></div>
@@ -1118,14 +1116,13 @@
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item fade-in"><div class="stat-num" data-target="120">0</div><div class="stat-label">dias de benefício para CLT</div></div>
+    <div class="stat-item fade-in"><div class="stat-num" data-target="120">0</div><div class="stat-label">dias de benefício padrão</div></div>
     <div class="stat-item fade-in delay-1"><div class="stat-num" data-target="36">0</div><div class="stat-label">meses máximos de proteção</div></div>
-    <div class="stat-item fade-in delay-2"><div class="stat-num" data-target="10">0</div><div class="stat-label">meses de carência p/ autônomas</div></div>
-    <div class="stat-item fade-in delay-3"><div class="stat-num" data-prefix="R$ " data-target="1621">0</div><div class="stat-label">valor mínimo (trabalhadora rural)</div></div>
+    <div class="stat-item fade-in delay-2"><div class="stat-num" data-target="5">0</div><div class="stat-label">anos é o prazo máximo para pedir</div></div>
+    <div class="stat-item fade-in delay-3"><div class="stat-num" data-prefix="R$ " data-target="1621">0</div><div class="stat-label">valor da MEI e Trab. Rural</div></div>
   </div>
 </div>
 
-<!-- QUEM TEM DIREITO -->
 <section class="who-section" id="quem-tem-direito">
   <div class="section-inner">
     <div class="section-header">
@@ -1141,18 +1138,17 @@
     <div id="tts-quem-tem-direito" style="display:none">
       Quem tem direito ao salário-maternidade. Existem três perfis principais.
       Primeiro: Trabalhadora com carteira assinada, regime CLT. Você tem direito a 120 dias de benefício, sem carência mínima de INSS, com estabilidade no emprego desde a gravidez até 5 meses após o parto. O benefício é pago pela empresa.
-      Segundo: Autônomas, MEI e Trabalhadora Rural. Você também tem direito, mas precisa de 10 meses de contribuição ao INSS antes do parto. O benefício é pago pelo INSS.
+      Segundo: Autônomas, MEI e Trabalhadora Rural. Você também tem direito, e uma ótima notícia: o STF derrubou a carência de 10 meses! Basta estar contribuindo em dia antes do parto. O benefício é pago pelo INSS.
       Terceiro: Desempregada. Se você foi demitida, não perde o direito imediatamente. A lei garante o Período de Graça, que é um tempo de proteção que dura de 12 a 36 meses após a demissão, dependendo do seu histórico no INSS. Se o bebê nascer dentro desse prazo, o INSS paga o benefício.
     </div>
     <div class="who-grid">
       <div class="who-card fade-in"><div class="num">01</div><h3><i class="fas fa-briefcase"></i> Carteira Assinada (CLT)</h3><p>Empregada formalmente? Você tem direito ao benefício por <strong>120 dias</strong>.</p><div class="acc-highlight">✅ Sem <span class="tooltip-wrap">carência<span class="tooltip-box">Número mínimo de meses contribuídos ao INSS antes de poder pedir o benefício. CLT não precisa!</span></span> mínima de INSS!</div><div class="acc-highlight">⚠️ <span class="tooltip-wrap">Estabilidade gestacional<span class="tooltip-box">Proteção legal que impede sua demissão desde a confirmação da gravidez até 5 meses após o parto.</span></span> desde a gravidez até 5 meses após o parto.</div><span class="tag">💰 Paga pela empresa</span></div>
-      <div class="who-card fade-in delay-1"><div class="num">02</div><h3><i class="fas fa-leaf"></i> Autônomas, MEI e Rurais</h3><p>Trabalha por conta própria ou no campo? Você também tem direito, com regras diferentes.</p><div class="acc-highlight">📋 <span class="tooltip-wrap">Carência<span class="tooltip-box">Período mínimo de contribuições ao INSS antes de ter direito ao benefício. Para autônomas/MEI são obrigatórios 10 meses de pagamento.</span></span>: 10 meses de contribuição ao INSS antes do parto.</div><span class="tag">💰 Pago pelo INSS</span></div>
+      <div class="who-card fade-in delay-1"><div class="num">02</div><h3><i class="fas fa-leaf"></i> Autônomas, MEI e Rurais</h3><p>Trabalha por conta própria ou no campo? Você também tem direito, com regras diferentes.</p><div class="acc-highlight">🎉 <span class="tooltip-wrap">Carência Derrubada no STF<span class="tooltip-box">O Supremo Tribunal Federal julgou inconstitucional a exigência de 10 meses.</span></span>: Basta ter feito pelo menos <strong>uma contribuição</strong> antes do evento para garantir o direito.</div><span class="tag">💰 Pago pelo INSS</span></div>
       <div class="who-card fade-in delay-2"><div class="num">03</div><h3><i class="fas fa-home"></i> Desempregada</h3><p>Foi demitida? Você não perde os direitos imediatamente. A lei garante o <span class="tooltip-wrap"><strong>"Período de Graça"</strong><span class="tooltip-box">Tempo de proteção após parar de contribuir — dura de 12 a 36 meses dependendo do seu histórico no INSS.</span></span>!</p><div class="acc-highlight">🕐 Se o bebê nascer no prazo, o INSS paga!</div><span class="tag">👉 Use a Calculadora abaixo</span></div>
     </div>
   </div>
 </section>
 
-<!-- NÚMEROS -->
 <section id="numeros">
   <div class="section-inner">
     <div class="section-header">
@@ -1170,7 +1166,7 @@
       120 dias de benefício padrão para todas as seguradas.
       180 dias para empresas que participam do Programa Empresa Cidadã.
       A licença pode começar até 28 dias antes do parto, com atestado médico.
-      10 meses é o período mínimo de carência para autônomas e MEI.
+      Até 5 anos é o prazo máximo para solicitar o benefício após o nascimento.
       135 é o telefone gratuito do INSS para tirar dúvidas.
       E você pode fazer tudo 100% online pelo aplicativo Meu INSS.
     </div>
@@ -1178,14 +1174,13 @@
       <div class="info-card fade-in"><span class="i-icon"><i class="fas fa-calendar-alt"></i></span><div class="i-value">120</div><div class="i-label">dias de benefício padrão</div></div>
       <div class="info-card fade-in delay-1"><span class="i-icon"><i class="fas fa-trophy"></i></span><div class="i-value">180</div><div class="i-label">dias com Empresa Cidadã</div></div>
       <div class="info-card fade-in delay-2"><span class="i-icon"><i class="fas fa-clock"></i></span><div class="i-value">28</div><div class="i-label">dias antes do parto se necessário</div></div>
-      <div class="info-card fade-in delay-3"><span class="i-icon"><i class="fas fa-list-alt"></i></span><div class="i-value">10</div><div class="i-label">meses de carência p/ autônomas</div></div>
+      <div class="info-card fade-in delay-3"><span class="i-icon"><i class="fas fa-list-alt"></i></span><div class="i-value">5</div><div class="i-label">anos de prazo para pedir (prescrição)</div></div>
       <div class="info-card fade-in"><span class="i-icon"><i class="fas fa-phone-alt"></i></span><div class="i-value">135</div><div class="i-label">telefone gratuito do INSS</div></div>
       <div class="info-card fade-in delay-1"><span class="i-icon"><i class="fas fa-mobile-alt"></i></span><div class="i-value">100%</div><div class="i-label">online pelo App Meu INSS</div></div>
     </div>
   </div>
 </section>
 
-<!-- REGRAS -->
 <section class="rules-section" id="regras">
   <div class="section-inner">
     <div class="section-header">
@@ -1200,9 +1195,9 @@
     </div>
     <div id="tts-regras" style="display:none">
       Regras do salário-maternidade.
-      Quanto vou receber? Para empregada CLT, o valor é igual ao salário que você recebia. Para MEI e autônoma, é calculado pela média das contribuições ao INSS. Para trabalhadora rural segurada especial, é um salário mínimo por mês, atualmente R$ 1.621.
+      Quanto vou receber? Para empregada CLT, o valor é igual ao salário que você recebia. Para MEI é 1 salário mínimo. Para autônoma, a média das contribuições. Trabalhadora rural segurada especial, é um salário mínimo por mês, atualmente R$ 1.621.
       Por quanto tempo dura? A duração padrão é 120 dias, equivalente a 4 meses, contados a partir do parto, adoção ou guarda judicial. Empresas no Programa Empresa Cidadã podem prorrogar para 180 dias. A licença pode começar até 28 dias antes do parto, com atestado médico.
-      Documentos necessários: Todos precisam de RG, CPF e certidão de nascimento ou termo de adoção. Trabalhadora CLT precisa também da carteira de trabalho. MEI e autônoma precisam de comprovante de pagamento do INSS dos últimos 10 meses. Trabalhadora rural precisa de documento de atividade rural.
+      Documentos necessários: Todos precisam de RG, CPF e certidão de nascimento ou termo de adoção. Trabalhadora CLT precisa também da carteira de trabalho. MEI e autônoma precisam de comprovante de pagamento do INSS em dia. Trabalhadora rural precisa de documento de atividade rural.
       Em caso de aborto não criminoso: 2 semanas de repouso remunerado, com atestado médico. Em caso de natimorto: 120 dias completos de benefício.
       O Programa Empresa Cidadã amplia a licença para 180 dias, com incentivo fiscal para a empresa.
       Se a empresa negar o benefício: denuncie ao Ministério do Trabalho, procure o sindicato da sua categoria, ou entre com reclamação trabalhista. Negar é crime!
@@ -1213,7 +1208,8 @@
         <div class="accordion-body">
           <p>O valor varia conforme sua situação:</p>
           <div class="acc-highlight">👷 <strong>CLT:</strong> Equivalente ao salário que você recebia.</div>
-          <div class="acc-highlight">💼 <strong>MEI/Autônoma:</strong> Média das contribuições ao INSS.</div>
+          <div class="acc-highlight">🏬 <strong>MEI:</strong> 1 salário mínimo nacional vigente.</div>
+          <div class="acc-highlight">💼 <strong>Autônoma (Carnê):</strong> Média das suas contribuições ao INSS.</div>
           <div class="acc-highlight">🌾 <strong>Trabalhadora Rural (segurada especial):</strong> Um salário mínimo por mês (atualmente R$ 1.621).</div>
         </div>
       </div>
@@ -1230,7 +1226,7 @@
         <div class="accordion-body">
           <div class="acc-highlight">📋 <strong>Todos:</strong> RG, CPF e Certidão de Nascimento (ou Termo de Adoção).</div>
           <div class="acc-highlight">💼 <strong>CLT:</strong> Carteira de Trabalho e comprovante de vínculo empregatício.</div>
-          <div class="acc-highlight">🏢 <strong>MEI/Autônoma:</strong> Comprovante de pagamento do INSS dos últimos 10 meses.</div>
+          <div class="acc-highlight">🏢 <strong>MEI/Autônoma:</strong> Comprovante de pagamento do INSS (DAS ou Guia) em dia antes do parto.</div>
           <div class="acc-highlight">🌾 <strong>Rural:</strong> Documento de atividade rural (contrato, nota de produtor ou declaração do sindicato).</div>
         </div>
       </div>
@@ -1262,7 +1258,6 @@
   </div>
 </section>
 
-<!-- PERÍODO DE GRAÇA -->
 <section id="periodo-graca">
   <div class="section-inner">
     <div class="section-header">
@@ -1280,7 +1275,7 @@
       Regra geral: 12 meses de proteção após a demissão ou o último mês pago. Válido para todas as trabalhadoras.
       Se você tem mais de 10 anos de contribuição ao INSS: o prazo aumenta para 24 meses, ou seja, 2 anos de proteção.
       Se você tem mais de 10 anos de contribuição E pode comprovar que está desempregada, por exemplo com seguro desemprego ou baixa na carteira: o prazo máximo é 36 meses, que são 3 anos de cobertura!
-      Atenção: o prazo se estende até o dia 15 do mês seguinte ao fim da contagem.
+      Atenção: o prazo se estende até o dia 15 do segundo mês subsequente ao fim da contagem.
       Use a calculadora abaixo para descobrir exatamente a sua situação.
     </div>
     <div class="grace-timeline fade-in">
@@ -1288,11 +1283,10 @@
       <div class="grace-block"><h4>📌 +10 anos de INSS</h4><div class="period">24 meses</div><p>Com mais de 10 anos de contribuição, o prazo dobra para 2 anos.</p></div>
       <div class="grace-block"><h4>📌 +10 anos + Desemprego</h4><div class="period">36 meses</div><p>10 anos de INSS + comprovação de desemprego = até 3 anos de cobertura!</p></div>
     </div>
-    <p style="margin-top:16px;font-size:0.88rem;opacity:0.78;text-align:center;">⚠️ <em>O prazo se estende até o dia 15 do mês seguinte ao fim da contagem.</em></p>
+    <p style="margin-top:16px;font-size:0.88rem;opacity:0.78;text-align:center;">⚠️ <em>Sua proteção dura até o dia 15 do segundo mês após o fim do prazo (1 mês e 15 dias extras). Exemplo: se o prazo acaba em março, você está protegida até 15 de maio.</em></p>
   </div>
 </section>
 
-<!-- ===== CALCULADORA REDESENHADA ===== -->
 <section class="calc-section" id="calculadora">
   <div class="section-inner">
     <span class="section-badge fade-in" style="display:block;text-align:center;max-width:fit-content;margin:0 auto 12px;"><i class="fas fa-calculator"></i> Ferramenta</span>
@@ -1300,7 +1294,6 @@
     <p class="section-desc fade-in" style="text-align:center;margin:0 auto 36px;">Responda passo a passo — sem complicação. A calculadora vai te dizer se você tem direito e o que fazer.</p>
     <div class="calc-box fade-in" id="calcBoxPrincipal">
 
-      <!-- Indicador de etapas -->
       <div class="calc-steps-indicator" id="calcStepsIndicator">
         <div class="calc-step-dot active" id="dot-1">1</div>
         <div class="calc-step-line" id="line-1-2"></div>
@@ -1309,7 +1302,6 @@
         <div class="calc-step-dot" id="dot-3">3</div>
       </div>
 
-      <!-- ETAPA 1: Perfil -->
       <div class="calc-step-panel active" id="etapa-1">
         <h3>📋 Etapa 1 de 3 — Qual é a sua situação?</h3>
         <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Escolha a opção que melhor descreve como você trabalha hoje:</p>
@@ -1350,7 +1342,6 @@
         </div>
       </div>
 
-      <!-- ETAPA 2: Perguntas específicas -->
       <div class="calc-step-panel" id="etapa-2">
         <div id="etapa2-conteudo"></div>
         <div class="calc-nav">
@@ -1359,7 +1350,6 @@
         </div>
       </div>
 
-      <!-- ETAPA 3: Perguntas complementares (quando necessário) -->
       <div class="calc-step-panel" id="etapa-3">
         <div id="etapa3-conteudo"></div>
         <div class="calc-nav">
@@ -1368,7 +1358,6 @@
         </div>
       </div>
 
-      <!-- RESULTADO -->
       <div class="calc-result-box" id="calcResultadoFinal">
         <span class="calc-result-emoji" id="calcEmoji"></span>
         <div class="calc-result-titulo" id="calcTitulo"></div>
@@ -1382,7 +1371,6 @@
   </div>
 </section>
 
-<!-- HOMENS -->
 <section id="homens">
   <div class="section-inner">
     <div class="section-header">
@@ -1452,7 +1440,6 @@
   </div>
 </section>
 
-<!-- COMO PEDIR -->
 <section class="how-section" id="como-pedir">
   <div class="section-inner">
     <div class="section-header">
@@ -1490,7 +1477,6 @@
 
 <div class="section-divider"></div>
 
-<!-- CHECKLIST -->
 <section class="checklist-section" id="checklist">
   <div class="section-inner">
     <span class="section-badge fade-in"><i class="fas fa-check-double"></i> Preparação</span>
@@ -1498,7 +1484,6 @@
     <p class="section-desc fade-in">Selecione seu perfil para ver apenas os itens que são relevantes para você — e chegar a 100% de verdade!</p>
     <div class="checklist-box fade-in">
 
-      <!-- Seletor de perfil -->
       <div style="margin-bottom:24px;">
         <p style="font-weight:800;font-size:0.95rem;margin-bottom:12px;">📌 Qual é a sua situação?</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;">
@@ -1529,7 +1514,6 @@
 
 <div class="section-divider"></div>
 
-<!-- FAQ -->
 <section id="faq">
   <div class="section-inner">
     <div class="section-header">
@@ -1549,8 +1533,8 @@
       Posso iniciar a licença antes do parto? Sim! Com atestado médico, a licença pode começar até 28 dias antes da data prevista do parto. O total de dias não muda.
       Se adotar uma criança maior, recebo os 120 dias? Sim! Desde 2013 a duração é unificada: 120 dias independentemente da idade da criança adotada.
       Tenho direito em contrato temporário ou por experiência? Sim! Qualquer vínculo com registro em carteira garante o direito.
-      Qual é o prazo para solicitar após o nascimento? Para CLT, o pedido costuma ser feito pelo RH antes ou logo após o parto. Quanto antes melhor.
-      MEI com menos de 10 meses tem alguma proteção? Infelizmente sem completar os 10 meses de carência, a MEI não tem direito ao salário-maternidade.
+      Qual é o prazo para solicitar após o nascimento? A lei garante até 5 anos para pedir.
+      MEI com menos de 10 meses tem alguma proteção? O STF derrubou os 10 meses. Basta ter uma contribuição em dia antes do parto para ter o direito.
       O que é manutenção da qualidade de segurada? É o status que garante seus direitos previdenciários mesmo após parar de contribuir. Durante o Período de Graça, você mantém esse status.
     </div>
     <div class="faq-grid">
@@ -1559,14 +1543,13 @@
       <div class="faq-item fade-in delay-2" id="faq3"><div class="faq-q" onclick="toggleFaq('faq3')">Posso iniciar a licença antes do parto?<span class="arrow">▼</span></div><div class="faq-a">Sim! Com atestado médico, a licença pode começar até 28 dias antes da data prevista do parto. Especialmente recomendado em gestações de risco. O total de dias não muda.</div></div>
       <div class="faq-item fade-in" id="faq4"><div class="faq-q" onclick="toggleFaq('faq4')">Se adotar uma criança maior, recebo os 120 dias?<span class="arrow">▼</span></div><div class="faq-a">Sim! Desde 2013 a duração é unificada: 120 dias independentemente da idade da criança adotada. Antes havia variação por faixa etária, mas hoje o prazo é igual para todos.</div></div>
       <div class="faq-item fade-in delay-1" id="faq5"><div class="faq-q" onclick="toggleFaq('faq5')">Tenho direito em contrato temporário ou por experiência?<span class="arrow">▼</span></div><div class="faq-a">Sim! Qualquer vínculo com registro em carteira garante o direito, inclusive contratos temporários. A estabilidade no emprego desde a gravidez até 5 meses após o parto também se aplica.</div></div>
-      <div class="faq-item fade-in delay-2" id="faq6"><div class="faq-q" onclick="toggleFaq('faq6')">Qual é o prazo para solicitar após o nascimento?<span class="arrow">▼</span></div><div class="faq-a">Para CLT, o pedido costuma ser feito pelo RH antes ou logo após o parto. Para quem solicita ao INSS diretamente, quanto antes melhor. O benefício pode ser solicitado retroativamente, mas não deixe para depois.</div></div>
-      <div class="faq-item fade-in" id="faq7"><div class="faq-q" onclick="toggleFaq('faq7')">MEI com menos de 10 meses tem alguma proteção?<span class="arrow">▼</span></div><div class="faq-a">Infelizmente sem completar os 10 meses de carência, a MEI não tem direito ao salário-maternidade. O ideal é regularizar as contribuições o mais cedo possível em gestações futuras. Consulte um advogado previdenciário.</div></div>
+      <div class="faq-item fade-in delay-2" id="faq6"><div class="faq-q" onclick="toggleFaq('faq6')">Qual é o prazo para solicitar após o nascimento?<span class="arrow">▼</span></div><div class="faq-a">Para trabalhadoras CLT, o pedido costuma ser feito pelo RH logo após o parto. Para quem solicita direto ao INSS, a lei garante o prazo de até <strong>5 anos</strong> após o nascimento para pedir o benefício (prescrição quinquenal). O pagamento pode ser retroativo, mas o ideal é solicitar o quanto antes.</div></div>
+      <div class="faq-item fade-in" id="faq7"><div class="faq-q" onclick="toggleFaq('faq7')">MEI precisa de 10 meses de carência?<span class="arrow">▼</span></div><div class="faq-a"><strong>Não mais!</strong> O STF derrubou a exigência de 10 meses de carência. Agora, basta que a MEI (ou autônoma) tenha feito pelo menos <strong>uma contribuição em dia</strong> antes do parto para garantir a qualidade de segurada e ter direito ao benefício.</div></div>
       <div class="faq-item fade-in delay-1" id="faq8"><div class="faq-q" onclick="toggleFaq('faq8')">O que é "manutenção da qualidade de segurada"?<span class="arrow">▼</span></div><div class="faq-a">É o status que garante seus direitos previdenciários mesmo após parar de contribuir. Durante o Período de Graça, você mantém a qualidade de segurada — acesso ao salário-maternidade, auxílio-doença e outros. Ao expirar sem novas contribuições, você perde esse status.</div></div>
     </div>
   </div>
 </section>
 
-<!-- GLOSSÁRIO -->
 <section class="glossary-section" id="glossario">
   <div class="section-inner">
     <div class="section-header">
@@ -1581,22 +1564,22 @@
     </div>
     <div id="tts-glossario" style="display:none">
       Glossário jurídico do salário-maternidade.
-      Carência: Número mínimo de contribuições mensais ao INSS exigidas antes de ter direito a um benefício. Para o salário-maternidade de autônomas e MEI, são necessários 10 meses. Previsto no artigo 25 da Lei 8.213 de 1991.
-      Período de Graça: Tempo em que você mantém a qualidade de segurada mesmo sem contribuir. Dura de 12 a 36 meses após a última contribuição. Artigo 15 da Lei 8.213 de 1991.
+      Carência: Número mínimo de contribuições mensais exigidas. Para o salário-maternidade de autônomas e MEI, o STF derrubou a exigência de 10 meses. Agora basta ter a qualidade de segurada.
+      Período de Graça: Tempo em que você mantém a qualidade de segurada mesmo sem contribuir. Dura de 12 a 36 meses após a última contribuição.
       Qualidade de Segurada: Status que garante seus direitos previdenciários junto ao INSS. Você a possui enquanto contribui ou está no período de graça.
       Segurada Especial: Trabalhadora rural que produz para sua própria subsistência ou em regime de economia familiar. Tem direito ao salário-maternidade sem contribuição mensal.
-      D.A.S., Documento de Arrecadação do Simples: O carnê mensal que a MEI paga para formalizar suas contribuições ao INSS. Cada DAS pago conta como 1 mês de carência. Não pagar significa não contar.
+      D.A.S.: O carnê mensal que a MEI paga. O pagamento antes do evento é o que garante o direito.
       Programa Empresa Cidadã: Programa voluntário onde empresas prorrogam a licença-maternidade de 120 para 180 dias em troca de incentivo fiscal.
       Estabilidade Gestacional: Proteção legal que impede a demissão sem justa causa desde a confirmação da gravidez até 5 meses após o parto.
-      Salário de Benefício: Base de cálculo usada pelo INSS para determinar o valor do benefício. Para autônomas e MEI, é a média dos últimos 12 salários de contribuição.
+      Salário de Benefício: Base de cálculo usada pelo INSS para determinar o valor do benefício.
     </div>
     <div class="glossary-grid">
-      <div class="glossary-card fade-in"><div class="glossary-term">📋 Carência</div><div class="glossary-def">Número mínimo de contribuições mensais ao INSS exigidas antes de ter direito a um benefício. Para o salário-maternidade de autônomas e MEI, são necessários <strong>10 meses</strong>.</div><span class="glossary-ref">Art. 25, Lei 8.213/91</span></div>
+      <div class="glossary-card fade-in"><div class="glossary-term">📋 Carência</div><div class="glossary-def">Número mínimo de contribuições mensais exigidas antes de pedir um benefício. Para o salário-maternidade de autônomas e MEI, <strong>o STF derrubou a exigência de 10 meses</strong>. Basta ter pelo menos 1 contribuição em dia antes do evento.</div><span class="glossary-ref">ADIs 2.110 e 2.111 do STF</span></div>
       <div class="glossary-card fade-in delay-1"><div class="glossary-term">⏳ Período de Graça</div><div class="glossary-def">Tempo em que você <strong>mantém a qualidade de segurada</strong> mesmo sem contribuir. Dura de 12 a 36 meses após a última contribuição, dependendo do histórico.</div><span class="glossary-ref">Art. 15, Lei 8.213/91</span></div>
       <div class="glossary-card fade-in delay-2"><div class="glossary-term">🛡️ Qualidade de Segurada</div><div class="glossary-def">Status que garante seus direitos previdenciários junto ao INSS. Você a possui enquanto contribui ou está no período de graça. Perder esse status significa perder acesso aos benefícios.</div><span class="glossary-ref">Art. 15, Lei 8.213/91</span></div>
-      <div class="glossary-card fade-in"><div class="glossary-term">⏰ Período de Carência vs. Graça</div><div class="glossary-def">São opostos: <strong>Carência</strong> é o tempo que você precisa contribuir <em>antes</em> de pedir o benefício. <strong>Graça</strong> é o tempo de proteção <em>depois</em> que você para de contribuir.</div><span class="glossary-ref">Arts. 24-25, Lei 8.213/91</span></div>
+      <div class="glossary-card fade-in"><div class="glossary-term">⏰ Prescrição Quinquenal</div><div class="glossary-def">É o prazo máximo que você tem para dar entrada no pedido no INSS. Para o salário-maternidade, você tem <strong>até 5 anos</strong> após o nascimento ou adoção para exigir o benefício.</div><span class="glossary-ref">Art. 103, Lei 8.213/91</span></div>
       <div class="glossary-card fade-in delay-1"><div class="glossary-term">🏢 Segurada Especial</div><div class="glossary-def">Trabalhadora rural que produz para sua própria subsistência ou em regime de economia familiar. Tem direito ao salário-maternidade (1 salário mínimo) <strong>sem contribuição mensal</strong>, apenas comprovando a atividade.</div><span class="glossary-ref">Art. 11, VIII, Lei 8.213/91</span></div>
-      <div class="glossary-card fade-in delay-2"><div class="glossary-term">🏦 DAS (Documento de Arrecadação do Simples)</div><div class="glossary-def">O "carnê mensal" que a MEI paga para formalizar suas contribuições ao INSS. Cada DAS pago conta como 1 mês de carência. <strong>Não pagar = não contar.</strong></div><span class="glossary-ref">LC 123/2006</span></div>
+      <div class="glossary-card fade-in delay-2"><div class="glossary-term">🏦 DAS (Documento de Arrecadação)</div><div class="glossary-def">O "carnê mensal" que a MEI paga para formalizar suas contribuições. Para ter direito ao benefício, é obrigatório ter realizado pelo menos um pagamento do DAS <strong>antes do parto/adoção</strong>.</div><span class="glossary-ref">LC 123/2006</span></div>
       <div class="glossary-card fade-in"><div class="glossary-term">🔰 Empresa Cidadã</div><div class="glossary-def">Programa voluntário em que empresas prorrogam a licença-maternidade de 120 para <strong>180 dias</strong> e a licença-paternidade de 5 para 20 dias, em troca de incentivo fiscal no IR.</div><span class="glossary-ref">Lei 11.770/2008</span></div>
       <div class="glossary-card fade-in delay-1"><div class="glossary-term">⚖️ Estabilidade Gestacional</div><div class="glossary-def">Proteção legal que impede a demissão sem justa causa desde a <strong>confirmação da gravidez</strong> até 5 meses após o parto. Demissão nesse período pode ser anulada na Justiça do Trabalho.</div><span class="glossary-ref">Súmula 244, TST</span></div>
       <div class="glossary-card fade-in delay-2"><div class="glossary-term">💳 Salário de Benefício</div><div class="glossary-def">Base de cálculo usada pelo INSS para determinar o valor do benefício. Para autônomas e MEI, é calculado pela <strong>média dos últimos 12 salários de contribuição</strong>, com teto definido anualmente.</div><span class="glossary-ref">Art. 29, Lei 8.213/91</span></div>
@@ -1604,7 +1587,6 @@
   </div>
 </section>
 
-<!-- LOCALIZADOR INSS -->
 <section id="localizador" style="background: var(--blue-main);">
   <div class="section-inner">
     <span class="section-badge fade-in"><i class="fas fa-map-marker-alt"></i> Atendimento</span>
@@ -1617,10 +1599,9 @@
           <h3>Agência do INSS – Ubá (MG)</h3>
           <p>Prefere atendimento presencial? Veja abaixo o endereço exato da agência de Ubá e agende pelo site para não enfrentar filas.</p>
 
-          <!-- Endereço completo -->
           <div style="background:rgba(255,255,255,0.1);border-left:4px solid var(--yellow);border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:0.88rem;line-height:1.9;">
             <div><i class="fas fa-map-marker-alt" style="color:var(--yellow);width:18px;"></i> <strong>Rua Santa Cruz, 169 – Centro</strong></div>
-            <div><i class="fas fa-city" style="color:var(--yellow);width:18px;"></i> Ubá – MG &nbsp;|&nbsp; CEP: 36.500-059</div>
+            <div><i class="fas fa-city" style="color:var(--yellow);width:18px;"></i> Ubá – MG  |  CEP: 36.500-059</div>
             <div><i class="fas fa-map-pin" style="color:var(--yellow);width:18px;"></i> Plus Code: V3H4+FJ Centro, Ubá – MG</div>
             <div><i class="fas fa-envelope" style="color:var(--yellow);width:18px;"></i>
               <a href="mailto:aps11021070@inss.gov.br" style="color:var(--yellow);text-decoration:none;font-weight:700;">aps11021070@inss.gov.br</a>
@@ -1652,7 +1633,6 @@
   </div>
 </section>
 
-<!-- TIMELINE -->
 <section id="timeline" style="background: var(--blue-dark);">
   <div class="section-inner">
     <div class="section-header">
@@ -1672,7 +1652,7 @@
       1991: A Lei Orgânica da Previdência Social regulamentou detalhadamente o salário-maternidade: valores, duração, carência para autônomas e as regras do período de graça.
       2008: Criado o Programa Empresa Cidadã para estimular empresas a prorrogar a licença de 120 para 180 dias, com incentivo fiscal como contrapartida.
       2013: A lei equiparou adoção à maternidade biológica, garantindo 120 dias para qualquer idade da criança. A Emenda Constitucional 72 também estendeu os direitos às trabalhadoras domésticas.
-      2016: Confirmação da carência de 10 meses para MEI e autônomas, e reafirmação do direito da segurada especial ao benefício de 1 salário mínimo.
+      2024: O Supremo Tribunal Federal (STF) derrubou a carência de 10 meses para MEI e autônomas.
       Hoje: O salário-maternidade é 100% solicitável pelo aplicativo Meu INSS ou pelo telefone 135.
     </div>
     <div class="timeline-list">
@@ -1681,13 +1661,12 @@
       <div class="timeline-item fade-in delay-2"><div class="timeline-year">1991</div><div class="timeline-title">Lei Orgânica da Previdência Social</div><div class="timeline-desc">Regulamentou detalhadamente o salário-maternidade: valores, duração, carência para autônomas e as regras do período de graça.</div><span class="timeline-law">Lei nº 8.213/1991</span></div>
       <div class="timeline-item fade-in"><div class="timeline-year">2008</div><div class="timeline-title">Programa Empresa Cidadã</div><div class="timeline-desc">Criado para estimular empresas a prorrogar a licença de 120 para <strong>180 dias</strong>, com incentivo fiscal como contrapartida. A licença-paternidade também passou para 20 dias.</div><span class="timeline-law">Lei nº 11.770/2008</span></div>
       <div class="timeline-item fade-in delay-1"><div class="timeline-year">2013</div><div class="timeline-title">Equiparação da Adoção e PEC das Domésticas</div><div class="timeline-desc">A lei equiparou adoção à maternidade biológica (120 dias para qualquer idade da criança) e a Emenda Constitucional 72 estendeu os direitos às trabalhadoras domésticas.</div><span class="timeline-law">Lei nº 12.873/2013 · EC 72/2013</span></div>
-      <div class="timeline-item fade-in delay-2"><div class="timeline-year">2016</div><div class="timeline-title">Reforma Previdenciária e MEI</div><div class="timeline-desc">Confirmação da carência de 10 meses para MEI e autônomas. Reafirmação do direito da segurada especial ao benefício de 1 salário mínimo sem contribuição mensal.</div><span class="timeline-law">Lei nº 13.135/2015</span></div>
+      <div class="timeline-item fade-in delay-2"><div class="timeline-year">2024</div><div class="timeline-title">Queda da Carência no STF</div><div class="timeline-desc">O Supremo Tribunal Federal julgou inconstitucional a exigência de 10 meses de carência para MEI e autônomas, bastando o recolhimento em dia para garantir o benefício.</div><span class="timeline-law">STF — ADIs 2.110 e 2.111</span></div>
       <div class="timeline-item fade-in"><div class="timeline-year">Hoje</div><div class="timeline-title">Direito consolidado e acessível digitalmente</div><div class="timeline-desc">O salário-maternidade é 100% solicitável pelo App Meu INSS ou telefone 135. A luta contínua por ampliação dos prazos e cobertura para trabalhadores informais.</div><span class="timeline-law">Resolução INSS nº 677/2021</span></div>
     </div>
   </div>
 </section>
 
-<!-- MITOS E VERDADES -->
 <section class="myths-section" id="mitos">
   <div class="section-inner">
     <div class="section-header">
@@ -1707,7 +1686,7 @@
       MITO: A empresa pode me demitir assim que descobrir que estou grávida. FALSO. A gestante tem estabilidade no emprego desde a confirmação da gravidez até 5 meses após o parto.
       MITO: Só mãe biológica tem direito ao salário-maternidade. FALSO. Mães adotivas têm exatamente os mesmos 120 dias de benefício.
       VERDADE: Mesmo sem carteira assinada, a trabalhadora rural tem direito ao benefício. CORRETO. A segurada especial tem direito sem precisar ter contribuído mensalmente.
-      MITO: MEI não precisa se preocupar com carência — é automático. FALSO. A MEI precisa ter pagado o DAS por pelo menos 10 meses antes do parto.
+      MITO: Posso começar a pagar o MEI ou carnê só depois de engravidar para receber o benefício. FALSO. Você obrigatoriamente precisa ter feito pelo menos UMA contribuição em dia ANTES do parto ou adoção.
       VERDADE: Homem solteiro que adota uma criança pode receber os 120 dias de benefício. CORRETO.
       MITO: Se o bebê nascer morto, não há direito a nenhum benefício. FALSO. Em caso de natimorto, a trabalhadora tem direito a 120 dias completos.
       VERDADE: O salário-maternidade pode ser solicitado 100% pelo celular, sem ir ao INSS. CORRETO. Pelo aplicativo Meu INSS ou ligando para o 135.
@@ -1722,7 +1701,7 @@
       <div class="myth-card mito-card fade-in delay-2" onclick="revealMyth(this)"><div class="myth-label mito">❌ MITO</div><div class="myth-statement">"A empresa pode me demitir assim que descobrir que estou grávida."</div><div class="myth-flip-hint">👆 Clique para ver a verdade</div><div class="myth-explanation">FALSO. A gestante tem <strong>estabilidade no emprego</strong> desde a confirmação da gravidez até 5 meses após o parto. Demissão nesse período é nula de pleno direito e a empresa pode ser obrigada a reintegrar a funcionária e pagar todos os salários do período. (Súmula 244, TST)</div></div>
       <div class="myth-card mito-card fade-in" onclick="revealMyth(this)"><div class="myth-label mito">❌ MITO</div><div class="myth-statement">"Só mãe biológica tem direito ao salário-maternidade."</div><div class="myth-flip-hint">👆 Clique para ver a verdade</div><div class="myth-explanation">FALSO. Mães adotivas têm exatamente os mesmos 120 dias de benefício que mães biológicas, independentemente da idade da criança adotada. Pais adotivos solteiros também têm esse direito. (Lei nº 12.873/2013)</div></div>
       <div class="myth-card verdade-card fade-in delay-1" onclick="revealMyth(this)"><div class="myth-label verdade">✅ VERDADE</div><div class="myth-statement">"Mesmo sem carteira assinada, a trabalhadora rural tem direito ao benefício."</div><div class="myth-flip-hint">👆 Clique para confirmar</div><div class="myth-explanation">CORRETO. A <strong>segurada especial</strong> (trabalhadora rural que produz para subsistência) tem direito ao salário-maternidade no valor de 1 salário mínimo, sem precisar ter contribuído mensalmente, apenas comprovando a atividade rural. (Art. 39, Lei nº 8.213/1991)</div></div>
-      <div class="myth-card mito-card fade-in delay-2" onclick="revealMyth(this)"><div class="myth-label mito">❌ MITO</div><div class="myth-statement">"MEI não precisa se preocupar com carência — é automático."</div><div class="myth-flip-hint">👆 Clique para ver a verdade</div><div class="myth-explanation">FALSO. A MEI precisa ter pagado o DAS (carnê mensal) por pelo menos <strong>10 meses</strong> antes do parto para ter direito. O pagamento não é retroativo — é preciso se planejar com antecedência. (Art. 25, Lei nº 8.213/1991)</div></div>
+      <div class="myth-card mito-card fade-in delay-2" onclick="revealMyth(this)"><div class="myth-label mito">❌ MITO</div><div class="myth-statement">"Posso começar a pagar o MEI ou carnê só depois de engravidar ou ter o bebê."</div><div class="myth-flip-hint">👆 Clique para ver a verdade</div><div class="myth-explanation">FALSO. Embora o STF tenha derrubado a exigência de 10 meses, você OBRIGATORIAMENTE precisa ter feito pelo menos <strong>UMA contribuição em dia ANTES do parto</strong> ou adoção para garantir a "qualidade de segurada". Pagamentos retroativos não contam! (STF ADIs 2.110/2.111)</div></div>
       <div class="myth-card verdade-card fade-in" onclick="revealMyth(this)"><div class="myth-label verdade">✅ VERDADE</div><div class="myth-statement">"Homem solteiro que adota uma criança pode receber os 120 dias de benefício."</div><div class="myth-flip-hint">👆 Clique para confirmar</div><div class="myth-explanation">CORRETO. O salário-maternidade não é exclusivo das mulheres. Homem solteiro que adota ou obtém guarda judicial para adoção tem direito aos 120 dias completos, seguindo as mesmas regras. (Art. 71-A, Lei nº 8.213/1991)</div></div>
       <div class="myth-card mito-card fade-in delay-1" onclick="revealMyth(this)"><div class="myth-label mito">❌ MITO</div><div class="myth-statement">"Se o bebê nascer morto, não há direito a nenhum benefício."</div><div class="myth-flip-hint">👆 Clique para ver a verdade</div><div class="myth-explanation">FALSO. Em caso de natimorto, a trabalhadora tem direito a <strong>120 dias completos</strong> de salário-maternidade. Em caso de aborto não criminoso (espontâneo ou terapêutico), tem direito a 2 semanas de repouso remunerado. Em ambos os casos é necessário atestado médico. (Art. 93, Decreto nº 3.048/1999)</div></div>
       <div class="myth-card verdade-card fade-in delay-2" onclick="revealMyth(this)"><div class="myth-label verdade">✅ VERDADE</div><div class="myth-statement">"O salário-maternidade pode ser solicitado 100% pelo celular, sem ir ao INSS."</div><div class="myth-flip-hint">👆 Clique para confirmar</div><div class="myth-explanation">CORRETO. Pelo aplicativo <strong>Meu INSS</strong> (disponível para Android e iOS) ou pelo site meu.inss.gov.br, é possível solicitar, acompanhar e receber o benefício sem sair de casa. Também é possível ligar gratuitamente para o <strong>135</strong>. (Resolução PRES/INSS nº 677/2021)</div></div>
@@ -1731,7 +1710,6 @@
   </div>
 </section>
 
-<!-- QUIZ -->
 <section class="quiz-section" id="quiz">
   <div class="section-inner">
     <span class="section-badge fade-in" style="display:block;text-align:center;max-width:fit-content;margin:0 auto 12px;"><i class="fas fa-brain"></i> Teste</span>
@@ -1748,7 +1726,6 @@
   </div>
 </section>
 
-<!-- COMPARTILHAR -->
 <section id="compartilhar" style="text-align:center;">
   <div class="section-inner">
     <span class="section-badge fade-in" style="display:block;text-align:center;max-width:fit-content;margin:0 auto 12px;"><i class="fas fa-share-alt"></i> Compartilhe</span>
@@ -1769,7 +1746,7 @@
     <div class="footer-brand">
       <h3>DIREITOS PREVIDENCIÁRIOS</h3>
       <p>Este material educativo foi elaborado pelos alunos do 9º período do curso de Direito da <strong>UNIFAGOC</strong> — Centro Universitário Governador Ozanam Coelho.</p>
-      <p style="margin-top:10px;font-size:0.8rem;opacity:0.52;"><strong style="color: #cor-do-h4;">Prof.ª Orientadora</strong>: Drielly Faria de Paula Leão</p>
+      <p style="margin-top:10px;font-size:0.8rem;opacity:0.52;"><strong>Prof.ª Orientadora</strong>: <span class="orientadora">Drielly Faria de Paula Leão</span></p>
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
         <a href="tel:135" style="background:var(--yellow);color:var(--text-dark);padding:8px 16px;border-radius:50px;font-weight:900;font-size:0.85rem;text-decoration:none;"><i class="fas fa-phone-alt"></i> Ligue 135</a>
         <a href="https://meu.inss.gov.br/#/login" target="_blank" style="background:rgba(255,255,255,0.15);color:#fff;padding:8px 16px;border-radius:50px;font-weight:800;font-size:0.85rem;text-decoration:none;border:1.5px solid rgba(255,255,255,0.3);"><i class="fas fa-mobile-alt"></i> Meu INSS</a>
@@ -2017,7 +1994,7 @@ let calcEstado = {
   clt_dez_anos: null,   // 'sim' | 'nao'
   clt_comprova_desemprego: null, // 'sim' | 'nao'
   // Autônoma/MEI
-  auto_carencia: null,  // 'menos10' | '10mais'
+  auto_contribuiu: null, // 'sim' | 'nao'
   auto_contribuindo: null, // 'sim' | 'nao'
   auto_tempo_parada: null, // 'menos12' | 'entre12_24' | 'mais24'
   auto_dez_anos: null,  // 'sim' | 'nao'
@@ -2055,14 +2032,17 @@ function calcProxEtapa(etapaAtual) {
     calcMontarEtapa2();
     calcMostrarEtapa(2);
     calcAtualizarIndicador(2);
+    document.getElementById('calcBoxPrincipal').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else if (etapaAtual === 2) {
     if (!calcValidarEtapa2()) return;
-    // CLT empregada e rural com atividade confirmada: pular etapa 3, ir direto ao resultado
+    
+    // Pular etapa 3 se já tivermos o resultado direto na etapa 2
     const pulaEtapa3 = (calcEstado.perfil === 'clt' && calcEstado.clt_empregada === 'sim') ||
                        (calcEstado.perfil === 'rural' && calcEstado.rural_atividade === 'sim') ||
                        (calcEstado.perfil === 'rural' && calcEstado.rural_atividade === 'nao') ||
-                       (calcEstado.perfil === 'autonoma' && calcEstado.auto_carencia === '10mais' && calcEstado.auto_contribuindo === 'sim') ||
-                       (calcEstado.perfil === 'autonoma' && calcEstado.auto_carencia === 'menos10' && calcEstado.auto_contribuindo === 'sim');
+                       (calcEstado.perfil === 'autonoma' && calcEstado.auto_contribuiu === 'sim' && calcEstado.auto_contribuindo === 'sim') ||
+                       (calcEstado.perfil === 'autonoma' && calcEstado.auto_contribuiu === 'nao');
+                       
     if (pulaEtapa3) {
       calcEstado.etapa = 3;
       calcAtualizarIndicador(3);
@@ -2073,6 +2053,7 @@ function calcProxEtapa(etapaAtual) {
       calcMontarEtapa3();
       calcMostrarEtapa(3);
       calcAtualizarIndicador(3);
+      document.getElementById('calcBoxPrincipal').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 }
@@ -2120,7 +2101,7 @@ function calcMontarEtapa2() {
   if (p === 'clt') {
     html = `
       <h3>📋 Etapa 2 de 3 — Situação do emprego</h3>
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Você com carteira assinada — responda sobre seu emprego atual:</p>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">Você com carteira assinada — responda sobre seu emprego atual:</p>
       <div class="calc-group">
         <label>Você ainda está trabalhando com carteira assinada hoje?</label>
         <span class="calc-hint">Ou seja, seu vínculo empregatício ainda está ativo?</span>
@@ -2140,21 +2121,19 @@ function calcMontarEtapa2() {
     `;
   } else if (p === 'autonoma') {
     html = `
-      <h3>📋 Etapa 2 de 3 — Suas contribuições ao INSS</h3>
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Para ter direito, autônomas e MEI precisam ter pago o carnê do INSS (DAS) por pelo menos 10 meses consecutivos antes do parto.</p>
+      <h3>📋 Etapa 2 de 3 — Suas contribuições</h3>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">O STF derrubou a carência de 10 meses para MEI e Autônomas, mas é preciso confirmar sua qualidade de segurada.</p>
       <div class="calc-group">
-        <label>Você pagou o carnê do INSS (DAS/contribuição) por pelo menos 10 meses até hoje?</label>
-        <span class="calc-hint">Conte apenas os meses que você realmente pagou — meses em atraso ou com débito não contam.</span>
+        <label>Você pagou pelo menos UMA guia do INSS (DAS) em dia ANTES do parto/gravidez?</label>
+        <span class="calc-hint">Apenas contribuições antes do evento garantem o direito. Pagamentos atrasados feitos depois não contam.</span>
         <div class="calc-radio-group" style="flex-direction:column;gap:10px;">
           <label class="calc-radio calc-radio-full">
-            <input type="radio" name="e2_auto_car" value="10mais">
-            <div><strong>✅ Sim, paguei 10 meses ou mais</strong>
-            <div style="font-size:0.8rem;opacity:0.75;margin-top:3px;">Tenho pelo menos 10 meses de contribuição pagos em dia</div></div>
+            <input type="radio" name="e2_auto_contribuiu" value="sim">
+            <div><strong>✅ Sim, paguei em dia antes</strong></div>
           </label>
           <label class="calc-radio calc-radio-full">
-            <input type="radio" name="e2_auto_car" value="menos10">
-            <div><strong>❌ Não, paguei menos de 10 meses</strong>
-            <div style="font-size:0.8rem;opacity:0.75;margin-top:3px;">Ainda não completei os 10 meses necessários</div></div>
+            <input type="radio" name="e2_auto_contribuiu" value="nao">
+            <div><strong>❌ Não, nunca paguei ou paguei atrasado</strong></div>
           </label>
         </div>
       </div>
@@ -2163,11 +2142,11 @@ function calcMontarEtapa2() {
         <div class="calc-radio-group" style="flex-direction:column;gap:10px;">
           <label class="calc-radio calc-radio-full">
             <input type="radio" name="e2_auto_cont" value="sim">
-            <div><strong>✅ Sim, estou em dia com os pagamentos</strong></div>
+            <div><strong>✅ Sim, continuo pagando</strong></div>
           </label>
           <label class="calc-radio calc-radio-full">
             <input type="radio" name="e2_auto_cont" value="nao">
-            <div><strong>❌ Não, parei de pagar faz algum tempo</strong></div>
+            <div><strong>❌ Não, parei de pagar faz tempo</strong></div>
           </label>
         </div>
       </div>
@@ -2175,7 +2154,7 @@ function calcMontarEtapa2() {
   } else if (p === 'desempregada') {
     html = `
       <h3>📋 Etapa 2 de 3 — Há quanto tempo você parou?</h3>
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">A proteção continua por um tempo mesmo após você parar de contribuir. Vamos descobrir sua situação.</p>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">A proteção continua por um tempo mesmo após você parar de contribuir. Vamos descobrir sua situação.</p>
       <div class="calc-group">
         <label>Há quanto tempo você foi demitida ou parou de pagar o INSS?</label>
         <span class="calc-hint">Pense no mês do último pagamento ao INSS ou da demissão com baixa na carteira.</span>
@@ -2201,7 +2180,7 @@ function calcMontarEtapa2() {
   } else if (p === 'rural') {
     html = `
       <h3>📋 Etapa 2 de 3 — Sua atividade rural</h3>
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Trabalhadora rural tem regras especiais e mais simples. Só precisamos confirmar uma coisa:</p>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">Trabalhadora rural tem regras especiais e mais simples. Só precisamos confirmar uma coisa:</p>
       <div class="calc-group">
         <label>Você exerce atividade rural de forma regular para o sustento da sua família?</label>
         <span class="calc-hint">Por exemplo: plantação, horta, roça, criação de animais para consumo familiar ou venda em pequena escala.</span>
@@ -2232,10 +2211,10 @@ function calcValidarEtapa2() {
     if (!emp) { calcMostrarErro('etapa-2', 'Responda se você ainda está empregada ou não.'); return false; }
     calcEstado.clt_empregada = emp.value;
   } else if (p === 'autonoma') {
-    const car = document.querySelector('input[name="e2_auto_car"]:checked');
+    const contribuiu = document.querySelector('input[name="e2_auto_contribuiu"]:checked');
     const cont = document.querySelector('input[name="e2_auto_cont"]:checked');
-    if (!car || !cont) { calcMostrarErro('etapa-2', 'Responda todas as perguntas antes de continuar.'); return false; }
-    calcEstado.auto_carencia = car.value;
+    if (!contribuiu || !cont) { calcMostrarErro('etapa-2', 'Responda todas as perguntas antes de continuar.'); return false; }
+    calcEstado.auto_contribuiu = contribuiu.value;
     calcEstado.auto_contribuindo = cont.value;
   } else if (p === 'desempregada') {
     const tempo = document.querySelector('input[name="e2_des_tempo"]:checked');
@@ -2256,7 +2235,7 @@ function calcMontarEtapa3() {
 
   if (p === 'clt' && calcEstado.clt_empregada === 'nao') {
     html += `
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Você foi demitida. Vamos verificar se você ainda está protegida pelo Período de Graça:</p>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">Você foi demitida. Vamos verificar se você ainda está protegida pelo Período de Graça:</p>
       <div class="calc-group">
         <label>Somando todo o tempo que você já contribuiu ao longo da vida, você tem mais de 10 anos de INSS?</label>
         <span class="calc-hint">Pode somar todos os empregos anteriores. 10 anos = 120 meses de contribuição no total.</span>
@@ -2284,10 +2263,10 @@ function calcMontarEtapa3() {
       </div>
     `;
   } else if (p === 'clt' && calcEstado.clt_empregada === 'sim') {
-    html += `<p style="font-size:1rem;margin-bottom:20px;"><strong>✅ Ótima notícia!</strong> Estando empregada com carteira assinada, você já tem direito garantido! Clique em "Ver meu resultado" para confirmar.</p>`;
+    html += `<p style="font-size:1rem;margin-bottom:20px;text-align:center;"><strong>✅ Ótima notícia!</strong> Estando empregada com carteira assinada, você já tem direito garantido! Clique em "Ver meu resultado" para confirmar.</p>`;
   } else if (p === 'autonoma' && calcEstado.auto_contribuindo === 'nao') {
     html += `
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Você parou de contribuir. Vamos verificar se ainda está protegida:</p>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">Você parou de contribuir. Vamos verificar se ainda está protegida pelo Período de Graça:</p>
       <div class="calc-group">
         <label>Há quanto tempo você parou de pagar o carnê do INSS (DAS)?</label>
         <div class="calc-radio-group" style="flex-direction:column;gap:10px;">
@@ -2305,11 +2284,9 @@ function calcMontarEtapa3() {
         </div>
       </div>
     `;
-  } else if (p === 'autonoma' && calcEstado.auto_contribuindo === 'sim') {
-    html += `<p style="font-size:1rem;margin-bottom:20px;"><strong>Você está contribuindo ativamente.</strong> Clique em "Ver meu resultado" para verificar se já atingiu a carência necessária.</p>`;
   } else if (p === 'desempregada') {
     html += `
-      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;">Para verificar o tamanho do seu período de proteção, precisamos de mais duas informações:</p>
+      <p style="font-size:0.92rem;opacity:0.85;margin-bottom:20px;line-height:1.6;text-align:justify;">Para verificar o tamanho do seu período de proteção, precisamos de mais duas informações:</p>
       <div class="calc-group">
         <label>Somando todos os empregos e contribuições ao longo da vida, você tem mais de 10 anos de INSS?</label>
         <span class="calc-hint">10 anos equivalem a 120 meses de contribuição. Isso pode incluir diferentes empregos.</span>
@@ -2329,8 +2306,7 @@ function calcMontarEtapa3() {
       </div>
     `;
   } else if (p === 'rural') {
-    // Rural já foi decidido na etapa 2 — etapa 3 é confirmação
-    html += `<p style="font-size:1rem;margin-bottom:20px;"><strong>Quase lá!</strong> Baseado nas suas respostas, vamos agora verificar seu direito. Clique em "Ver meu resultado".</p>`;
+    html += `<p style="font-size:1rem;margin-bottom:20px;text-align:center;"><strong>Quase lá!</strong> Baseado nas suas respostas, vamos agora verificar seu direito. Clique em "Ver meu resultado".</p>`;
   }
   container.innerHTML = html;
 }
@@ -2340,10 +2316,10 @@ function calcularResultado() {
   const p = calcEstado.perfil;
 
   /* ─── Helper: nota do 15º dia ─── */
-  const notaDia15 = `<br><br>📅 <strong>Atenção ao prazo exato:</strong> A proteção não termina no último dia do mês — ela vai até o <strong>dia 15 do segundo mês</strong> após o fim do período. Não perca o benefício por poucos dias!`;
+  const notaDia15 = `<br><br>📅 <strong>Atenção ao prazo exato:</strong> A proteção não termina no último dia do mês — ela vai até o <strong>dia 15 do segundo mês subsequente</strong> após o fim do período (1 mês e 15 dias extras). Não perca o benefício por poucos dias!`;
 
   /* ─── Helper: link CNIS para quem não sabe os 10 anos ─── */
-  const linkCNIS = `<br><br>🔍 <strong>Não tem certeza se tem 10 anos?</strong> Baixe seu <strong>Extrato CNIS</strong> gratuitamente no <a href="https://meu.inss.gov.br/#/login" target="_blank" style="color:var(--yellow);font-weight:900;">app Meu INSS</a> → Menu → Extrato CNIS. Se confirmar os 10 anos, sua proteção ganha mais <strong>12 meses</strong> — podendo chegar a 36 meses no total!`;
+  const linkCNIS = `<br><br>🔍 <strong>Não tem certeza se tem 10 anos?</strong> Baixe seu <strong>Extrato CNIS</strong> gratuitamente no <a href="https://meu.inss.gov.br/#/login" target="_blank" style="color:var(--yellow);font-weight:900;">app Meu INSS</a>. Se confirmar os 10 anos, sua proteção ganha mais <strong>12 meses</strong> — podendo chegar a 36 meses no total!`;
 
   // Coletar dados da etapa 3
   if (p === 'clt' && calcEstado.clt_empregada === 'nao') {
@@ -2393,7 +2369,7 @@ function calcLogica() {
     const comprova = calcEstado.clt_comprova_desemprego === 'sim';
     const tempo = calcEstado.clt_tempo_desempregada;
 
-    // nao_sei: tratar como "não" para ser conservador — não prometer prazo que pode não existir
+    // nao_sei: tratar como "não" para ser conservador
     let prazoMax = 12;
     if (temDezAnos) prazoMax = 24;
     if (temDezAnos && comprova) prazoMax = 36;
@@ -2408,7 +2384,7 @@ function calcLogica() {
         emoji: '⏳',
         titulo: 'Você pode ter direito — está no Período de Graça!',
         desc: `Mesmo demitida, você ainda está protegida. Seu período de graça é de até <strong>${prazoMax} meses</strong> após a demissão. Se o bebê nascer dentro desse prazo, o <strong>INSS paga o benefício</strong>.`,
-        detalhe: `👩‍⚖️ Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com sua carteira de trabalho e rescisão.${naoSabeDez ? ' ' + linkCNIS : ''} Um advogado previdenciário pode analisar casos específicos.`
+        detalhe: `👩‍⚖️ Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com sua carteira de trabalho e rescisão.${naoSabeDez ? linkCNIS : ''}${notaDia15}`
       };
     } else {
       return {
@@ -2416,59 +2392,43 @@ function calcLogica() {
         emoji: '❌',
         titulo: 'O prazo de proteção pode ter expirado.',
         desc: 'Com base nas informações fornecidas, o período de graça pode ter se encerrado. Mas <strong>não desista sem confirmar com o INSS</strong> — o cálculo exato depende do seu histórico completo.',
-        detalhe: `👩‍⚖️ Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com sua carteira de trabalho e rescisão. ${naoSabeDez ? 'Se tiver mais de 10 anos de contribuição, o prazo pode ser maior do que estimamos.' : ''} Um advogado previdenciário pode analisar casos específicos.`
+        detalhe: `👩‍⚖️ Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com sua carteira de trabalho e rescisão.${naoSabeDez ? ' Se tiver mais de 10 anos de contribuição, o prazo pode ser maior do que estimamos.' : ''}`
       };
     }
   }
 
   // ==== AUTÔNOMA / MEI ====
   if (p === 'autonoma') {
-    // Ainda contribuindo, mas sem carência suficiente
-    if (calcEstado.auto_carencia === 'menos10' && calcEstado.auto_contribuindo === 'sim') {
-      return {
-        tipo: 'nao-tem-direito',
-        emoji: '⚠️',
-        titulo: 'Ainda não — faltam meses de contribuição.',
-        desc: 'MEI e autônomas precisam ter pago o carnê do INSS por <strong>pelo menos 10 meses</strong> antes do parto para ter direito.',
-        detalhe: '💡 Continue pagando o DAS mensalmente sem pular meses — só meses efetivamente pagos contam. Se ainda está planejando a gravidez, organize os pagamentos o quanto antes. Ligue para o 135 para verificar quantos meses já foram reconhecidos.'
-      };
-    }
-    // Contribuindo e com carência completa
-    if (calcEstado.auto_carencia === '10mais' && calcEstado.auto_contribuindo === 'sim') {
-      return {
-        tipo: 'tem-direito',
-        emoji: '✅',
-        titulo: 'Você TEM direito ao Salário-Maternidade!',
-        desc: 'Você completou os 10 meses de carência e está contribuindo. Você tem direito a <strong>120 dias de benefício</strong>, calculado com base na média das suas contribuições ao INSS.',
-        detalhe: '📱 Solicite pelo app Meu INSS ou ligue para o 135. Documentos necessários: RG, CPF, certidão de nascimento e comprovantes de pagamento do DAS dos últimos 10 meses. O INSS pagará o benefício diretamente a você.'
-      };
-    }
-
-    // Parou de contribuir
-    const carencia = calcEstado.auto_carencia;
-    const tempoPar = calcEstado.auto_tempo_parada;
-    const dezAnos = calcEstado.auto_dez_anos === 'sim';
-    const naoSabeDez = calcEstado.auto_dez_anos === 'nao_sei';
-
-    // Sem carência E parou: sem direito
-    if (carencia === 'menos10') {
+    // Se nunca pagou em dia ANTES do evento
+    if (calcEstado.auto_contribuiu === 'nao') {
       return {
         tipo: 'nao-tem-direito',
         emoji: '❌',
         titulo: 'Infelizmente não há direito no momento.',
-        desc: 'Você não completou os 10 meses de carência necessários e também parou de contribuir. Para ter direito, precisaria ter pago ao menos 10 meses do carnê do INSS.',
-        detalhe: '💡 Para gestação futura: comece a pagar o DAS o quanto antes e mantenha os pagamentos em dia por 10 meses consecutivos. Ligue para o 135 para verificar se há alternativas no seu caso específico.'
+        desc: 'O STF derrubou a exigência de 10 meses, mas <strong>é obrigatório ter feito pelo menos uma contribuição em dia ANTES do parto</strong> para ser considerada "segurada" do INSS.',
+        detalhe: '💡 Pagamentos retroativos (em atraso) feitos após a gravidez não são aceitos para este benefício. Para gestação futura: mantenha o DAS pago em dia para garantir a proteção. Ligue para o 135 para verificar se há alternativas.'
+      };
+    }
+    
+    // Contribuiu antes e continua contribuindo
+    if (calcEstado.auto_contribuiu === 'sim' && calcEstado.auto_contribuindo === 'sim') {
+      return {
+        tipo: 'tem-direito',
+        emoji: '✅',
+        titulo: 'Você TEM direito ao Salário-Maternidade!',
+        desc: 'Excelente! Como você contribuiu antes do parto e se mantém ativa, a "qualidade de segurada" está garantida, graças à nova regra aprovada pelo STF.',
+        detalhe: '📱 Solicite pelo app Meu INSS ou ligue para o 135. O INSS pagará o benefício diretamente a você. O valor para MEI é de 1 salário mínimo.'
       };
     }
 
-    // Tem carência mas parou:
-    // - Sem 10 anos → 12 meses de graça
-    // - Com 10 anos → 24 meses (autônoma que para não "comprova desemprego" no sentido CLT;
-    //   o prazo de 36 meses exige comprovação formal de desemprego, que autônoma normalmente não tem)
+    // Contribuiu antes, mas parou
+    const tempoPar = calcEstado.auto_tempo_parada;
+    const dezAnos = calcEstado.auto_dez_anos === 'sim';
+    const naoSabeDez = calcEstado.auto_dez_anos === 'nao_sei';
+
     let prazoMax = 12;
     if (dezAnos) prazoMax = 24;
-    // Nota: autônoma/MEI que para de contribuir pode comprovar ausência de renda, equiparável ao desemprego
-    if (dezAnos) prazoMax = 36; // com 10+ anos, prazo máximo é 36 se puder comprovar
+    if (dezAnos) prazoMax = 36; // autônoma pode comprovar ausência de renda para atingir 36
 
     const dentroDoGraça = (tempoPar === 'menos12') ||
                           (tempoPar === 'entre12_24' && prazoMax >= 24) ||
@@ -2480,7 +2440,7 @@ function calcLogica() {
         emoji: '⏳',
         titulo: 'Você pode ter direito — está no Período de Graça!',
         desc: `Mesmo sem contribuir atualmente, você ainda pode estar protegida por até <strong>${prazoMax} meses</strong> após a última contribuição. Se o parto ocorrer dentro desse prazo, você tem direito.`,
-        detalhe: `📱 Solicite pelo app Meu INSS ou ligue para o 135. Documentos necessários: RG, CPF, certidão de nascimento e comprovantes dos pagamentos anteriores do DAS.${naoSabeDez ? linkCNIS : ''}${notaDia15}`
+        detalhe: `📱 Solicite pelo app Meu INSS ou ligue para o 135. Documentos necessários: RG, CPF, certidão de nascimento e comprovantes de pagamento do DAS.${naoSabeDez ? linkCNIS : ''}${notaDia15}`
       };
     } else {
       return {
@@ -2488,7 +2448,7 @@ function calcLogica() {
         emoji: '❌',
         titulo: 'O prazo de proteção pode ter expirado.',
         desc: 'Com base nas informações, seu período de graça pode ter se encerrado. <strong>Confirme com o INSS antes de desistir</strong> — o cálculo exato depende do seu histórico.',
-        detalhe: `📞 Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com seus comprovantes de pagamento do DAS.${naoSabeDez ? ' ' + linkCNIS : ''}`
+        detalhe: `📞 Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com seus comprovantes de pagamento do DAS.${naoSabeDez ? linkCNIS : ''}`
       };
     }
   }
@@ -2500,7 +2460,6 @@ function calcLogica() {
     const naoSabeDez = calcEstado.des_dez_anos === 'nao_sei';
     const comprova = calcEstado.des_comprova === 'sim';
 
-    // nao_sei: tratamos conservadoramente como "não" — não prometemos prazo que pode não existir
     let prazoMax = 12;
     if (temDezExato) prazoMax = 24;
     if (temDezExato && comprova) prazoMax = 36;
@@ -2515,7 +2474,7 @@ function calcLogica() {
         emoji: '⏳',
         titulo: 'Você pode ter direito — está no Período de Graça!',
         desc: `Você ainda está dentro do prazo de proteção (Período de Graça) de <strong>${prazoMax} meses</strong>. Se o parto acontecer antes desse prazo vencer, o <strong>INSS paga o benefício</strong>.`,
-        detalhe: `📞 Acesse o app Meu INSS ou ligue para o 135 para solicitar. Documentos necessários: RG, CPF, certidão de nascimento, carteira de trabalho com a baixa e rescisão de contrato.${!comprova ? ' ⚠️ Reúna documentos de demissão — eles podem ampliar sua proteção para até 36 meses.' : ''}${naoSabeDez ? linkCNIS : ''}${notaDia15}`
+        detalhe: `📞 Acesse o app Meu INSS ou ligue para o 135 para solicitar. Documentos necessários: RG, CPF, certidão de nascimento, carteira de trabalho com a baixa e rescisão de contrato.${!comprova ? ' ⚠️ Reúna documentos de demissão — eles podem ampliar sua proteção.' : ''}${naoSabeDez ? linkCNIS : ''}${notaDia15}`
       };
     } else {
       return {
@@ -2523,7 +2482,7 @@ function calcLogica() {
         emoji: '❌',
         titulo: 'O prazo de proteção pode ter expirado.',
         desc: 'Com base nas suas respostas, o período de graça pode ter encerrado. Porém, <strong>confirme com o INSS antes de desistir</strong> — o cálculo exato depende do seu histórico completo.',
-        detalhe: `📞 Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com seus documentos.${naoSabeDez ? ' ' + linkCNIS : ''} Um advogado previdenciário pode analisar seu caso com mais detalhes.`
+        detalhe: `📞 Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com seus documentos.${naoSabeDez ? ' Se tiver mais de 10 anos de contribuição, o prazo pode ser maior do que estimamos.' : ''}`
       };
     }
   }
@@ -2570,7 +2529,7 @@ function calcReiniciar() {
   calcEstado = {
     etapa: 1, perfil: null,
     clt_empregada: null, clt_tempo_desempregada: null, clt_dez_anos: null, clt_comprova_desemprego: null,
-    auto_carencia: null, auto_contribuindo: null, auto_tempo_parada: null, auto_dez_anos: null, auto_comprova: null,
+    auto_contribuiu: null, auto_contribuindo: null, auto_tempo_parada: null, auto_dez_anos: null, auto_comprova: null,
     des_tempo_parada: null, des_dez_anos: null, des_comprova: null,
     rural_atividade: null
   };
@@ -2621,21 +2580,16 @@ function copyLink() {
 
 /* ========== QUIZ ========== */
 const allQuizData = [
-  { q:"Uma trabalhadora CLT foi contratada hoje. Se tiver bebê amanhã, tem direito ao salário-maternidade?", opts:["Sim, sem carência mínima","Não, precisa de 6 meses de emprego","Não, precisa de 10 meses de INSS"], correct:0, explain:"Trabalhadora CLT não precisa de carência! O benefício é garantido desde o primeiro dia de emprego." },
+  { q:"Uma trabalhadora CLT foi contratada hoje. Se tiver bebê amanhã, tem direito ao salário-maternidade?", opts:["Sim, sem carência mínima","Não, precisa de 6 meses de emprego","Não, precisa ter contribuído antes"], correct:0, explain:"Trabalhadora CLT não precisa de carência! O benefício é garantido desde o primeiro dia de emprego." },
   { q:"Quantos dias dura o salário-maternidade no prazo padrão?", opts:["60 dias","90 dias","120 dias","180 dias"], correct:2, explain:"120 dias (4 meses) é o prazo padrão. Com o Programa Empresa Cidadã pode ser 180 dias!" },
-  { q:"Uma autônoma precisa de quantos meses de contribuição ao INSS (carência)?", opts:["Nenhum","5 meses","10 meses","12 meses"], correct:2, explain:"Autônomas, MEI e trabalhadoras rurais precisam de 10 meses de carência antes do parto." },
+  { q:"Com a queda da carência no STF, uma MEI precisa pagar o INSS por quantos meses antes do parto?", opts:["Pelo menos 1 mês pago em dia","5 meses","10 meses","12 meses"], correct:0, explain:"Graças ao STF, não há mais exigência de 10 meses. Basta que a MEI tenha pelo menos uma contribuição paga em dia antes do evento." },
   { q:"O pai pode receber o salário-maternidade?", opts:["Nunca","Sim, sempre que quiser","Sim, em adoção ou falecimento da mãe"], correct:2, explain:"O pai tem direito em adoção (homem solteiro) e se a mãe falecer durante ou após o parto." },
-  { q:"Qual o prazo máximo do Período de Graça com +10 anos de INSS e comprovação de desemprego?", opts:["12 meses","24 meses","36 meses"], correct:2, explain:"Até 36 meses (3 anos) de proteção! É a maior duração do período de graça." },
+  { q:"Qual o prazo máximo do Período de Graça com +10 anos de INSS e comprovação de desemprego?", opts:["12 meses","24 meses","36 meses (+ 1 mês e 15 dias)"], correct:2, explain:"Até 36 meses (3 anos) de proteção principal, estendendo-se até o dia 15 do mês seguinte ao término!" },
   { q:"O que acontece em caso de natimorto (bebê que nasce sem vida)?", opts:["Nenhum benefício","2 semanas de repouso","120 dias de benefício completo"], correct:2, explain:"A lei garante os 120 dias completos em caso de natimorto. Exige atestado médico." },
   { q:"Quem paga o salário-maternidade para uma trabalhadora CLT?", opts:["O INSS diretamente","A empresa (que depois desconta do INSS)","O sindicato da categoria"], correct:1, explain:"A empresa paga e depois desconta do INSS. O pedido é feito diretamente no RH." },
   { q:"Uma grávida pode ser demitida durante a gestação?", opts:["Sim, a qualquer momento","Não, há estabilidade da gravidez até 5 meses após o parto","Apenas por justa causa"], correct:1, explain:"A gestante tem estabilidade desde a confirmação da gravidez até 5 meses após o parto!" },
-  { q:"O benefício pode começar antes do parto?", opts:["Nunca, só após o nascimento","Sim, até 28 dias antes","Sim, até 60 dias antes"], correct:1, explain:"Com atestado médico, a licença pode começar até 28 dias antes da data prevista do parto." },
-  { q:"Trabalhadora rural (segurada especial) recebe quanto de benefício?", opts:["R$ 500 fixos mensais","Um salário mínimo por mês","Calculado pela média das contribuições"], correct:1, explain:"A trabalhadora rural segurada especial recebe um salário mínimo por mês durante os 120 dias." },
-  { q:"O que é o Programa Empresa Cidadã?", opts:["Um benefício social do governo","Um programa voluntário que estende a licença para 180 dias","Um sindicato de trabalhadoras"], correct:1, explain:"É um programa voluntário onde empresas aderem para ampliar a licença de 120 para 180 dias, em troca de incentivo fiscal." },
-  { q:"Trabalhadora doméstica com carteira assinada tem direito ao salário-maternidade?", opts:["Não, a lei não inclui domésticas","Sim, desde a PEC das Domésticas (2013)","Somente se tiver 2 anos de carteira assinada"], correct:1, explain:"Desde a Emenda Constitucional 72/2013, a doméstica com carteira assinada tem os mesmos direitos trabalhistas, incluindo o salário-maternidade." },
-  { q:"Uma MEI que pagou apenas 5 meses do DAS tem direito ao salário-maternidade?", opts:["Sim, qualquer tempo conta","Não, são necessários 10 meses de contribuição","Sim, mas recebe valor reduzido"], correct:1, explain:"A MEI precisa de exatamente 10 meses de DAS pagos antes do parto para ter direito ao benefício." },
-  { q:"Como solicitar o salário-maternidade pelo INSS sem sair de casa?", opts:["Não é possível, obrigatório ir à agência","Pelo app Meu INSS ou pelo site meu.inss.gov.br","Apenas por carta registrada"], correct:1, explain:"Pelo app Meu INSS (Android/iOS) ou site meu.inss.gov.br você pode solicitar, acompanhar e receber o benefício 100% online." },
-  { q:"Qual é o telefone gratuito do INSS para dúvidas?", opts:["0800-726-0207","135","158"], correct:1, explain:"O 135 é o número gratuito do INSS, disponível em dias úteis para tirar dúvidas e fazer solicitações." }
+  { q:"Qual o prazo máximo que a lei dá para você pedir o benefício após o nascimento?", opts:["Até 120 dias","Até 1 ano","Até 5 anos (prescrição quinquenal)"], correct:2, explain:"A lei prevê que o benefício pode ser solicitado até 5 anos após a data do parto ou adoção." },
+  { q:"Trabalhadora rural (segurada especial) recebe quanto de benefício?", opts:["R$ 500 fixos mensais","Um salário mínimo por mês","Calculado pela média das contribuições"], correct:1, explain:"A trabalhadora rural segurada especial recebe um salário mínimo por mês durante os 120 dias." }
 ];
 function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 let quizData = [], qCurrent = 0, qScore = 0, qAnswered = false;
@@ -2757,11 +2711,11 @@ const itensPorPerfil = {
     ]
   },
   mei: {
-    desc: '✅ Mostrando checklist para <strong>MEI / Autônoma</strong> — carência de 10 meses obrigatória, benefício pago pelo INSS. Itens exclusivos para MEI + itens comuns abaixo.',
+    desc: '✅ Mostrando checklist para <strong>MEI / Autônoma</strong> — benefício pago pelo INSS. Itens exclusivos para MEI + itens comuns abaixo.',
     itens: [
-      { id: 'mei0', label: '🧾 Comprovantes de pagamento do DAS dos últimos 10 meses (todos sem débito)' },
-      { id: 'mei1', label: '📊 Extrato CNIS no app Meu INSS confirma os 10 meses reconhecidos pelo INSS' },
-      { id: 'mei2', label: '💳 CNPJ MEI ativo e sem pendências (verificar no Portal do Empreendedor)' },
+      { id: 'mei0', label: '🧾 Comprovante de pagamento do DAS/Guia do INSS (basta estar em dia antes do evento)' },
+      { id: 'mei1', label: '📊 Extrato CNIS no app Meu INSS para confirmar a contribuição ativa' },
+      { id: 'mei2', label: '💳 CNPJ MEI ativo (verifique no Portal do Empreendedor)' },
     ]
   },
   rural: {
@@ -2778,7 +2732,7 @@ const itensPorPerfil = {
       { id: 'des0', label: '📅 Calculadora preenchida — confirmei que ainda estou dentro do período de graça' },
       { id: 'des1', label: '📃 Carteira de Trabalho (CTPS) com a baixa (anotação da demissão) — obrigatória' },
       { id: 'des2', label: '📝 Rescisão de contrato assinada (Termo de Rescisão ou TRCT) — obrigatória' },
-      { id: 'des3', label: '💰 Documentos do Seguro-Desemprego, se tiver recebido (ampliam o período de graça para 36 meses)' },
+      { id: 'des3', label: '💰 Documentos do Seguro-Desemprego, se tiver recebido (ampliam o período base de proteção para até 36 meses, mais 1 mês e 15 dias de tolerância)' },
       { id: 'des4', label: '📊 Extrato CNIS no app Meu INSS — comprova o histórico de contribuições para o INSS calcular o prazo correto' },
     ]
   },
