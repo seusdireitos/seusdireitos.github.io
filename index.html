@@ -2315,12 +2315,6 @@ function calcularResultado() {
   calcLimparErro('etapa-3');
   const p = calcEstado.perfil;
 
-  /* ─── Helper: nota do 15º dia ─── */
-  const notaDia15 = `<br><br>📅 <strong>Atenção ao prazo exato:</strong> A proteção não termina no último dia do mês — ela vai até o <strong>dia 15 do segundo mês subsequente</strong> após o fim do período (1 mês e 15 dias extras). Não perca o benefício por poucos dias!`;
-
-  /* ─── Helper: link CNIS para quem não sabe os 10 anos ─── */
-  const linkCNIS = `<br><br>🔍 <strong>Não tem certeza se tem 10 anos?</strong> Baixe seu <strong>Extrato CNIS</strong> gratuitamente no <a href="https://meu.inss.gov.br/#/login" target="_blank" style="color:var(--yellow);font-weight:900;">app Meu INSS</a>. Se confirmar os 10 anos, sua proteção ganha mais <strong>12 meses</strong> — podendo chegar a 36 meses no total!`;
-
   // Coletar dados da etapa 3
   if (p === 'clt' && calcEstado.clt_empregada === 'nao') {
     const dez = document.querySelector('input[name="e3_clt_dez"]:checked');
@@ -2351,6 +2345,12 @@ function calcularResultado() {
 
 function calcLogica() {
   const p = calcEstado.perfil;
+
+  /* ─── Helper: nota do 15º dia ─── */
+  const notaDia15 = `<br><br>📅 <strong>Atenção ao prazo exato:</strong> A proteção não termina no último dia do mês — ela vai até o <strong>dia 15 do segundo mês subsequente</strong> após o fim do período (1 mês e 15 dias extras). Não perca o benefício por poucos dias!`;
+
+  /* ─── Helper: link CNIS para quem não sabe os 10 anos ─── */
+  const linkCNIS = `<br><br>🔍 <strong>Não tem certeza se tem 10 anos?</strong> Baixe seu <strong>Extrato CNIS</strong> gratuitamente no <a href="https://meu.inss.gov.br/#/login" target="_blank" style="color:var(--yellow);font-weight:900;">app Meu INSS</a>. Se confirmar os 10 anos, sua proteção ganha mais <strong>12 meses</strong> — podendo chegar a 36 meses no total!`;
 
   // ==== CLT ====
   if (p === 'clt') {
@@ -2482,7 +2482,7 @@ function calcLogica() {
         emoji: '❌',
         titulo: 'O prazo de proteção pode ter expirado.',
         desc: 'Com base nas suas respostas, o período de graça pode ter encerrado. Porém, <strong>confirme com o INSS antes de desistir</strong> — o cálculo exato depende do seu histórico completo.',
-        detalhe: `📞 Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com seus documentos.${naoSabeDez ? ' Se tiver mais de 10 anos de contribuição, o prazo pode ser maior do que estimamos.' : ''}`
+        detalhe: `📞 Ligue gratuitamente para o <strong>135</strong> ou vá a uma agência do INSS com seus documentos.${naoSabeDez ? ' ' + linkCNIS : ''} Um advogado previdenciário pode analisar seu caso com mais detalhes.`
       };
     }
   }
