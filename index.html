@@ -948,46 +948,49 @@
     /* ===== IMPRESSÃO / PDF ===== */
     /* ===== IMPRESSÃO / PDF (MANTENDO O VISUAL DO SITE) ===== */
     @media print {
-      /* 1. Força o navegador a imprimir as cores e fundos exatamente como na tela */
+      /* 1. Força cores exatas da tela e anula animações invisíveis */
       * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
+      .fade-in, .hero-text, .hero-cards, .hero-card, .stat-item, .grace-timeline, .calc-box {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+        visibility: visible !important;
+      }
 
-      /* 2. Esconde apenas botões flutuantes e menus que não funcionam no papel */
-      .a11y-bar, .alert-banner, header, .hamburger, .mobile-menu, #backTop, .share-btns, .hero-cta, .quiz-nav, .pdf-btn, .tts-btn, [vw], #lgpd-banner, #reading-progress, #toast, .checklist-reset { 
+      /* 2. Oculta APENAS coisas que poluem o PDF (Painel de Libras, aviso de cookies e botão de voltar ao topo) */
+      .a11y-bar, [vw], #backTop, #toast, #lgpd-banner, #reading-progress { 
         display: none !important; 
       }
 
-      /* 3. Abre todos os menus sanfonados (FAQ, Mitos, Regras) para o texto sair no PDF */
-      .accordion-item .accordion-body, .faq-item .faq-a { 
+      /* 3. Abre todas as sanfonas para os textos não ficarem escondidos */
+      .accordion-item .accordion-body, .faq-item .faq-a, .myth-card .myth-explanation { 
         max-height: none !important; 
         overflow: visible !important; 
         padding: 10px 22px !important; 
         display: block !important; 
       }
-      .myth-card .myth-explanation { display: block !important; }
       .myth-card .myth-flip-hint, .accordion-header .acc-arrow, .faq-q .arrow { display: none !important; }
       
-      /* 4. Mostra o resultado da calculadora na tela */
-      .calc-step-panel { display: block !important; }
-      .calc-result-box { display: block !important; }
+      /* 4. Garante que o painel da calculadora fique visível */
+      .calc-step-panel, .calc-result-box { display: block !important; }
 
-      /* 5. Evita que os cards sejam cortados no meio entre uma página e outra */
-      section, .who-card, .info-card, .accordion-item, .myth-card, .glossary-card, .hero-card, .step-card { 
-        break-inside: avoid; 
-        page-break-inside: avoid; 
+      /* 5. Correção das páginas em branco (Deixa a seção quebrar, mas protege os cards) */
+      section { 
+        page-break-inside: auto !important; 
+        break-inside: auto !important; 
       }
-
-      /* 6. Substitui o mapa do Google (que costuma bugar em PDF) pelo endereço em texto */
-      .map-container iframe { display: none !important; }
-      .map-container::after { 
-        content: "APS Ubá — Rua Santa Cruz, 169 – Centro – CEP 36.500-059 – Ubá/MG. E-mail: aps11021070@inss.gov.br"; 
-        display: block; 
-        font-size: 0.8rem; 
-        margin-top: 8px; 
-        color: white;
+      .hero-card, .who-card, .info-card, .men-card, .step-card, .accordion-item, .myth-card, .glossary-card, .grace-block, .faq-item { 
+        break-inside: avoid !important; 
+        page-break-inside: avoid !important; 
+        margin-bottom: 15px !important;
       }
+      
+      /* 6. Ajuste do fundo azul com ondas */
+      .blob-bg { position: absolute !important; }
     }
 
     /* ===== LOGO UNIFAGOC ===== */
@@ -1980,7 +1983,17 @@ function toggleFaq(id) {
 function revealMyth(card) { card.classList.toggle('revealed'); }
 
 /* ========== PDF ========== */
-function savePDF() { window.print(); }
+function savePDF() { 
+  // Força os contadores a mostrarem o valor final instantaneamente antes de gerar o PDF
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    el.textContent = prefix + (prefix === 'R$ ' ? parseInt(target).toLocaleString('pt-BR') : target);
+  });
+  
+  // Chama a tela de impressão
+  window.print(); 
+}
 
 /* ========== CONTADORES ========== */
 let countersStarted = false;
