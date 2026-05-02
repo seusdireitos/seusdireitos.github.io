@@ -2558,22 +2558,30 @@ function calcReiniciar() {
 
 /* ========== COMPARTILHAR ========== */
 function updateShareLinks() {
-  const url = encodeURIComponent(window.location.href);
+  const urlFixo = 'https://seusdireitos.github.io/';
+  const url = encodeURIComponent(urlFixo);
   const text = encodeURIComponent('Descubra seus direitos ao Salário-Maternidade! 🍼');
+  
   const waBtn = document.querySelector('.share-btn.wa');
   const fbBtn = document.querySelector('.share-btn.fb');
   const twBtn = document.querySelector('.share-btn.tw');
+  
   if (waBtn) waBtn.href = `https://wa.me/?text=${text}%20${url}`;
   if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  if (twBtn) twBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+  if (twBtn) twBtn.href = `https://x.com/intent/tweet?text=${text}&url=${url}`;
 }
+
 function copyLink() {
-  const url = window.location.href;
-  if (navigator.clipboard) navigator.clipboard.writeText(url);
-  else {
+  const urlFixo = 'https://seusdireitos.github.io/';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(urlFixo);
+  } else {
     const el = document.createElement('input');
-    el.value = url; document.body.appendChild(el); el.select();
-    document.execCommand('copy'); document.body.removeChild(el);
+    el.value = urlFixo; 
+    document.body.appendChild(el); 
+    el.select();
+    document.execCommand('copy'); 
+    document.body.removeChild(el);
   }
   mostrarToast('🔗 Link copiado com sucesso!');
 }
@@ -2625,7 +2633,11 @@ function qNext() { qCurrent++; renderQuiz(); }
 function qShowResult() {
   const medals = ['😢','😕','🙂','😊','😎','🥇','🏆','🌟','🎖️','🏅','👑'];
   const msg = qScore===10 ? 'Perfeito! Você é especialista em direitos previdenciários!' : qScore>=7 ? 'Excelente! Você conhece muito bem seus direitos!' : qScore>=5 ? 'Bom trabalho! Vale reler alguns tópicos.' : '📚 Que tal reler o conteúdo? Você vai melhorar!';
-  document.getElementById('quizBox').innerHTML = `<div style="text-align:center"><div class="quiz-medal">${medals[qScore]||'👑'}</div><div class="quiz-score-big">${qScore}<span style="font-size:2rem;opacity:0.6"> / 10</span></div><p style="font-size:1.15rem;font-weight:800;margin:10px 0 8px">${msg}</p><p style="opacity:0.75;font-size:0.9rem;margin-bottom:24px">Você acertou ${Math.round(qScore/10*100)}% das perguntas!</p><p style="opacity:0.6;font-size:0.8rem;margin-bottom:20px">🔀 As perguntas são embaralhadas a cada tentativa!</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button type="button" class="btn-primary" onclick="qRestart()">🔄 Tentar novamente</button><a class="btn-secondary" href="https://wa.me/?text=Fiz+o+quiz+sobre+Direitos+Previdenci%C3%A1rios+e+acertei+${qScore}+de+10!+Teste+tamb%C3%A9m!" target="_blank">💬 Compartilhar</a></div></div>`;
+  
+  const urlFixo = 'https://seusdireitos.github.io/';
+  const textoQuiz = encodeURIComponent(`Fiz o quiz sobre Direitos Previdenciários e acertei ${qScore} de 10! Teste também acessando o link: `);
+  
+  document.getElementById('quizBox').innerHTML = `<div style="text-align:center"><div class="quiz-medal">${medals[qScore]||'👑'}</div><div class="quiz-score-big">${qScore}<span style="font-size:2rem;opacity:0.6"> / 10</span></div><p style="font-size:1.15rem;font-weight:800;margin:10px 0 8px">${msg}</p><p style="opacity:0.75;font-size:0.9rem;margin-bottom:24px">Você acertou ${Math.round(qScore/10*100)}% das perguntas!</p><p style="opacity:0.6;font-size:0.8rem;margin-bottom:20px">🔀 As perguntas são embaralhadas a cada tentativa!</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button type="button" class="btn-primary" onclick="qRestart()">🔄 Tentar novamente</button><a class="btn-secondary" href="https://wa.me/?text=${textoQuiz}${urlFixo}" target="_blank">💬 Compartilhar</a></div></div>`;
 }
 function qRestart() { initQuiz(); document.getElementById('quizBox').innerHTML = `<div class="quiz-header"><div class="quiz-counter" id="quizCounter"></div><div class="quiz-score-live" id="quizScoreLive"></div></div><div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizFill" style="width:0%"></div></div><p style="text-align:center;font-size:0.78rem;opacity:0.55;margin-bottom:16px;">🔀 Perguntas embaralhadas!</p><div class="quiz-question" id="quizQ"></div><div class="quiz-options" id="quizOpts"></div><div class="quiz-result" id="quizResult"></div><div class="quiz-nav" id="quizNav"></div>`; renderQuiz(); }
 
