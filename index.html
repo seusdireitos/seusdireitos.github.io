@@ -946,32 +946,48 @@
     @media(max-width:480px) { .hero-cards{grid-template-columns:1fr 1fr;gap:10px;} .stats-inner{grid-template-columns:1fr 1fr;} }
 
     /* ===== IMPRESSÃO / PDF ===== */
+    /* ===== IMPRESSÃO / PDF (MANTENDO O VISUAL DO SITE) ===== */
     @media print {
-      .a11y-bar, .alert-banner, header, .hamburger, .mobile-menu, #backTop, .share-btns, .hero-cta, .quiz-nav, .pdf-btn, .btn-primary, .btn-secondary, .inss-links a, .footer-logo-link, .tts-btn, [vw], #lgpd-banner, #reading-progress, #toast, .checklist-reset { display: none !important; }
-      body, section, .hero, .stats-bar, .who-section, .rules-section, .calc-section, .how-section, .glossary-section, .myths-section, .quiz-section, footer { background: white !important; color: black !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .hero { background-image: none !important; background-color: white !important; }
-      .hero::before { background: none !important; }
-      .hero-card, .who-card, .info-card, .men-card, .step-card, .accordion-item, .faq-item, .myth-card, .glossary-card, .calc-box, .inss-box { background: #f0f0f0 !important; border: 1px solid #ccc !important; color: black !important; box-shadow: none !important; }
-      .accordion-item .accordion-body, .faq-item .faq-a { max-height: none !important; overflow: visible !important; padding: 10px 22px !important; display: block !important; }
-      .accordion-header .acc-arrow, .faq-q .arrow { display: none !important; }
-      .tooltip-wrap .tooltip-box { display: inline !important; position: static !important; background: transparent !important; color: black !important; border: none !important; padding: 0 !important; font-weight: normal !important; width: auto !important; box-shadow: none !important; font-style: italic; }
-      .tooltip-wrap .tooltip-box::after { display: none !important; }
-      .tooltip-wrap { border-bottom: none !important; cursor: default !important; }
+      /* 1. Força o navegador a imprimir as cores e fundos exatamente como na tela */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* 2. Esconde apenas botões flutuantes e menus que não funcionam no papel */
+      .a11y-bar, .alert-banner, header, .hamburger, .mobile-menu, #backTop, .share-btns, .hero-cta, .quiz-nav, .pdf-btn, .tts-btn, [vw], #lgpd-banner, #reading-progress, #toast, .checklist-reset { 
+        display: none !important; 
+      }
+
+      /* 3. Abre todos os menus sanfonados (FAQ, Mitos, Regras) para o texto sair no PDF */
+      .accordion-item .accordion-body, .faq-item .faq-a { 
+        max-height: none !important; 
+        overflow: visible !important; 
+        padding: 10px 22px !important; 
+        display: block !important; 
+      }
       .myth-card .myth-explanation { display: block !important; }
-      .myth-card .myth-flip-hint { display: none !important; }
-      section, .who-card, .info-card, .accordion-item, .myth-card, .glossary-card { break-inside: avoid; page-break-inside: avoid; }
-      a[href]::after { content: " (" attr(href) ")"; font-size: 0.8rem; font-weight: normal; text-decoration: none; color: #666; }
-      a[href^="#"]::after, a[href^="javascript"]::after { content: "" !important; }
-      body { font-size: 12pt; line-height: 1.4; }
-      h1, h2, h3 { page-break-after: avoid; }
-      img, svg, iframe { max-width: 100% !important; break-inside: avoid; }
-      .map-container iframe { display: none !important; }
-      .map-container::after { content: "APS Ubá — Rua Santa Cruz, 169 – Centro – CEP 36.500-059 – Ubá/MG. E-mail: aps11021070@inss.gov.br. Coordenadas: -21.121252, -42.943506 (disponível no Google Maps)"; display: block; font-size: 0.8rem; margin-top: 8px; }
-      .blob-bg { display: none !important; }
-      .calc-result-box { display: block !important; background: #f9f9f9 !important; border: 1px solid #aaa !important; color: black !important; }
-      .quiz-box { background: #fff !important; border: 1px solid #ccc !important; }
-      .btn-primary, .btn-secondary, .pdf-btn, .share-btn { background: #ccc !important; color: black !important; border: 1px solid #000 !important; }
+      .myth-card .myth-flip-hint, .accordion-header .acc-arrow, .faq-q .arrow { display: none !important; }
+      
+      /* 4. Mostra o resultado da calculadora na tela */
       .calc-step-panel { display: block !important; }
+      .calc-result-box { display: block !important; }
+
+      /* 5. Evita que os cards sejam cortados no meio entre uma página e outra */
+      section, .who-card, .info-card, .accordion-item, .myth-card, .glossary-card, .hero-card, .step-card { 
+        break-inside: avoid; 
+        page-break-inside: avoid; 
+      }
+
+      /* 6. Substitui o mapa do Google (que costuma bugar em PDF) pelo endereço em texto */
+      .map-container iframe { display: none !important; }
+      .map-container::after { 
+        content: "APS Ubá — Rua Santa Cruz, 169 – Centro – CEP 36.500-059 – Ubá/MG. E-mail: aps11021070@inss.gov.br"; 
+        display: block; 
+        font-size: 0.8rem; 
+        margin-top: 8px; 
+        color: white;
+      }
     }
 
     /* ===== LOGO UNIFAGOC ===== */
