@@ -1021,266 +1021,6 @@
   color: var(--yellow);
   font-weight: 800;
 }
-  
-
-    /* ===== ASSISTENTE GUIADO — ÁRVORE DE DECISÃO (100% JAVASCRIPT) ===== */
-    .guidebot-launcher {
-      position: fixed;
-      left: 24px;
-      bottom: 24px;
-      z-index: 8500;
-      border: none;
-      border-radius: 999px;
-      background: var(--yellow);
-      color: var(--text-dark);
-      min-height: 56px;
-      padding: 0 20px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,.28);
-      transition: transform .25s var(--ease-spring), box-shadow .25s ease;
-    }
-    .guidebot-launcher:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 36px rgba(0,0,0,.32); }
-    .guidebot-launcher:focus-visible,
-    .guidebot-close:focus-visible,
-    .guidebot-reset:focus-visible,
-    .guidebot-back:focus-visible,
-    .guidebot-option:focus-visible,
-    .guidebot-action:focus-visible {
-      outline: 3px solid #fff;
-      outline-offset: 3px;
-    }
-    .guidebot-launcher-icon { font-size: 1.25rem; }
-    .guidebot-launcher .guidebot-pulse {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--green);
-      top: 2px;
-      right: 5px;
-      box-shadow: 0 0 0 0 rgba(6,214,160,.65);
-      animation: guidebotPulse 2.2s infinite;
-    }
-    @keyframes guidebotPulse {
-      0% { box-shadow: 0 0 0 0 rgba(6,214,160,.6); }
-      70% { box-shadow: 0 0 0 11px rgba(6,214,160,0); }
-      100% { box-shadow: 0 0 0 0 rgba(6,214,160,0); }
-    }
-
-    .guidebot-panel {
-      position: fixed;
-      left: 24px;
-      bottom: 92px;
-      z-index: 8600;
-      width: min(390px, calc(100vw - 32px));
-      max-height: min(650px, calc(100vh - 125px));
-      background: #fff;
-      color: var(--text-dark);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 22px 60px rgba(0,0,0,.34);
-      border: 2px solid rgba(255,255,255,.55);
-      display: none;
-      flex-direction: column;
-      transform-origin: bottom left;
-    }
-    .guidebot-panel.open { display: flex; animation: guidebotOpen .28s var(--ease-out-expo); }
-    @keyframes guidebotOpen {
-      from { opacity: 0; transform: translateY(15px) scale(.96); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .guidebot-header {
-      background: linear-gradient(135deg, var(--blue-dark), var(--blue-deeper));
-      color: #fff;
-      padding: 15px 16px;
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      flex-shrink: 0;
-    }
-    .guidebot-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--yellow);
-      color: var(--text-dark);
-      display: grid;
-      place-items: center;
-      font-size: 1.2rem;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,.3);
-      flex-shrink: 0;
-    }
-    .guidebot-title-wrap { min-width: 0; flex: 1; }
-    .guidebot-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .98rem; line-height: 1.1; }
-    .guidebot-status { font-size: .72rem; opacity: .78; margin-top: 3px; font-weight: 700; }
-    .guidebot-header-actions { display: flex; align-items: center; gap: 5px; }
-    .guidebot-reset, .guidebot-close {
-      width: 36px;
-      height: 36px;
-      border: 0;
-      border-radius: 50%;
-      color: #fff;
-      background: rgba(255,255,255,.14);
-      cursor: pointer;
-      font-size: 1rem;
-      display: grid;
-      place-items: center;
-    }
-    .guidebot-reset:hover, .guidebot-close:hover { background: rgba(255,255,255,.24); }
-
-    .guidebot-privacy {
-      padding: 9px 14px;
-      background: #eef8ff;
-      border-bottom: 1px solid #d6eaf8;
-      font-size: .72rem;
-      line-height: 1.4;
-      font-weight: 700;
-      color: #36566f;
-      flex-shrink: 0;
-    }
-
-    .guidebot-messages {
-      padding: 15px 14px 8px;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 180px;
-      background: #f7fbfe;
-      scroll-behavior: smooth;
-    }
-    .guidebot-message {
-      max-width: 88%;
-      padding: 11px 13px;
-      border-radius: 16px;
-      font-size: .9rem;
-      line-height: 1.5;
-      white-space: normal;
-      animation: guidebotMessage .22s ease both;
-    }
-    @keyframes guidebotMessage { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
-    .guidebot-message.bot {
-      align-self: flex-start;
-      background: #fff;
-      border: 1px solid #dbeaf4;
-      border-bottom-left-radius: 5px;
-      box-shadow: 0 3px 10px rgba(13,43,78,.06);
-    }
-    .guidebot-message.user {
-      align-self: flex-end;
-      background: var(--blue-dark);
-      color: #fff;
-      border-bottom-right-radius: 5px;
-    }
-    .guidebot-message strong { font-weight: 900; }
-    .guidebot-message .guidebot-mini { display:block; font-size:.76rem; opacity:.72; margin-top:6px; }
-
-    .guidebot-options {
-      padding: 11px 12px 13px;
-      display: grid;
-      gap: 8px;
-      background: #fff;
-      border-top: 1px solid #e1edf5;
-      overflow-y: auto;
-      max-height: 250px;
-      flex-shrink: 0;
-    }
-    .guidebot-option, .guidebot-action, .guidebot-back {
-      width: 100%;
-      border: 0;
-      border-radius: 13px;
-      padding: 11px 12px;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 800;
-      font-size: .86rem;
-      line-height: 1.3;
-      cursor: pointer;
-      text-align: left;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-    .guidebot-option {
-      color: var(--text-dark);
-      background: #f2f8fc;
-      border: 1.5px solid #d7e8f3;
-    }
-    .guidebot-option:hover { background: #e4f3fc; border-color: #a9d2ea; transform: translateY(-1px); }
-    .guidebot-action {
-      color: var(--text-dark);
-      background: var(--yellow);
-      border: 1.5px solid #e2b83e;
-      text-align: center;
-    }
-    .guidebot-action:hover { filter: brightness(.98); transform: translateY(-1px); }
-    .guidebot-back {
-      color: #46637a;
-      background: transparent;
-      border: 1.5px dashed #c9d9e4;
-      text-align: center;
-    }
-    .guidebot-back:hover { background: #f7fafc; }
-    .guidebot-option small { display:block; font-weight:700; opacity:.65; margin-top:2px; }
-
-    .guidebot-footer-note {
-      padding: 7px 12px 10px;
-      font-size: .68rem;
-      line-height: 1.35;
-      text-align: center;
-      color: #6a7c8a;
-      background: #fff;
-      flex-shrink: 0;
-    }
-
-    /* CTA do assistente dentro do destaque inicial */
-    .guidebot-hero-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 13px;
-      color: #fff;
-      font-weight: 900;
-      font-size: .88rem;
-      text-decoration: none;
-      background: rgba(255,255,255,.15);
-      border: 1.5px solid rgba(255,255,255,.32);
-      border-radius: 999px;
-      padding: 9px 15px;
-      cursor: pointer;
-    }
-    .guidebot-hero-link:hover { background: rgba(255,255,255,.23); }
-
-    @media (max-width: 600px) {
-      .guidebot-launcher {
-        left: 12px;
-        bottom: 14px;
-        min-height: 52px;
-        padding: 0 15px;
-        font-size: .86rem;
-      }
-      .guidebot-panel {
-        left: 8px;
-        right: 8px;
-        bottom: 74px;
-        width: auto;
-        max-height: calc(100dvh - 92px);
-        border-radius: 20px;
-      }
-      .guidebot-messages { min-height: 150px; }
-      .guidebot-options { max-height: 230px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .guidebot-launcher .guidebot-pulse { animation: none !important; }
-      .guidebot-panel.open, .guidebot-message { animation: none !important; }
-    }
-
   </style>
 </head>
 <body>
@@ -1379,8 +1119,8 @@
       <div class="hero-cta">
         <a href="#quem-tem-direito" class="btn-primary"><i class="fas fa-search"></i> Ver meus direitos</a>
         <a href="#calculadora" class="btn-secondary"><i class="fas fa-calculator"></i> Calcular meu prazo</a>
+        <button type="button" class="btn-secondary" onclick="document.getElementById('duda-toggle-btn')?.click()"><i class="fas fa-comments"></i> Ajuda guiada</button>
       </div>
-      <button type="button" class="guidebot-hero-link" onclick="openGuideBot()"><i class="fas fa-comments"></i> Não sabe por onde começar? Use a ajuda guiada</button>
       <div class="reading-time-badge" aria-label="Tempo estimado de leitura">
         📖 Leitura completa: ~10 min  |  🎯 Quiz + Calculadora incluídos
       </div>
@@ -2061,35 +1801,6 @@
     <p>© 2026 Direito Unifagoc – Material educativo gratuito. Não substitui orientação jurídica profissional.</p>
   </div>
 </footer>
-
-
-
-<!-- ===== ASSISTENTE GUIADO: ÁRVORE DE DECISÃO, SEM IA / SEM API ===== -->
-<button type="button" class="guidebot-launcher" id="guidebotLauncher" aria-haspopup="dialog" aria-controls="guidebotPanel" aria-expanded="false" onclick="toggleGuideBot()">
-  <span class="guidebot-launcher-icon">💬</span>
-  <span>Precisa de ajuda?</span>
-  <span class="guidebot-pulse" aria-hidden="true"></span>
-</button>
-
-<div class="guidebot-panel" id="guidebotPanel" role="dialog" aria-modal="false" aria-labelledby="guidebotTitle" aria-hidden="true">
-  <div class="guidebot-header">
-    <div class="guidebot-avatar" aria-hidden="true">⚖️</div>
-    <div class="guidebot-title-wrap">
-      <div class="guidebot-title" id="guidebotTitle">Ajuda guiada</div>
-      <div class="guidebot-status">Respostas simples • sem IA • sem cadastro</div>
-    </div>
-    <div class="guidebot-header-actions">
-      <button type="button" class="guidebot-reset" onclick="resetGuideBot()" title="Recomeçar conversa" aria-label="Recomeçar conversa">↺</button>
-      <button type="button" class="guidebot-close" onclick="closeGuideBot()" title="Fechar ajuda" aria-label="Fechar ajuda">✕</button>
-    </div>
-  </div>
-
-  <div class="guidebot-privacy">🔒 Não informe CPF, senha, dados bancários ou documentos. Esta ajuda funciona apenas com escolhas na tela e não envia suas respostas para nenhum serviço externo.</div>
-
-  <div class="guidebot-messages" id="guidebotMessages" aria-live="polite" aria-atomic="false"></div>
-  <div class="guidebot-options" id="guidebotOptions"></div>
-  <div class="guidebot-footer-note">Informação educativa. Situações específicas podem exigir análise do INSS, da empresa ou de profissional habilitado.</div>
-</div>
 
 <button type="button" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
@@ -3176,405 +2887,6 @@ function resetChecklist() {
   renderChecklist();
 })();
 
-
-
-/* ========== ASSISTENTE GUIADO — ÁRVORE DE DECISÃO ========== */
-const GUIDE_BOT = {
-  start: {
-    text: 'Olá! 👋 Vou te ajudar a encontrar a informação certa sobre <strong>salário-maternidade</strong>. Você não precisa conhecer nenhuma lei. O que você quer saber?',
-    options: [
-      { label: '👶 Quero saber se posso ter direito', next: 'direito_perfil' },
-      { label: '📱 Quero saber como pedir', next: 'como_pedir' },
-      { label: '📂 Quero saber quais documentos separar', next: 'docs_perfil' },
-      { label: '🚶‍♀️ Estou desempregada', next: 'desempregada' },
-      { label: '👨‍👧 Adoção, pai ou outra configuração familiar', next: 'familias' },
-      { label: '❓ Tenho outra dúvida', next: 'outras_duvidas' }
-    ]
-  },
-
-  direito_perfil: {
-    text: 'Para te orientar melhor, escolha a opção que mais parece com a sua situação atual:',
-    options: [
-      { label: '👩‍💼 Trabalho com carteira assinada', next: 'perfil_clt' },
-      { label: '💼 Sou MEI ou trabalho por conta própria', next: 'perfil_mei' },
-      { label: '🌾 Trabalho no campo / atividade rural', next: 'perfil_rural' },
-      { label: '🚶‍♀️ Estou desempregada ou parei de contribuir', next: 'desempregada' },
-      { label: '👨‍👧 É caso de adoção', next: 'perfil_adocao' },
-      { label: '🤷 Não sei em qual opção me encaixo', next: 'nao_sei_perfil' }
-    ]
-  },
-
-  perfil_clt: {
-    text: 'Se você tem <strong>carteira assinada</strong>, o site informa que o salário-maternidade normalmente dura <strong>120 dias</strong> e não exige carência mínima de INSS para esse perfil.<span class="guidebot-mini">A regra pode variar conforme situações especiais. Você pode abrir a explicação completa abaixo.</span>',
-    actions: [
-      { label: '👀 Ver explicação completa', target: 'quem-tem-direito' },
-      { label: '📂 Ver documentos', next: 'docs_clt' },
-      { label: '📱 Como solicitar', next: 'como_pedir' }
-    ]
-  },
-
-  perfil_mei: {
-    text: 'Para <strong>MEI, autônoma ou contribuinte individual</strong>, o site explica que existem regras próprias e que o benefício é solicitado ao INSS. A página também traz as informações atualizadas sobre contribuição e carência.',
-    actions: [
-      { label: '👀 Ver regras para MEI/autônoma', target: 'quem-tem-direito' },
-      { label: '📂 Ver documentos', next: 'docs_mei' },
-      { label: '📱 Como solicitar', next: 'como_pedir' }
-    ]
-  },
-
-  perfil_rural: {
-    text: 'Quem trabalha no <strong>campo</strong> também pode ter direito ao salário-maternidade. A documentação para comprovar a atividade rural é diferente, por isso vale conferir o checklist específico.',
-    actions: [
-      { label: '🌾 Ver regras completas', target: 'quem-tem-direito' },
-      { label: '📂 Ver documentos para rural', next: 'docs_rural' },
-      { label: '📋 Abrir checklist', target: 'checklist' }
-    ]
-  },
-
-  desempregada: {
-    text: 'Ter parado de trabalhar ou de pagar o INSS <strong>não significa perder a proteção imediatamente</strong>. Existe um período de proteção chamado <strong>período de graça</strong>. Como o prazo depende do histórico de contribuições e da situação de desemprego, o melhor caminho é usar a calculadora do próprio site.',
-    actions: [
-      { label: '🧮 Ver minha situação na calculadora', target: 'calculadora' },
-      { label: '⏳ Entender o período de graça', target: 'periodo-graca' },
-      { label: '📂 Ver documentos', next: 'docs_desempregada' }
-    ]
-  },
-
-  perfil_adocao: {
-    text: 'O site também explica o salário-maternidade em caso de <strong>adoção ou guarda judicial para fins de adoção</strong>. Há informações específicas sobre duração e documentos.',
-    actions: [
-      { label: '👨‍👧 Ver direitos na adoção', target: 'homens' },
-      { label: '📂 Ver documentos', next: 'docs_adocao' },
-      { label: '📱 Como solicitar', next: 'como_pedir' }
-    ]
-  },
-
-  nao_sei_perfil: {
-    text: 'Sem problema. Pense apenas em <strong>como você trabalha hoje</strong>: se recebe com carteira assinada, escolha CLT; se trabalha por conta própria ou tem MEI, escolha MEI/autônoma; se vive de atividade rural, escolha rural. Se parou de trabalhar ou de pagar o INSS, escolha desempregada.',
-    options: [
-      { label: '👩‍💼 Recebo com carteira assinada', next: 'perfil_clt' },
-      { label: '💼 Trabalho por conta própria / tenho MEI', next: 'perfil_mei' },
-      { label: '🌾 Minha atividade é rural', next: 'perfil_rural' },
-      { label: '🚶‍♀️ Não estou trabalhando / parei de pagar INSS', next: 'desempregada' },
-      { label: '📖 Prefiro ver todas as situações', target: 'quem-tem-direito' }
-    ]
-  },
-
-  como_pedir: {
-    text: 'O site organiza o pedido em <strong>5 passos simples</strong>: separar documentos, acessar o Meu INSS, buscar “Salário-Maternidade”, preencher e enviar o pedido e depois acompanhar o andamento.',
-    actions: [
-      { label: '📱 Abrir passo a passo', target: 'como-pedir' },
-      { label: '📂 Ver documentos primeiro', next: 'docs_perfil' },
-      { label: '✅ Abrir checklist de preparação', target: 'checklist' }
-    ]
-  },
-
-  docs_perfil: {
-    text: 'Os documentos mudam conforme a situação. Qual destas opções combina mais com você?',
-    options: [
-      { label: '👩‍💼 Carteira assinada', next: 'docs_clt' },
-      { label: '💼 MEI / autônoma', next: 'docs_mei' },
-      { label: '🌾 Trabalhadora rural', next: 'docs_rural' },
-      { label: '🚶‍♀️ Desempregada', next: 'docs_desempregada' },
-      { label: '👨‍👧 Adoção', next: 'docs_adocao' }
-    ]
-  },
-
-  docs_clt: {
-    text: 'Para o perfil <strong>CLT</strong>, o site orienta separar os documentos pessoais, a certidão de nascimento ou documento equivalente e a documentação do vínculo de trabalho. O checklist pode ser marcado item por item.',
-    actions: [
-      { label: '✅ Abrir checklist CLT', target: 'checklist', checklist: 'clt' },
-      { label: '📖 Ver regras de documentos', target: 'regras' }
-    ]
-  },
-
-  docs_mei: {
-    text: 'Para <strong>MEI/autônoma</strong>, além dos documentos pessoais e do evento que gerou o benefício, o site orienta conferir os comprovantes relacionados às contribuições ao INSS.',
-    actions: [
-      { label: '✅ Abrir checklist MEI/autônoma', target: 'checklist', checklist: 'mei' },
-      { label: '📖 Ver regras de documentos', target: 'regras' }
-    ]
-  },
-
-  docs_rural: {
-    text: 'Para <strong>trabalhadora rural</strong>, o site destaca a necessidade de documentação que demonstre a atividade rural, além dos documentos pessoais e do nascimento ou adoção.',
-    actions: [
-      { label: '✅ Abrir checklist Rural', target: 'checklist', checklist: 'rural' },
-      { label: '📖 Ver regras de documentos', target: 'regras' }
-    ]
-  },
-
-  docs_desempregada: {
-    text: 'Para quem está <strong>desempregada</strong>, é importante reunir os documentos pessoais e os que ajudem a verificar o histórico de trabalho/contribuição. Como o prazo de proteção pode variar, use também a calculadora.',
-    actions: [
-      { label: '✅ Abrir checklist Desempregada', target: 'checklist', checklist: 'desempregada' },
-      { label: '🧮 Usar calculadora', target: 'calculadora' }
-    ]
-  },
-
-  docs_adocao: {
-    text: 'Em caso de <strong>adoção</strong>, o site orienta conferir os documentos pessoais e o termo/documento judicial relativo à adoção ou guarda, conforme o caso.',
-    actions: [
-      { label: '✅ Abrir checklist Adoção', target: 'checklist', checklist: 'adocao' },
-      { label: '👨‍👧 Ver informações para adoção', target: 'homens' }
-    ]
-  },
-
-  familias: {
-    text: 'O benefício não se limita à maternidade biológica. O site tem uma seção específica sobre <strong>adoção, pai ou responsável adotante, casais e outras configurações familiares</strong>.',
-    actions: [
-      { label: '👨‍👧 Abrir seção sobre famílias', target: 'homens' },
-      { label: '📂 Documentos para adoção', next: 'docs_adocao' },
-      { label: '❓ Ver perguntas frequentes', target: 'faq' }
-    ]
-  },
-
-  outras_duvidas: {
-    text: 'Qual assunto você quer entender?',
-    options: [
-      { label: '⏱️ Por quanto tempo dura?', next: 'duracao' },
-      { label: '💰 Quanto posso receber?', next: 'valor_perfil' },
-      { label: '🩺 Aborto ou natimorto', next: 'aborto_natimorto' },
-      { label: '🏢 A empresa negou ou atrasou', next: 'empresa_negou' },
-      { label: '📖 Não entendi uma palavra', next: 'glossario' },
-      { label: '☎️ Quero falar com o INSS', next: 'contato_inss' }
-    ]
-  },
-
-  duracao: {
-    text: 'A duração padrão apresentada no site é de <strong>120 dias</strong>. Há situações específicas, como empresas participantes do Programa Empresa Cidadã, que podem ter regras diferentes.',
-    actions: [
-      { label: '📖 Ver todas as regras de duração', target: 'regras' },
-      { label: '❓ Ver perguntas frequentes', target: 'faq' }
-    ]
-  },
-
-  valor_perfil: {
-    text: 'O valor depende da forma de trabalho. Qual é o seu perfil?',
-    options: [
-      { label: '👩‍💼 CLT', next: 'valor_clt' },
-      { label: '🏬 MEI', next: 'valor_mei' },
-      { label: '💼 Autônoma', next: 'valor_autonoma' },
-      { label: '🌾 Rural', next: 'valor_rural' }
-    ]
-  },
-
-  valor_clt: {
-    text: 'Para <strong>empregada CLT</strong>, o site informa que o valor corresponde ao salário que a trabalhadora recebia.',
-    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
-  },
-  valor_mei: {
-    text: 'Para <strong>MEI</strong>, o site informa o pagamento com base em <strong>1 salário mínimo nacional vigente</strong>.',
-    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
-  },
-  valor_autonoma: {
-    text: 'Para <strong>autônoma</strong>, o site explica que o cálculo considera a média das contribuições ao INSS.',
-    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
-  },
-  valor_rural: {
-    text: 'Para <strong>trabalhadora rural segurada especial</strong>, o site apresenta como referência um salário mínimo por mês.',
-    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
-  },
-
-  aborto_natimorto: {
-    text: 'O site possui uma explicação específica para <strong>aborto não criminoso e natimorto</strong>, incluindo duração do afastamento e necessidade de documentação médica.',
-    actions: [{ label: '💙 Abrir essa explicação', target: 'regras' }]
-  },
-
-  empresa_negou: {
-    text: 'Se a <strong>empresa negar ou atrasar</strong> o benefício, o site orienta procurar os canais de proteção trabalhista, como Ministério do Trabalho, sindicato e, quando necessário, a Justiça do Trabalho.',
-    actions: [{ label: '⚖️ Ver orientação completa', target: 'regras' }]
-  },
-
-  glossario: {
-    text: 'Tudo bem. O site tem um <strong>glossário</strong> que traduz palavras previdenciárias e jurídicas para explicações mais simples.',
-    actions: [{ label: '📖 Abrir glossário', target: 'glossario' }]
-  },
-
-  contato_inss: {
-    text: 'Você pode consultar os canais oficiais do INSS. O site destaca o telefone <strong>135</strong> e o aplicativo/site <strong>Meu INSS</strong>.',
-    actions: [
-      { label: '📞 Ligar para 135', href: 'tel:135' },
-      { label: '📱 Ver passo a passo do Meu INSS', target: 'como-pedir' },
-      { label: '📍 Ver atendimento presencial', target: 'localizador' }
-    ]
-  }
-};
-
-let guideBotCurrent = 'start';
-let guideBotHistory = [];
-let guideBotStarted = false;
-
-function guideBotEls() {
-  return {
-    panel: document.getElementById('guidebotPanel'),
-    launcher: document.getElementById('guidebotLauncher'),
-    messages: document.getElementById('guidebotMessages'),
-    options: document.getElementById('guidebotOptions')
-  };
-}
-
-function toggleGuideBot() {
-  const { panel } = guideBotEls();
-  if (!panel) return;
-  if (panel.classList.contains('open')) closeGuideBot();
-  else openGuideBot();
-}
-
-function openGuideBot() {
-  const { panel, launcher } = guideBotEls();
-  if (!panel || !launcher) return;
-  panel.classList.add('open');
-  panel.setAttribute('aria-hidden', 'false');
-  launcher.setAttribute('aria-expanded', 'true');
-  if (!guideBotStarted) {
-    guideBotStarted = true;
-    renderGuideBotNode('start', false);
-  }
-  setTimeout(() => {
-    const first = panel.querySelector('.guidebot-option, .guidebot-action');
-    if (first) first.focus({ preventScroll: true });
-  }, 100);
-}
-
-function closeGuideBot() {
-  const { panel, launcher } = guideBotEls();
-  if (!panel || !launcher) return;
-  panel.classList.remove('open');
-  panel.setAttribute('aria-hidden', 'true');
-  launcher.setAttribute('aria-expanded', 'false');
-  launcher.focus({ preventScroll: true });
-}
-
-function resetGuideBot() {
-  const { messages } = guideBotEls();
-  guideBotCurrent = 'start';
-  guideBotHistory = [];
-  guideBotStarted = true;
-  if (messages) messages.innerHTML = '';
-  renderGuideBotNode('start', false);
-}
-
-function guideBotAddMessage(html, who) {
-  const { messages } = guideBotEls();
-  if (!messages) return;
-  const div = document.createElement('div');
-  div.className = 'guidebot-message ' + who;
-  div.innerHTML = html;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function renderGuideBotNode(nodeId, addHistory = true, userLabel = '') {
-  const node = GUIDE_BOT[nodeId];
-  const { options } = guideBotEls();
-  if (!node || !options) return;
-
-  if (userLabel) guideBotAddMessage(escapeGuideBotText(userLabel), 'user');
-  if (addHistory && guideBotCurrent && guideBotCurrent !== nodeId) guideBotHistory.push(guideBotCurrent);
-  guideBotCurrent = nodeId;
-
-  window.setTimeout(() => {
-    guideBotAddMessage(node.text, 'bot');
-    renderGuideBotChoices(node);
-  }, userLabel ? 120 : 0);
-}
-
-function renderGuideBotChoices(node) {
-  const { options } = guideBotEls();
-  options.innerHTML = '';
-  const choices = node.options || node.actions || [];
-
-  choices.forEach(choice => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = choice.target || choice.href ? 'guidebot-action' : 'guidebot-option';
-    btn.innerHTML = choice.label;
-    btn.addEventListener('click', () => handleGuideBotChoice(choice));
-    options.appendChild(btn);
-  });
-
-  if (guideBotHistory.length) {
-    const back = document.createElement('button');
-    back.type = 'button';
-    back.className = 'guidebot-back';
-    back.textContent = '← Voltar à pergunta anterior';
-    back.addEventListener('click', guideBotBack);
-    options.appendChild(back);
-  }
-}
-
-function handleGuideBotChoice(choice) {
-  const labelText = stripGuideBotHTML(choice.label || 'Continuar');
-
-  if (choice.next) {
-    renderGuideBotNode(choice.next, true, labelText);
-    return;
-  }
-
-  if (choice.href) {
-    guideBotAddMessage(escapeGuideBotText(labelText), 'user');
-    window.location.href = choice.href;
-    return;
-  }
-
-  if (choice.target) {
-    guideBotAddMessage(escapeGuideBotText(labelText), 'user');
-    guideBotAddMessage('Certo! Vou te levar direto para essa parte da página. 👇', 'bot');
-
-    if (choice.checklist && typeof selecionarPerfilChecklist === 'function') {
-      try {
-        const perfilBtn = document.querySelector(`.checklist-perfil-btn[data-perfil="${choice.checklist}"]`);
-        selecionarPerfilChecklist(choice.checklist, perfilBtn || null);
-      } catch(e) {}
-    }
-
-    const target = document.getElementById(choice.target);
-    if (target) {
-      setTimeout(() => {
-        closeGuideBot();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        target.setAttribute('tabindex', '-1');
-        setTimeout(() => target.focus({ preventScroll: true }), 650);
-      }, 300);
-    }
-  }
-}
-
-function guideBotBack() {
-  if (!guideBotHistory.length) return;
-  const prev = guideBotHistory.pop();
-  guideBotCurrent = prev;
-  const node = GUIDE_BOT[prev];
-  if (!node) return;
-  guideBotAddMessage('← Voltar', 'user');
-  setTimeout(() => {
-    guideBotAddMessage(node.text, 'bot');
-    renderGuideBotChoices(node);
-  }, 100);
-}
-
-function escapeGuideBotText(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-function stripGuideBotHTML(html) {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  return (div.textContent || div.innerText || '').trim();
-}
-
-/* Fecha com ESC sem interferir no restante do site */
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    const panel = document.getElementById('guidebotPanel');
-    if (panel && panel.classList.contains('open')) closeGuideBot();
-  }
-});
-
-
 /* ========== VLIBRAS ========== */
 let vlibrasAtivo = false;
 
@@ -3620,5 +2932,1629 @@ function ativarVLibras() {
   mostrarToast(vlibrasAtivo ? '🤟 VLibras ativado!' : '🤟 VLibras desativado.');
 }
 </script>
+
+
+<!-- ============================================= -->
+<!-- CHATBOT "DUDA" - AJUDA GUIADA LOCAL              -->
+<!-- Árvore de decisão 100% JavaScript + acessibilidade -->
+<!-- ============================================= -->
+
+<button 
+  id="duda-toggle-btn" 
+  aria-label="Abrir chat de dúvidas com a Duda"
+  aria-expanded="false"
+  aria-controls="duda-chat-window"
+  title="Tire suas dúvidas sobre Salário-Maternidade">
+  <span class="duda-icon">💬</span>
+  <span class="duda-badge">Dúvidas?</span>
+  <span class="duda-notification" hidden>1</span>
+</button>
+
+<div 
+  id="duda-chat-window" 
+  role="dialog" 
+  aria-labelledby="duda-chat-title"
+  aria-modal="false"
+  hidden>
+  
+  <header id="duda-chat-header">
+    <div class="duda-header-info">
+      <div class="duda-avatar" aria-hidden="true">🌸</div>
+      <div>
+        <h3 id="duda-chat-title">Duda</h3>
+        <p class="duda-status">
+          <span class="duda-status-dot" aria-hidden="true"></span>
+          <span id="duda-status-text">Ajuda guiada · sem cadastro</span>
+        </p>
+      </div>
+    </div>
+    <div class="duda-header-actions">
+      <button id="duda-search-btn" aria-label="Buscar tópicos" title="Buscar">🔍</button>
+      <button id="duda-favorites-btn" aria-label="Ver favoritos" title="Favoritos">⭐</button>
+      <button id="duda-voice-btn" aria-label="Ativar/desativar leitura em voz" title="Voz">🔊</button>
+      <button id="duda-close-btn" aria-label="Fechar chat" title="Fechar">✕</button>
+    </div>
+  </header>
+
+  <div id="duda-search-panel" hidden>
+    <input 
+      type="search" 
+      id="duda-search-input" 
+      placeholder="Buscar: MEI, demissão, documentos..."
+      aria-label="Buscar tópicos no chat">
+    <div id="duda-search-results"></div>
+  </div>
+
+  <div id="duda-chat-messages" aria-live="polite" aria-atomic="false"></div>
+
+  <div id="duda-legal-notice" role="note">
+    🔒 Ajuda educativa. Não informe CPF, senha ou dados bancários. Suas escolhas ficam neste aparelho. Em caso de dúvida, confirme no INSS (135).
+  </div>
+
+  <div id="duda-chat-options"></div>
+
+  <footer id="duda-chat-footer">
+    <div class="duda-progress">
+      <span id="duda-progress-text">Progresso: 0/15 tópicos</span>
+      <div class="duda-progress-bar">
+        <div id="duda-progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="duda-favorites-panel" hidden>
+  <header>
+    <h3>⭐ Meus Favoritos</h3>
+    <button id="duda-close-favorites" aria-label="Fechar favoritos">✕</button>
+  </header>
+  <div id="duda-favorites-list"></div>
+</div>
+
+<style>
+  :root {
+    --duda-primary: var(--blue-dark, #2176ae);
+    --duda-primary-dark: var(--blue-deeper, #185f8e);
+    --duda-secondary: var(--blue-main, #3b9ee8);
+    --duda-success: #4caf50;
+    --duda-warning: var(--yellow, #FFD166);
+    --duda-danger: #f44336;
+    --duda-bg: #ffffff;
+    --duda-bg-secondary: #f8f9fa;
+    --duda-text: #212529;
+    --duda-text-secondary: #6c757d;
+    --duda-border: #e0e0e0;
+    --duda-shadow: rgba(0,0,0,0.1);
+    --duda-radius: 16px;
+    --duda-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  }
+
+  #duda-toggle-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--duda-primary), var(--duda-secondary));
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(33, 118, 174, 0.38);
+    z-index: 9998;
+    transition: all var(--duda-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: duda-bounce 2s infinite;
+  }
+  #duda-toggle-btn:hover,
+  #duda-toggle-btn:focus {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 32px rgba(33, 118, 174, 0.55);
+    outline: 3px solid white;
+    outline-offset: 3px;
+  }
+  @keyframes duda-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .duda-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+  .duda-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--duda-success);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    animation: duda-pulse 2s infinite;
+  }
+  @keyframes duda-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .duda-notification {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    background: var(--duda-danger);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+
+  #duda-chat-window {
+    position: fixed;
+    bottom: 100px;
+    left: 24px;
+    width: 420px;
+    max-width: calc(100vw - 32px);
+    height: 640px;
+    max-height: calc(100vh - 140px);
+    background: var(--duda-bg);
+    border-radius: var(--duda-radius);
+    box-shadow: 0 16px 48px var(--duda-shadow);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--duda-border);
+    animation: duda-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  #duda-chat-window[hidden] {
+    display: none;
+  }
+  @keyframes duda-slide-up {
+    from { 
+      opacity: 0; 
+      transform: translateY(30px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+
+  #duda-chat-header {
+    background: linear-gradient(135deg, var(--duda-primary), var(--duda-secondary));
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .duda-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .duda-avatar {
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    backdrop-filter: blur(10px);
+  }
+  #duda-chat-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .duda-status {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .duda-status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--duda-success);
+    border-radius: 50%;
+    display: inline-block;
+    animation: duda-pulse-dot 2s infinite;
+  }
+  @keyframes duda-pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+  .duda-header-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .duda-header-actions button {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+  }
+  .duda-header-actions button:hover,
+  .duda-header-actions button:focus {
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.1);
+    outline: 2px solid white;
+  }
+
+  #duda-search-panel {
+    background: var(--duda-bg-secondary);
+    padding: 12px;
+    border-bottom: 1px solid var(--duda-border);
+  }
+  #duda-search-panel[hidden] {
+    display: none;
+  }
+  #duda-search-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--duda-border);
+    border-radius: 20px;
+    font-size: 14px;
+    background: var(--duda-bg);
+    color: var(--duda-text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #duda-search-input:focus {
+    border-color: var(--duda-primary);
+    box-shadow: 0 0 0 3px rgba(33, 118, 174, 0.12);
+  }
+  #duda-search-results {
+    margin-top: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .duda-search-item {
+    padding: 8px 12px;
+    background: var(--duda-bg);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+  }
+  .duda-search-item:hover {
+    background: var(--duda-primary);
+    color: white;
+    transform: translateX(4px);
+  }
+
+  #duda-chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background: var(--duda-bg-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+  }
+  #duda-chat-messages::-webkit-scrollbar {
+    width: 6px;
+  }
+  #duda-chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #duda-chat-messages::-webkit-scrollbar-thumb {
+    background: var(--duda-border);
+    border-radius: 3px;
+  }
+
+  .duda-msg {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    animation: duda-fade-in 0.4s ease-out;
+    word-wrap: break-word;
+    position: relative;
+  }
+  @keyframes duda-fade-in {
+    from { 
+      opacity: 0; 
+      transform: translateY(10px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  .duda-msg.bot {
+    background: var(--duda-bg);
+    color: var(--duda-text);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 8px var(--duda-shadow);
+  }
+  .duda-msg.user {
+    background: linear-gradient(135deg, var(--duda-primary), var(--duda-secondary));
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 2px 8px rgba(33, 118, 174, 0.30);
+  }
+  .duda-msg a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .duda-msg strong {
+    color: var(--duda-primary-dark);
+  }
+  .duda-msg.user strong {
+    color: white;
+  }
+  .duda-msg-favorite {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.2s;
+  }
+  .duda-msg-favorite:hover {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  .duda-msg-favorite.active {
+    opacity: 1;
+    color: var(--duda-warning);
+  }
+
+  .duda-typing {
+    display: inline-flex;
+    gap: 5px;
+    padding: 14px 18px;
+    background: var(--duda-bg);
+    border-radius: 18px;
+    align-self: flex-start;
+    box-shadow: 0 2px 8px var(--duda-shadow);
+  }
+  .duda-typing span {
+    width: 8px;
+    height: 8px;
+    background: var(--duda-text-secondary);
+    border-radius: 50%;
+    animation: duda-typing 1.4s infinite;
+  }
+  .duda-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .duda-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes duda-typing {
+    0%, 60%, 100% { 
+      transform: translateY(0); 
+      opacity: 0.5; 
+    }
+    30% { 
+      transform: translateY(-8px); 
+      opacity: 1; 
+    }
+  }
+
+  #duda-legal-notice {
+    background: #fff3cd;
+    color: #856404;
+    padding: 10px 14px;
+    font-size: 11px;
+    line-height: 1.5;
+    border-top: 1px solid #ffe69c;
+    text-align: center;
+  }
+
+  #duda-chat-options {
+    padding: 12px;
+    background: var(--duda-bg);
+    border-top: 1px solid var(--duda-border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  .duda-option-btn {
+    background: var(--duda-bg-secondary);
+    border: 1px solid var(--duda-border);
+    color: var(--duda-text);
+    padding: 12px 16px;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    transition: all 0.2s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  .duda-option-btn:hover,
+  .duda-option-btn:focus {
+    background: linear-gradient(135deg, var(--duda-primary), var(--duda-secondary));
+    color: white;
+    border-color: var(--duda-primary);
+    outline: none;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(33, 118, 174, 0.30);
+  }
+  .duda-option-number {
+    background: rgba(0,0,0,0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .duda-option-btn:hover .duda-option-number,
+  .duda-option-btn:focus .duda-option-number {
+    background: rgba(255,255,255,0.3);
+  }
+
+  #duda-chat-footer {
+    background: var(--duda-bg);
+    padding: 10px 16px;
+    border-top: 1px solid var(--duda-border);
+  }
+  .duda-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  #duda-progress-text {
+    font-size: 11px;
+    color: var(--duda-text-secondary);
+    font-weight: 600;
+  }
+  .duda-progress-bar {
+    height: 6px;
+    background: var(--duda-bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  #duda-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--duda-primary), var(--duda-secondary));
+    transition: width 0.5s ease-out;
+    border-radius: 3px;
+  }
+
+  #duda-favorites-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90vw;
+    max-height: 80vh;
+    background: var(--duda-bg);
+    border-radius: var(--duda-radius);
+    box-shadow: 0 20px 60px var(--duda-shadow);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #duda-favorites-panel[hidden] {
+    display: none;
+  }
+  #duda-favorites-panel header {
+    background: linear-gradient(135deg, var(--duda-warning), #f57c00);
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #duda-favorites-panel header h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  #duda-close-favorites {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  #duda-favorites-list {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  .duda-favorite-item {
+    background: var(--duda-bg-secondary);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--duda-warning);
+  }
+  .duda-favorite-item h4 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    color: var(--duda-primary);
+  }
+  .duda-favorite-item p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--duda-text);
+  }
+  .duda-favorite-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--duda-text-secondary);
+  }
+
+  @media (max-width: 480px) {
+    #duda-chat-window {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+    #duda-toggle-btn {
+      bottom: 16px;
+      left: 16px;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    #duda-chat-window { border: 3px solid black; }
+    .duda-msg.bot { border: 2px solid black; }
+    .duda-option-btn { border: 2px solid black; }
+  }
+
+  /* Integração com a acessibilidade e impressão do site */
+  @media (prefers-reduced-motion: reduce) {
+    #duda-toggle-btn, #duda-chat-window, .duda-msg, .duda-typing span,
+    .duda-status-dot, .duda-badge, #duda-progress-fill {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media print {
+    #duda-toggle-btn, #duda-chat-window, #duda-favorites-panel {
+      display: none !important;
+    }
+  }
+
+  body.high-contrast #duda-chat-window,
+  body.high-contrast #duda-favorites-panel {
+    border: 3px solid var(--yellow, #ffe066);
+  }
+
+  .duda-option-btn {
+    min-height: 48px;
+    line-height: 1.35;
+  }
+
+  #duda-legal-notice {
+    font-size: 12px;
+  }
+
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  // ==========================================
+  // ÁRVORE DE DECISÃO EXPANDIDA
+  // ==========================================
+  const ARVORE = {
+    inicio: {
+      mensagem: "Olá! Sou a <strong>Duda</strong> 🌼, uma guia interativa para ajudar você a encontrar informações sobre Salário-Maternidade.\n\nEstou aqui para te ajudar a entender o <strong>Salário-Maternidade</strong> de forma simples e rápida.\n\n💡 <strong>Você não precisa conhecer nenhuma lei.</strong> Responda algumas opções e eu mostro o caminho mais útil para o seu caso.",
+      opcoes: [
+        { texto: "🎯 Descobrir meu caminho", proximo: "diagnostico_1" },
+        { texto: "📖 Explorar tópicos", proximo: "topicos" },
+        { texto: "🔍 Buscar informação específica", acao: "abrir_busca" },
+        { texto: "❓ Perguntas frequentes", proximo: "faq_rapido" },
+        { texto: "🆘 Falar com humano (135)", proximo: "contato_humano" }
+      ],
+      progresso: false
+    },
+
+    diagnostico_1: {
+      mensagem: "Ótimo! Vamos fazer um orientação rápida em 3 perguntas.\n\n<strong>Pergunta 1 de 3:</strong>\n\nQual é sua situação atual de trabalho?",
+      opcoes: [
+        { texto: "💼 Tenho carteira assinada (CLT)", proximo: "diagnostico_2_clt", perfil: "clt" },
+        { texto: "🏬 Sou MEI ou Autônoma", proximo: "diagnostico_2_mei", perfil: "mei" },
+        { texto: "🚶‍♀️ Estou desempregada", proximo: "diagnostico_2_desemp", perfil: "desempregada" },
+        { texto: "🌾 Sou trabalhadora rural", proximo: "diagnostico_2_rural", perfil: "rural" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_2_clt: {
+      mensagem: "Perfeito! Você é <strong>CLT</strong> 💼\n\n<strong>Pergunta 2 de 3:</strong>\n\nVocê já teve o bebê ou ainda está grávida?",
+      opcoes: [
+        { texto: "🤰 Ainda estou grávida", proximo: "diagnostico_3_clt_gravida" },
+        { texto: "👶 Já tive o bebê", proximo: "diagnostico_3_clt_pos" },
+        { texto: "🏥 Tive aborto ou natimorto", proximo: "diagnostico_3_clt_aborto" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_clt_gravida: {
+      mensagem: "🎉 <strong>ÓTIMAS NOTÍCIAS!</strong>\n\nComo CLT, você tem:\n\n✅ <strong>120 dias</strong> de salário-maternidade\n✅ <strong>Sem carência</strong> (não precisa ter pago INSS antes)\n✅ <strong>Estabilidade</strong> no emprego da gravidez até 5 meses após o parto\n✅ Benefício pago pela <strong>empresa</strong>\n✅ Pode começar até <strong>28 dias antes</strong> do parto com atestado\n\n🏆 Se sua empresa for do <strong>Programa Empresa Cidadã</strong>, pode ser <strong>180 dias</strong>!\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais sobre algum desses pontos?",
+      opcoes: [
+        { texto: "💰 Quanto vou receber?", proximo: "resultado_clt_valor" },
+        { texto: "📋 Quais documentos preciso?", proximo: "resultado_clt_docs" },
+        { texto: "📱 Como pedir pelo app?", proximo: "resultado_clt_como" },
+        { texto: "🏆 Sobre Empresa Cidadã", proximo: "empresa_cidada" },
+        { texto: "✅ Ver resultado completo", proximo: "resultado_final_clt" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_clt_pos: {
+      mensagem: "🎉 <strong>VOCÊ TEM DIREITO!</strong>\n\nComo CLT que já teve o bebê:\n\n✅ <strong>120 dias</strong> de benefício (ou 180 se Empresa Cidadã)\n✅ Valor igual ao seu <strong>salário integral</strong>\n✅ <strong>Estabilidade</strong> garantida até 5 meses após o parto\n✅ Pode pedir até <strong>5 anos</strong> após o nascimento\n\n⚠️ <strong>Importante:</strong> Se a empresa ainda não pagou, procure o RH ou denuncie ao Ministério do Trabalho!\n\n<strong>Pergunta 3 de 3:</strong>\nO que você precisa agora?",
+      opcoes: [
+        { texto: "💰 Confirmar valor", proximo: "resultado_clt_valor" },
+        { texto: "📋 Ver documentos", proximo: "resultado_clt_docs" },
+        { texto: "📱 Como pedir se não recebi", proximo: "problema_empresa" },
+        { texto: "✅ Ver resultado completo", proximo: "resultado_final_clt" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_clt_aborto: {
+      mensagem: "💙 <strong>Sinto muito pela sua perda.</strong>\n\nA lei também te protege nesse momento:\n\n🩺 <strong>Aborto não criminoso:</strong>\n→ 2 semanas de repouso remunerado\n→ Exige atestado médico\n\n🩺 <strong>Natimorto:</strong>\n→ 120 dias completos de benefício\n\nVocê não está sozinha. A lei garante seu direito. 💛\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
+      opcoes: [
+        { texto: "📋 Documentos necessários", proximo: "documentos_aborto" },
+        { texto: "📱 Como pedir", proximo: "como_pedir" },
+        { texto: "🆘 Apoio emocional", proximo: "apoio_emocional" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_2_mei: {
+      mensagem: "Ótimo! Você é <strong>MEI ou Autônoma</strong> 🏬\n\n<strong>Pergunta 2 de 3:</strong>\n\nVocê pagou pelo menos 1 contribuição ao INSS antes de engravidar ou adotar?",
+      opcoes: [
+        { texto: "✅ Sim, paguei em dia", proximo: "diagnostico_3_mei_sim" },
+        { texto: "❌ Não, não paguei", proximo: "diagnostico_3_mei_nao" },
+        { texto: "🤔 Não tenho certeza", proximo: "diagnostico_3_mei_duvida" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_mei_sim: {
+      mensagem: "🎉 <strong>PERFEITO! VOCÊ TEM DIREITO!</strong>\n\n🎊 <strong>Boa notícia:</strong> O STF derrubou a carência de 10 meses!\n\n✅ Basta ter <strong>1 contribuição em dia</strong> antes do parto\n✅ Benefício pago pelo <strong>INSS</strong>\n✅ <strong>120 dias</strong> de licença\n✅ Valor: <strong>1 salário mínimo</strong> (MEI) ou média das contribuições (autônoma)\n\n<strong>Pergunta 3 de 3:</strong>\nO que quer saber agora?",
+      opcoes: [
+        { texto: "💰 Confirmar valor", proximo: "resultado_mei_valor" },
+        { texto: "📋 Ver documentos", proximo: "resultado_mei_docs" },
+        { texto: "📱 Como pedir pelo app", proximo: "resultado_mei_como" },
+        { texto: "✅ Ver resultado completo", proximo: "resultado_final_mei" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_mei_nao: {
+      mensagem: "⚠️ <strong>Atenção!</strong>\n\nSe você <strong>não pagou nenhuma contribuição</strong> antes do parto ou adoção, infelizmente <strong>não tem direito</strong> ao salário-maternidade como MEI/autônoma.\n\n💡 <strong>Mas calma!</strong> Se você:\n• Trabalhou com carteira assinada antes → pode estar no <strong>Período de Graça</strong>\n• É trabalhadora rural → tem direito sem contribuição\n• Seu marido trabalha → ele pode ter licença-paternidade\n\n<strong>Pergunta 3 de 3:</strong>\nQuer explorar alguma dessas opções?",
+      opcoes: [
+        { texto: "⏳ Verificar Período de Graça", proximo: "periodo_graca" },
+        { texto: "🌾 Sou trabalhadora rural", proximo: "diagnostico_2_rural" },
+        { texto: "👨 Licença-paternidade", proximo: "licenca_paternidade" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_mei_duvida: {
+      mensagem: "🤔 <strong>Sem problemas!</strong>\n\nPara ter direito como MEI/autônoma, você precisa ter pago <strong>pelo menos 1 contribuição ANTES do parto ou adoção</strong>.\n\n📱 <strong>Como verificar:</strong>\n1. Abra o app <strong>Meu INSS</strong>\n2. Faça login com gov.br\n3. Clique em <strong>\"Extrato de Contribuição\" (CNIS)</strong>\n4. Veja se há pagamentos antes da gravidez\n\n⚠️ <strong>Importante:</strong> Pagamentos retroativos NÃO contam!\n\n<strong>Pergunta 3 de 3:</strong>\nQuer ajuda para verificar?",
+      opcoes: [
+        { texto: "📱 Abrir Meu INSS agora", acao: "abrir_meu_inss" },
+        { texto: "📋 Ver documentos", proximo: "documentos" },
+        { texto: "📞 Ligar 135 para confirmar", acao: "ligar_135" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_2_desemp: {
+      mensagem: "Entendi! Você está <strong>desempregada</strong> 🚶‍♀️\n\n<strong>Pergunta 2 de 3:</strong>\n\nHá quanto tempo você parou de contribuir ao INSS?",
+      opcoes: [
+        { texto: "📅 Menos de 1 ano", proximo: "diagnostico_3_desemp_1" },
+        { texto: "📅 Entre 1 e 2 anos", proximo: "diagnostico_3_desemp_2" },
+        { texto: "📅 Entre 2 e 3 anos", proximo: "diagnostico_3_desemp_3" },
+        { texto: "📅 Mais de 3 anos", proximo: "diagnostico_3_desemp_4" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_desemp_1: {
+      mensagem: "🎉 <strong>ÓTIMA NOTÍCIA!</strong>\n\nCom menos de 1 ano sem contribuir, você está no <strong>Período de Graça</strong> de <strong>12 meses</strong>!\n\n✅ Você <strong>TEM DIREITO</strong> ao salário-maternidade\n✅ O INSS vai pagar o benefício\n✅ Valor: média das suas últimas contribuições\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
+      opcoes: [
+        { texto: "💰 Confirmar valor", proximo: "resultado_desemp_valor" },
+        { texto: "📋 Ver documentos", proximo: "resultado_desemp_docs" },
+        { texto: "📱 Como pedir", proximo: "resultado_desemp_como" },
+        { texto: "✅ Ver resultado completo", proximo: "resultado_final_desemp" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_desemp_2: {
+      mensagem: "🎉 <strong>VOCÊ AINDA TEM DIREITO!</strong>\n\nEntre 1 e 2 anos sem contribuir, você pode estar no Período de Graça de <strong>24 meses</strong> se:\n\n✅ Tem <strong>mais de 10 anos</strong> de contribuição ao INSS\n\n📊 <strong>Como saber:</strong>\n• Some todos os meses trabalhados na vida\n• Se tiver +120 meses (10 anos) → prazo é 24 meses\n\n<strong>Pergunta 3 de 3:</strong>\nQuer calcular seu prazo exato?",
+      opcoes: [
+        { texto: "🧮 Usar Calculadora do site", acao: "abrir_calculadora" },
+        { texto: "📋 Ver documentos", proximo: "documentos" },
+        { texto: "📱 Como pedir", proximo: "como_pedir" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_desemp_3: {
+      mensagem: "🎉 <strong>AINDA PODE TER DIREITO!</strong>\n\nEntre 2 e 3 anos sem contribuir, você pode estar no Período de Graça de <strong>36 meses</strong> se:\n\n✅ Tem <strong>mais de 10 anos</strong> de contribuição AO INSS\n✅ <strong>E</strong> comprova desemprego (seguro-desemprego ou baixa na carteira)\n\n📊 Esse é o prazo máximo de proteção!\n\n<strong>Pergunta 3 de 3:</strong>\nQuer calcular seu prazo exato?",
+      opcoes: [
+        { texto: "🧮 Usar Calculadora do site", acao: "abrir_calculadora" },
+        { texto: "📋 Ver documentos", proximo: "documentos" },
+        { texto: "📱 Como pedir", proximo: "como_pedir" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_desemp_4: {
+      mensagem: "⚠️ <strong>Atenção!</strong>\n\nCom mais de 3 anos sem contribuir, provavelmente <strong>expirou o Período de Graça</strong>.\n\n💡 <strong>Mas verifique:</strong>\n• Se você voltou a contribuir em algum momento → o prazo reinicia\n• Se recebeu seguro-desemprego → pode ter estendido o prazo\n• Se é trabalhadora rural → tem direito sem contribuição\n\n<strong>Pergunta 3 de 3:</strong>\nQuer explorar alguma dessas opções?",
+      opcoes: [
+        { texto: "🧮 Calcular prazo exato", acao: "abrir_calculadora" },
+        { texto: "🌾 Sou trabalhadora rural", proximo: "diagnostico_2_rural" },
+        { texto: "📞 Ligar 135 para confirmar", acao: "ligar_135" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_2_rural: {
+      mensagem: "Perfeito! Você é <strong>trabalhadora rural</strong> 🌾\n\n<strong>Pergunta 2 de 3:</strong>\n\nVocê trabalha na agricultura familiar para sustento da sua família?",
+      opcoes: [
+        { texto: "✅ Sim, é minha atividade principal", proximo: "diagnostico_3_rural_sim" },
+        { texto: "🤔 Trabalho na roça mas tenho outra renda", proximo: "diagnostico_3_rural_misto" },
+        { texto: "❌ Não, trabalho em fazenda de outros", proximo: "diagnostico_3_rural_nao" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_rural_sim: {
+      mensagem: "🎉 <strong>EXCELENTE! VOCÊ TEM DIREITO!</strong>\n\nComo <strong>segurada especial</strong> (trabalhadora rural):\n\n✅ <strong>Não precisa</strong> ter contribuído mensalmente\n✅ Basta <strong>comprovar atividade rural</strong>\n✅ <strong>120 dias</strong> de benefício\n✅ Valor: <strong>1 salário mínimo vigente</strong>\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
+      opcoes: [
+        { texto: "📋 Documentos necessários", proximo: "documentos_rural" },
+        { texto: "📱 Como pedir", proximo: "como_pedir" },
+        { texto: "💰 Confirmar valor", proximo: "resultado_rural_valor" },
+        { texto: "✅ Ver resultado completo", proximo: "resultado_final_rural" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_rural_misto: {
+      mensagem: "🤔 <strong>Situação mista!</strong>\n\nSe você trabalha na roça <strong>E</strong> tem outra renda, depende:\n\n✅ Se a atividade rural é <strong>predominante</strong> → direito como segurada especial\n⚠️ Se você contribui como MEI/autônoma → segue regras urbanas\n\n💡 <strong>Dica:</strong> O INSS analisa caso a caso. O importante é comprovar que a agricultura é seu sustento.\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
+      opcoes: [
+        { texto: "📋 Documentos para comprovar", proximo: "documentos_rural" },
+        { texto: "📞 Ligar 135 para confirmar", acao: "ligar_135" },
+        { texto: "📱 Como pedir", proximo: "como_pedir" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    diagnostico_3_rural_nao: {
+      mensagem: "⚠️ <strong>Entendi!</strong>\n\nSe você trabalha em fazenda de outros (como empregada), você é <strong>segurada empregada rural</strong>.\n\n✅ Tem os <strong>mesmos direitos da CLT urbana</strong>\n✅ <strong>120 dias</strong> de benefício\n✅ Sem carência\n✅ Paga pela empresa (fazenda)\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
+      opcoes: [
+        { texto: "💼 Ver regras como CLT", proximo: "diagnostico_2_clt" },
+        { texto: "📋 Documentos", proximo: "documentos" },
+        { texto: "📱 Como pedir", proximo: "como_pedir" },
+        { texto: "✅ Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_final_clt: {
+      mensagem: "🎉 <strong>SEU RESULTADO COMPLETO (CLT):</strong>\n\n✅ <strong>Orientação inicial:</strong> há indicação de direito conforme as respostas\n✅ <strong>Duração:</strong> 120 dias (ou 180 se Empresa Cidadã)\n✅ <strong>Valor:</strong> Salário integral\n✅ <strong>Quem paga:</strong> Empresa\n✅ <strong>Estabilidade:</strong> Da gravidez até 5 meses após parto\n✅ <strong>Carência:</strong> Não precisa\n✅ <strong>Prazo para pedir:</strong> Até 5 anos\n\n📋 <strong>Próximos passos:</strong>\n1. Avise o RH da empresa\n2. Apresente certidão de nascimento\n3. Receba o benefício diretamente no salário\n\n📌 Use esta orientação como ponto de partida e confirme detalhes específicos com o RH ou INSS quando necessário.",
+      opcoes: [
+        { texto: "📋 Ver checklist completa", acao: "abrir_checklist" },
+        { texto: "📤 Compartilhar resultado", acao: "compartilhar" },
+        { texto: "⭐ Salvar nos favoritos", acao: "favoritar" },
+        { texto: "🔄 Refazer diagnóstico", proximo: "inicio" }
+      ],
+      progresso: true,
+      final: true
+    },
+
+    resultado_final_mei: {
+      mensagem: "🎉 <strong>SEU RESULTADO COMPLETO (MEI/Autônoma):</strong>\n\n✅ <strong>Orientação inicial:</strong> há indicação de direito conforme as respostas\n✅ <strong>Duração:</strong> 120 dias\n✅ <strong>Valor:</strong> 1 salário mínimo (MEI) ou média (autônoma)\n✅ <strong>Quem paga:</strong> INSS\n✅ <strong>Carência:</strong> Apenas 1 contribuição antes do parto\n✅ <strong>Prazo para pedir:</strong> Até 5 anos\n\n📋 <strong>Próximos passos:</strong>\n1. Reúna documentos (RG, CPF, certidão, comprovante INSS)\n2. Abra app Meu INSS\n3. Solicite Salário-Maternidade\n4. Aguarde análise\n\n📌 Use esta orientação como ponto de partida e confirme detalhes específicos com o INSS quando necessário.",
+      opcoes: [
+        { texto: "📋 Ver checklist completa", acao: "abrir_checklist" },
+        { texto: "📱 Abrir Meu INSS agora", acao: "abrir_meu_inss" },
+        { texto: "📤 Compartilhar resultado", acao: "compartilhar" },
+        { texto: "⭐ Salvar nos favoritos", acao: "favoritar" },
+        { texto: "🔄 Refazer diagnóstico", proximo: "inicio" }
+      ],
+      progresso: true,
+      final: true
+    },
+
+    resultado_final_desemp: {
+      mensagem: "🎉 <strong>SEU RESULTADO COMPLETO (Desempregada):</strong>\n\n✅ <strong>Orientação inicial:</strong> há indicação de direito conforme as respostas (Período de Graça)\n✅ <strong>Duração:</strong> 120 dias\n✅ <strong>Valor:</strong> Média das últimas contribuições\n✅ <strong>Quem paga:</strong> INSS\n✅ <strong>Prazo para pedir:</strong> Até 5 anos\n\n📋 <strong>Próximos passos:</strong>\n1. Reúna documentos (RG, CPF, certidão, CTPS com baixa)\n2. Abra app Meu INSS\n3. Solicite Salário-Maternidade\n4. Aguarde análise\n\n📌 O período de proteção depende do seu histórico. Use a calculadora do site e confirme o resultado no INSS quando necessário.",
+      opcoes: [
+        { texto: "📋 Ver checklist completa", acao: "abrir_checklist" },
+        { texto: "📱 Abrir Meu INSS agora", acao: "abrir_meu_inss" },
+        { texto: "📤 Compartilhar resultado", acao: "compartilhar" },
+        { texto: "⭐ Salvar nos favoritos", acao: "favoritar" },
+        { texto: "🔄 Refazer diagnóstico", proximo: "inicio" }
+      ],
+      progresso: true,
+      final: true
+    },
+
+    resultado_final_rural: {
+      mensagem: "🎉 <strong>SEU RESULTADO COMPLETO (Trabalhadora Rural):</strong>\n\n✅ <strong>Orientação inicial:</strong> há indicação de direito conforme as respostas\n✅ <strong>Duração:</strong> 120 dias\n✅ <strong>Valor:</strong> 1 salário mínimo vigente\n✅ <strong>Quem paga:</strong> INSS\n✅ <strong>Carência:</strong> Não precisa contribuir\n✅ <strong>Prazo para pedir:</strong> Até 5 anos\n\n📋 <strong>Próximos passos:</strong>\n1. Reúna documentos de atividade rural\n2. Abra app Meu INSS\n3. Solicite Salário-Maternidade\n4. Aguarde análise\n\n📌 Use esta orientação como ponto de partida e confirme detalhes específicos com o INSS quando necessário.",
+      opcoes: [
+        { texto: "📋 Ver checklist completa", acao: "abrir_checklist" },
+        { texto: "📱 Abrir Meu INSS agora", acao: "abrir_meu_inss" },
+        { texto: "📤 Compartilhar resultado", acao: "compartilhar" },
+        { texto: "⭐ Salvar nos favoritos", acao: "favoritar" },
+        { texto: "🔄 Refazer diagnóstico", proximo: "inicio" }
+      ],
+      progresso: true,
+      final: true
+    },
+
+
+
+    /* ===== Estados complementares adicionados na adaptação ===== */
+    resultado_clt_valor: {
+      mensagem: "💰 <strong>Valor para quem trabalha com carteira assinada:</strong>\n\nEm regra, o salário-maternidade acompanha a <strong>remuneração integral</strong> da empregada.\n\n📌 Se houver salário variável, comissões ou uma situação diferente, vale conferir o cálculo com o RH.",
+      opcoes: [
+        { texto: "📋 Ver documentos", proximo: "resultado_clt_docs" },
+        { texto: "📱 Entender como receber", proximo: "resultado_clt_como" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_clt_docs: {
+      mensagem: "📋 <strong>Documentos — CLT:</strong>\n\nTenha em mãos seus documentos pessoais e os documentos relacionados ao nascimento, adoção ou afastamento. A empresa pode solicitar informações adicionais conforme o caso.\n\n👉 O site também possui um checklist que organiza os itens por perfil.",
+      opcoes: [
+        { texto: "✅ Abrir checklist CLT", acao: "abrir_checklist" },
+        { texto: "📱 Como funciona o pedido", proximo: "resultado_clt_como" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_clt_como: {
+      mensagem: "📱 <strong>Como funciona para CLT:</strong>\n\nNormalmente, a empregada comunica o afastamento ao <strong>RH ou empregador</strong>, que orienta o procedimento interno.\n\nSe houver dúvida sobre quem deve pagar ou como proceder no seu caso, use os canais oficiais do INSS ou procure orientação profissional.",
+      opcoes: [
+        { texto: "📋 Abrir checklist", acao: "abrir_checklist" },
+        { texto: "📞 Ver canais oficiais", proximo: "contato_humano" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    problema_empresa: {
+      mensagem: "⚠️ <strong>A empresa não pagou ou negou?</strong>\n\n1️⃣ Peça uma explicação ao RH e guarde protocolos, mensagens e documentos.\n2️⃣ Confira sua situação pelos canais oficiais.\n3️⃣ Se o problema continuar, procure orientação trabalhista ou previdenciária.\n\nEvite enviar CPF, senha ou documentos pessoais pelo chat.",
+      opcoes: [
+        { texto: "📞 Canais oficiais", proximo: "contato_humano" },
+        { texto: "📋 Ver documentos", proximo: "resultado_clt_docs" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    documentos_aborto: {
+      mensagem: "📋 <strong>Documentos em caso de aborto não criminoso ou natimorto:</strong>\n\nTenha documentos pessoais e o <strong>documento médico</strong> que comprove a situação e o período de afastamento. Outros documentos podem ser solicitados conforme o vínculo e o caso concreto.\n\n💙 Se precisar, use o checklist e confirme a documentação nos canais oficiais.",
+      opcoes: [
+        { texto: "✅ Abrir checklist", acao: "abrir_checklist" },
+        { texto: "📞 Canais oficiais", proximo: "contato_humano" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_mei_valor: {
+      mensagem: "💰 <strong>Valor para MEI/Autônoma:</strong>\n\nO valor depende da categoria e do histórico contributivo. Para MEI, o benefício costuma estar ligado ao <strong>salário mínimo vigente</strong>; para outras contribuintes, o cálculo pode variar conforme as contribuições.\n\n📌 Para valor exato, confirme no Meu INSS.",
+      opcoes: [
+        { texto: "📱 Abrir Meu INSS", acao: "abrir_meu_inss" },
+        { texto: "📋 Ver documentos", proximo: "resultado_mei_docs" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_mei_docs: {
+      mensagem: "📋 <strong>Documentos — MEI/Autônoma:</strong>\n\nSepare documentos pessoais, documento relacionado ao nascimento/adoção e comprovantes do seu vínculo ou contribuições quando forem necessários.\n\n👉 O checklist do site mostra os itens específicos para MEI/Autônoma.",
+      opcoes: [
+        { texto: "✅ Abrir checklist MEI/Autônoma", acao: "abrir_checklist" },
+        { texto: "📱 Como pedir", proximo: "resultado_mei_como" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_mei_como: {
+      mensagem: "📱 <strong>Como pedir — MEI/Autônoma:</strong>\n\nO pedido pode ser feito pelos canais do <strong>Meu INSS</strong>. Tenha os documentos digitalizados ou fotografados de forma legível e acompanhe o andamento pelo próprio serviço.",
+      opcoes: [
+        { texto: "🔗 Abrir Meu INSS", acao: "abrir_meu_inss" },
+        { texto: "📋 Abrir checklist", acao: "abrir_checklist" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_desemp_valor: {
+      mensagem: "💰 <strong>Valor para quem está desempregada:</strong>\n\nO cálculo depende do seu histórico de contribuições e da categoria em que você estava segurada.\n\n📌 Como o valor pode mudar de caso para caso, use o Meu INSS para conferir o cálculo aplicado ao seu histórico.",
+      opcoes: [
+        { texto: "🔗 Abrir Meu INSS", acao: "abrir_meu_inss" },
+        { texto: "📋 Ver documentos", proximo: "resultado_desemp_docs" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_desemp_docs: {
+      mensagem: "📋 <strong>Documentos — desempregada:</strong>\n\nSepare documentos pessoais, documento relacionado ao nascimento/adoção e documentos que ajudem a demonstrar seu último vínculo e a data em que parou de trabalhar ou contribuir.\n\n👉 O checklist do site organiza esses itens para você.",
+      opcoes: [
+        { texto: "✅ Abrir checklist de desempregada", acao: "abrir_checklist" },
+        { texto: "📱 Como pedir", proximo: "resultado_desemp_como" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_desemp_como: {
+      mensagem: "📱 <strong>Como pedir — desempregada:</strong>\n\nO pedido é feito ao <strong>INSS</strong>. Antes, vale conferir se você ainda está dentro do período de proteção. Você pode usar a calculadora do site e depois seguir para o Meu INSS.",
+      opcoes: [
+        { texto: "🧮 Usar calculadora", acao: "abrir_calculadora" },
+        { texto: "🔗 Abrir Meu INSS", acao: "abrir_meu_inss" },
+        { texto: "📋 Abrir checklist", acao: "abrir_checklist" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    documentos_rural: {
+      mensagem: "🌾 <strong>Documentos — trabalhadora rural:</strong>\n\nAlém dos documentos pessoais e do nascimento/adoção, é importante reunir documentos que ajudem a <strong>comprovar a atividade rural</strong>. O tipo de prova pode variar conforme a situação da família e da atividade exercida.\n\n👉 Abra o checklist rural para organizar o que você já possui.",
+      opcoes: [
+        { texto: "✅ Abrir checklist rural", acao: "abrir_checklist" },
+        { texto: "📞 Confirmar no 135", acao: "ligar_135" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    resultado_rural_valor: {
+      mensagem: "💰 <strong>Valor — trabalhadora rural:</strong>\n\nPara a segurada especial, o benefício pode corresponder ao <strong>salário mínimo vigente</strong>, conforme o enquadramento reconhecido pelo INSS.\n\n📌 Situações com contribuições facultativas ou outro vínculo podem exigir análise diferente.",
+      opcoes: [
+        { texto: "📋 Ver documentos rurais", proximo: "documentos_rural" },
+        { texto: "📞 Confirmar no 135", acao: "ligar_135" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    topicos: {
+      mensagem: "📚 <strong>Explore todos os tópicos:</strong>\n\nEscolha o que quer aprender:",
+      opcoes: [
+        { texto: "👶 Quem tem direito", acao: "ir_secao_quem" },
+        { texto: "📋 Regras detalhadas", acao: "ir_secao_regras" },
+        { texto: "⏳ Período de Graça", acao: "ir_secao_graca" },
+        { texto: "🧮 Calculadora", acao: "abrir_calculadora" },
+        { texto: "👨 Pais e famílias diversas", acao: "ir_secao_homens" },
+        { texto: "📱 Como pedir", acao: "ir_secao_como" },
+        { texto: "❓ FAQ completo", acao: "ir_secao_faq" },
+        { texto: "📖 Glossário", acao: "ir_secao_glossario" },
+        { texto: "❌ Mitos e Verdades", acao: "ir_secao_mitos" },
+        { texto: "🎮 Quiz interativo", acao: "ir_secao_quiz" },
+        { texto: "🏢 Agências do INSS", acao: "ir_secao_agencias" },
+        { texto: "📜 Linha do Tempo", acao: "ir_secao_timeline" },
+        { texto: "← Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: false
+    },
+
+    faq_rapido: {
+      mensagem: "❓ <strong>Perguntas Frequentes:</strong>\n\nClique para ver a resposta:",
+      opcoes: [
+        { texto: "💰 Posso ter renda extra durante a licença?", proximo: "faq_renda" },
+        { texto: "🧾 Desconta Imposto de Renda?", proximo: "faq_ir" },
+        { texto: "🤰 Posso começar antes do parto?", proximo: "faq_antes" },
+        { texto: "👶 Adoção de criança maior?", proximo: "faq_adocao_maior" },
+        { texto: "📅 Qual prazo para pedir?", proximo: "faq_prazo" },
+        { texto: "🏬 MEI precisa de 10 meses?", proximo: "faq_mei_carencia" },
+        { texto: "← Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: false
+    },
+
+    faq_renda: {
+      mensagem: "💰 <strong>Renda extra durante a licença:</strong>\n\n👷 <strong>CLT:</strong> ❌ Não pode exercer outra atividade remunerada durante a licença.\n\n🏬 <strong>MEI/Autônoma:</strong> ✅ Pode ter rendimentos de outras fontes, mas deve respeitar as regras do INSS.\n\n⚠️ <strong>Importante:</strong> Para CLT, trabalhar durante a licença pode ser considerado fraude!",
+      opcoes: [
+        { texto: "← Voltar ao FAQ", proximo: "faq_rapido" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    faq_ir: {
+      mensagem: "🧾 <strong>Imposto de Renda:</strong>\n\n✅ <strong>Sim!</strong> O salário-maternidade pago pelo INSS é tributado pelo IR, desde que supere o limite de isenção anual.\n\n💼 O pago diretamente pela empresa também está sujeito ao IR normal.\n\n💡 <strong>Dica:</strong> Declare normalmente no Imposto de Renda!",
+      opcoes: [
+        { texto: "← Voltar ao FAQ", proximo: "faq_rapido" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    faq_antes: {
+      mensagem: "🤰 <strong>Começar antes do parto:</strong>\n\n✅ <strong>Sim!</strong> Com atestado médico, a licença pode começar até <strong>28 dias antes</strong> da data prevista do parto.\n\n🏥 Especialmente recomendado em gestações de risco.\n\n⚠️ <strong>Importante:</strong> O total de dias não muda (120 ou 180)!",
+      opcoes: [
+        { texto: "← Voltar ao FAQ", proximo: "faq_rapido" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    faq_adocao_maior: {
+      mensagem: "👶 <strong>Adoção de criança maior:</strong>\n\n✅ <strong>Sim!</strong> Desde 2013 a duração é unificada: <strong>120 dias independentemente da idade</strong> da criança adotada.\n\n📊 Antes havia variação por faixa etária, mas hoje o prazo é igual para todos.\n\n🏆 Parabéns pela adoção! 💛",
+      opcoes: [
+        { texto: "← Voltar ao FAQ", proximo: "faq_rapido" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    faq_prazo: {
+      mensagem: "📅 <strong>Prazo para pedir:</strong>\n\n✅ Você tem até <strong>5 anos</strong> após o nascimento ou adoção para pedir o benefício (prescrição quinquenal).\n\n💡 <strong>Mas atenção:</strong> O pagamento pode ser retroativo, mas o ideal é solicitar o quanto antes!\n\n⚠️ Para CLT, o pedido costuma ser feito pelo RH logo após o parto.",
+      opcoes: [
+        { texto: "← Voltar ao FAQ", proximo: "faq_rapido" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    faq_mei_carencia: {
+      mensagem: "🏬 <strong>MEI precisa de 10 meses de carência?</strong>\n\n❌ <strong>Não mais!</strong> O STF derrubou a exigência de 10 meses de carência.\n\n✅ Agora basta ter feito <strong>pelo menos 1 contribuição em dia</strong> antes do parto para garantir o direito.\n\n⚠️ <strong>Atenção:</strong> Pagamentos retroativos NÃO contam!",
+      opcoes: [
+        { texto: "← Voltar ao FAQ", proximo: "faq_rapido" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    empresa_cidada: {
+      mensagem: "🏆 <strong>Programa Empresa Cidadã:</strong>\n\n✅ Empresas voluntárias que prorrogam a licença-maternidade de <strong>120 para 180 dias</strong>\n\n✅ Licença-paternidade vai de <strong>5 para 20 dias</strong>\n\n💡 <strong>Como funciona:</strong>\n• Empresa recebe incentivo fiscal (dedução no IR)\n• Funcionária recebe os 60 dias extras remunerados\n\n📋 <strong>Como saber se sua empresa participa:</strong>\nPergunte ao RH ou ao departamento pessoal!\n\n⚖️ Base legal: Lei 11.770/2008",
+      opcoes: [
+        { texto: "← Voltar às perguntas", proximo: "diagnostico_1" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    periodo_graca: {
+      mensagem: "⏳ <strong>Período de Graça:</strong>\n\nÉ o tempo em que você mantém os direitos do INSS mesmo sem contribuir:\n\n📌 <strong>12 meses</strong> (regra geral após demissão)\n📌 <strong>24 meses</strong> (se tem +10 anos de INSS)\n📌 <strong>36 meses</strong> (se tem +10 anos E comprova desemprego)\n\n⚠️ O prazo vai até o dia 15 do segundo mês seguinte ao fim da contagem.\n\n👉 Use nossa <strong>Calculadora</strong> para saber seu prazo exato!",
+      opcoes: [
+        { texto: "🧮 Usar Calculadora", acao: "abrir_calculadora" },
+        { texto: "📋 Ver documentos", proximo: "documentos" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    documentos: {
+      mensagem: "📋 <strong>Documentos básicos:</strong>\n\n✅ Todos os casos:\n• RG e CPF\n• Certidão de Nascimento do bebê (ou Termo de Adoção)\n\n📋 <strong>Conforme seu caso:</strong>\n\n💼 <strong>CLT:</strong> Carteira de Trabalho\n🏬 <strong>MEI/Autônoma:</strong> Comprovante de pagamento do INSS (DAS ou guia)\n🌾 <strong>Rural:</strong> Documento de atividade rural\n🚶‍♀️ <strong>Desempregada:</strong> Carteira de Trabalho com baixa\n\n📱 Todos podem ser enviados por <strong>foto pelo app Meu INSS</strong>!",
+      opcoes: [
+        { texto: "📱 Como pedir pelo app", proximo: "como_pedir" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    como_pedir: {
+      mensagem: "📱 <strong>5 passos simples:</strong>\n\n1️⃣ Reúna os documentos (foto legível)\n2️⃣ Baixe o app <strong>Meu INSS</strong> (Android/iOS)\n3️⃣ Faça login com sua conta <strong>gov.br</strong>\n4️⃣ Busque por <strong>\"Salário-Maternidade\"</strong> e clique em Solicitar\n5️⃣ Preencha, anexe os documentos e envie!\n\n📞 Sem internet? Ligue <strong>135</strong> (gratuito) ou vá a uma agência.\n\nQuer o link direto?",
+      opcoes: [
+        { texto: "🔗 Abrir Meu INSS agora", acao: "abrir_meu_inss" },
+        { texto: "📞 Como encontrar atendimento", proximo: "contato_humano" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    contato_humano: {
+      mensagem: "📞 <strong>Canais oficiais:</strong>\n\n☎️ <strong>Telefone 135</strong> — Gratuito, seg a sáb, 7h às 22h\n\n📱 <strong>App Meu INSS</strong> — Chat online e agendamento\n\n🏢 <strong>Agência do INSS</strong> — Agende pelo app\n\n🆘 <strong>Defensoria Pública</strong> — Advogado gratuito\n\n⚖️ <strong>Ministério do Trabalho</strong> — Se empresa negar",
+      opcoes: [
+        { texto: "📞 Ligar 135 agora", acao: "ligar_135" },
+        { texto: "🔗 Abrir Meu INSS", acao: "abrir_meu_inss" },
+        { texto: "📞 Como encontrar atendimento", proximo: "contato_humano" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: false
+    },
+
+    licenca_paternidade: {
+      mensagem: "👔 <strong>Licença-Paternidade:</strong>\n\n✅ Pai ou segundo responsável tem direito a <strong>5 dias</strong> de licença remunerada\n\n🏆 Empresas no <strong>Programa Empresa Cidadã</strong> ampliam para <strong>20 dias</strong>!\n\n💑 Em casais homoafetivos, o outro cônjuge pode ter direito à licença-paternidade.\n\n⚖️ Base legal: CF/88, Art. 7º, XIX",
+      opcoes: [
+        { texto: "🏆 Sobre Empresa Cidadã", proximo: "empresa_cidada" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: true
+    },
+
+    apoio_emocional: {
+      mensagem: "💙 <strong>Apoio emocional:</strong>\n\nSinto muito pela sua perda. Esse é um momento delicado e você não está sozinha.\n\n📞 <strong>CVV (Centro de Valorização da Vida):</strong> Ligue 188 (24h, gratuito)\n\n🏥 <strong>CAPS (Centro de Atenção Psicossocial):</strong> Atendimento gratuito pelo SUS\n\n👥 <strong>Grupos de apoio:</strong> Procure o posto de saúde da sua cidade\n\n💛 Cuide de você. Você é forte. 💛",
+      opcoes: [
+        { texto: "📞 Ligar CVV (188)", acao: "ligar_188" },
+        { texto: "🏠 Voltar ao início", proximo: "inicio" }
+      ],
+      progresso: false
+    }
+  };
+
+  // ==========================================
+  // ESTADO DA APLICAÇÃO
+  // ==========================================
+  const estado = {
+    atual: 'inicio',
+    perfil: null,
+    topicosVisitados: new Set(),
+    favoritos: [],
+    vozAtiva: false,
+    historico: []
+  };
+
+  // Carregar estado salvo
+  try {
+    const salvo = localStorage.getItem('duda_estado');
+    if (salvo) {
+      const dados = JSON.parse(salvo);
+      estado.favoritos = dados.favoritos || [];
+      estado.topicosVisitados = new Set(dados.topicosVisitados || []);
+      estado.vozAtiva = dados.vozAtiva || false;
+    }
+  } catch(e) {
+    console.log('Erro ao carregar estado:', e);
+  }
+
+  // ==========================================
+  // ELEMENTOS DOM
+  // ==========================================
+  const chatWindow = document.getElementById('duda-chat-window');
+  const chatMessages = document.getElementById('duda-chat-messages');
+  const chatOptions = document.getElementById('duda-chat-options');
+  const toggleBtn = document.getElementById('duda-toggle-btn');
+  const closeBtn = document.getElementById('duda-close-btn');
+  const searchBtn = document.getElementById('duda-search-btn');
+  const searchPanel = document.getElementById('duda-search-panel');
+  const searchInput = document.getElementById('duda-search-input');
+  const searchResults = document.getElementById('duda-search-results');
+  const favoritesBtn = document.getElementById('duda-favorites-btn');
+  const favoritesPanel = document.getElementById('duda-favorites-panel');
+  const closeFavoritesBtn = document.getElementById('duda-close-favorites');
+  const favoritesList = document.getElementById('duda-favorites-list');
+  const voiceBtn = document.getElementById('duda-voice-btn');
+  const progressText = document.getElementById('duda-progress-text');
+  const progressFill = document.getElementById('duda-progress-fill');
+
+  // ==========================================
+  // FUNÇÕES AUXILIARES
+  // ==========================================
+  function salvarEstado() {
+    try {
+      localStorage.setItem('duda_estado', JSON.stringify({
+        favoritos: estado.favoritos,
+        topicosVisitados: Array.from(estado.topicosVisitados),
+        vozAtiva: estado.vozAtiva
+      }));
+    } catch(e) {
+      console.log('Erro ao salvar estado:', e);
+    }
+  }
+
+  function toggleChat() {
+    const isHidden = chatWindow.hasAttribute('hidden');
+    if (isHidden) {
+      chatWindow.removeAttribute('hidden');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      if (chatMessages.children.length === 0) {
+        mostrarEstado('inicio');
+      }
+      setTimeout(() => {
+        const primeiroBotao = chatOptions.querySelector('button');
+        if (primeiroBotao) primeiroBotao.focus();
+      }, 400);
+    } else {
+      chatWindow.setAttribute('hidden', '');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.focus();
+    }
+  }
+
+  function adicionarMensagem(texto, tipo, favoritar = false) {
+    const msg = document.createElement('div');
+    msg.className = 'duda-msg ' + tipo;
+    msg.innerHTML = texto.replace(/\n/g, '<br>');
+    
+    if (favoritar && tipo === 'bot') {
+      const favBtn = document.createElement('button');
+      favBtn.className = 'duda-msg-favorite';
+      favBtn.innerHTML = '⭐';
+      favBtn.title = 'Salvar nos favoritos';
+      favBtn.onclick = () => toggleFavorito(msg, texto);
+      msg.appendChild(favBtn);
+    }
+    
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    if (estado.vozAtiva && tipo === 'bot') {
+      falar(texto);
+    }
+    
+    return msg;
+  }
+
+  function mostrarDigitando() {
+    const typing = document.createElement('div');
+    typing.className = 'duda-typing';
+    typing.id = 'duda-typing-indicator';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    typing.setAttribute('aria-label', 'Duda está digitando');
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function removerDigitando() {
+    const typing = document.getElementById('duda-typing-indicator');
+    if (typing) typing.remove();
+  }
+
+  function limparOpcoes() {
+    chatOptions.innerHTML = '';
+  }
+
+  function renderizarOpcoes(opcoes) {
+    limparOpcoes();
+    opcoes.forEach((opcao, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'duda-option-btn';
+      btn.innerHTML = `<span class="duda-option-number">${index + 1}</span><span>${opcao.texto}</span>`;
+      btn.onclick = () => handleOpcao(opcao);
+      btn.setAttribute('data-key', index + 1);
+      chatOptions.appendChild(btn);
+    });
+  }
+
+  function handleOpcao(opcao) {
+    adicionarMensagem(opcao.texto, 'user');
+    limparOpcoes();
+
+    // Ações especiais
+    if (opcao.acao) {
+      executarAcao(opcao.acao);
+      return;
+    }
+
+    // Salvar perfil
+    if (opcao.perfil) {
+      estado.perfil = opcao.perfil;
+    }
+
+    // Navegação na árvore
+    if (opcao.proximo) {
+      mostrarEstado(opcao.proximo);
+    }
+  }
+
+  function executarAcao(acao) {
+    switch(acao) {
+      case 'abrir_meu_inss':
+        setTimeout(() => {
+          window.open('https://meu.inss.gov.br/#/login', '_blank');
+          adicionarMensagem("Abrindo o app Meu INSS em uma nova aba... 🔗", 'bot');
+          renderizarOpcoes([{ texto: "← Voltar ao início", proximo: "inicio" }]);
+        }, 500);
+        break;
+      case 'ligar_135':
+        window.location.href = 'tel:135';
+        break;
+      case 'ligar_188':
+        window.location.href = 'tel:188';
+        break;
+      case 'abrir_calculadora': {
+        const calc = document.getElementById('calculadora');
+        if (calc) {
+          const perfilCalc = { clt: 'clt', mei: 'autonoma', desempregada: 'desempregada', rural: 'rural' }[estado.perfil];
+          if (perfilCalc) {
+            const radio = document.querySelector(`input[name="e1_perfil"][value="${perfilCalc}"]`);
+            if (radio) radio.checked = true;
+          }
+          calc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          toggleChat();
+        }
+        break;
+      }
+      case 'abrir_checklist': {
+        const checklist = document.getElementById('checklist');
+        if (checklist) {
+          const perfilMapa = { clt: 'clt', mei: 'mei', desempregada: 'desempregada', rural: 'rural' };
+          const perfil = perfilMapa[estado.perfil];
+          if (perfil && typeof window.selecionarPerfilChecklist === 'function') {
+            const btnPerfil = document.querySelector(`.checklist-perfil-btn[data-perfil="${perfil}"]`);
+            window.selecionarPerfilChecklist(perfil, btnPerfil);
+          }
+          checklist.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          toggleChat();
+        }
+        break;
+      }
+      case 'abrir_busca':
+        searchPanel.removeAttribute('hidden');
+        searchInput.focus();
+        break;
+      case 'compartilhar':
+        compartilharResultado();
+        break;
+      case 'favoritar': {
+        const bots = chatMessages.querySelectorAll('.duda-msg.bot');
+        const ultimaMsg = bots[bots.length - 1];
+        if (ultimaMsg) {
+          const texto = ultimaMsg.textContent.replace('⭐', '').trim();
+          toggleFavorito(ultimaMsg, texto);
+        }
+        break;
+      }
+      case 'ir_secao_quem':
+        irParaSecao('quem-tem-direito');
+        break;
+      case 'ir_secao_regras':
+        irParaSecao('regras');
+        break;
+      case 'ir_secao_graca':
+        irParaSecao('periodo-graca');
+        break;
+      case 'ir_secao_homens':
+        irParaSecao('homens');
+        break;
+      case 'ir_secao_como':
+        irParaSecao('como-pedir');
+        break;
+      case 'ir_secao_faq':
+        irParaSecao('faq');
+        break;
+      case 'ir_secao_glossario':
+        irParaSecao('glossario');
+        break;
+      case 'ir_secao_mitos':
+        irParaSecao('mitos');
+        break;
+      case 'ir_secao_quiz':
+        irParaSecao('quiz');
+        break;
+      case 'ir_secao_agencias':
+        irParaSecao('localizador');
+        break;
+      case 'ir_secao_timeline':
+        irParaSecao('timeline');
+        break;
+    }
+  }
+
+  function irParaSecao(id) {
+    const secao = document.getElementById(id);
+    if (secao) {
+      secao.scrollIntoView({ behavior: 'smooth' });
+      toggleChat();
+    }
+  }
+
+  function mostrarEstado(estadoNome) {
+    estado.atual = estadoNome;
+    const no = ARVORE[estadoNome];
+    if (!no) {
+      adicionarMensagem('Não encontrei esse caminho. Vou voltar ao início para você continuar.', 'bot');
+      renderizarOpcoes([{ texto: '🏠 Voltar ao início', proximo: 'inicio' }]);
+      return;
+    }
+
+    // Marcar como visitado
+    if (no.progresso) {
+      estado.topicosVisitados.add(estadoNome);
+      atualizarProgresso();
+      salvarEstado();
+    }
+
+    mostrarDigitando();
+    setTimeout(() => {
+      removerDigitando();
+      adicionarMensagem(no.mensagem, 'bot', true);
+      renderizarOpcoes(no.opcoes);
+    }, 800);
+  }
+
+  function atualizarProgresso() {
+    const total = Object.keys(ARVORE).filter(k => ARVORE[k].progresso).length;
+    const visitados = estado.topicosVisitados.size;
+    const percentual = (visitados / total) * 100;
+    
+    progressText.textContent = `Progresso: ${visitados}/${total} tópicos`;
+    progressFill.style.width = `${percentual}%`;
+  }
+
+  function toggleFavorito(msgElement, texto) {
+    const favBtn = msgElement.querySelector('.duda-msg-favorite');
+    const titulo = texto.substring(0, 50) + '...';
+    
+    const index = estado.favoritos.findIndex(f => f.texto === texto);
+    
+    if (index > -1) {
+      estado.favoritos.splice(index, 1);
+      favBtn.classList.remove('active');
+    } else {
+      estado.favoritos.push({ titulo, texto });
+      favBtn.classList.add('active');
+    }
+    
+    salvarEstado();
+  }
+
+  function mostrarFavoritos() {
+    favoritesPanel.removeAttribute('hidden');
+    favoritesList.innerHTML = '';
+    
+    if (estado.favoritos.length === 0) {
+      favoritesList.innerHTML = '<div class="duda-favorite-empty">⭐ Nenhum favorito salvo ainda.<br>Clique na estrela das mensagens para salvar!</div>';
+      return;
+    }
+    
+    estado.favoritos.forEach(fav => {
+      const item = document.createElement('div');
+      item.className = 'duda-favorite-item';
+      item.innerHTML = `<h4>${fav.titulo}</h4><p>${fav.texto}</p>`;
+      favoritesList.appendChild(item);
+    });
+  }
+
+  function compartilharResultado() {
+    const perfil = estado.perfil || 'geral';
+    const texto = `🎉 Usei a orientação sobre Salário-Maternidade no site da UNIFAGOC e descobri meus direitos! Sou ${perfil}. Faça o teste também!`;
+    const url = window.location.href;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(texto + ' ' + url)}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  function falar(texto) {
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(texto.replace(/<[^>]*>/g, ''));
+      utterance.lang = 'pt-BR';
+      utterance.rate = 0.9;
+      speechSynthesis.speak(utterance);
+    }
+  }
+
+  function buscar(termo) {
+    searchResults.innerHTML = '';
+    if (!termo) return;
+    
+    const consulta = termo.trim().toLowerCase();
+    const resultados = Object.entries(ARVORE).filter(([key, no]) => {
+      const opcoes = (no.opcoes || []).map(o => o.texto || '').join(' ');
+      const conteudo = `${no.mensagem || ''} ${opcoes}`.toLowerCase();
+      return conteudo.includes(consulta);
+    }).slice(0, 12);
+    
+    resultados.forEach(([key, no]) => {
+      const item = document.createElement('div');
+      item.className = 'duda-search-item';
+      item.textContent = no.mensagem.substring(0, 60) + '...';
+      item.onclick = () => {
+        mostrarEstado(key);
+        searchPanel.setAttribute('hidden', '');
+        searchInput.value = '';
+      };
+      searchResults.appendChild(item);
+    });
+    
+    if (resultados.length === 0) {
+      searchResults.innerHTML = '<div class="duda-search-item">Nenhum resultado encontrado</div>';
+    }
+  }
+
+  // ==========================================
+  // EVENT LISTENERS
+  // ==========================================
+  toggleBtn.addEventListener('click', toggleChat);
+  closeBtn.addEventListener('click', toggleChat);
+  searchBtn.addEventListener('click', () => {
+    searchPanel.toggleAttribute('hidden');
+    if (!searchPanel.hasAttribute('hidden')) {
+      searchInput.focus();
+    }
+  });
+  favoritesBtn.addEventListener('click', mostrarFavoritos);
+  closeFavoritesBtn.addEventListener('click', () => {
+    favoritesPanel.setAttribute('hidden', '');
+  });
+  voiceBtn.addEventListener('click', () => {
+    estado.vozAtiva = !estado.vozAtiva;
+    voiceBtn.textContent = estado.vozAtiva ? '🔊' : '🔇';
+    voiceBtn.title = estado.vozAtiva ? 'Desativar voz' : 'Ativar voz';
+    salvarEstado();
+  });
+  searchInput.addEventListener('input', (e) => {
+    buscar(e.target.value);
+  });
+
+  // Atalhos de teclado
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !chatWindow.hasAttribute('hidden')) {
+      toggleChat();
+    }
+    
+    if (!chatWindow.hasAttribute('hidden') && !searchPanel.hasAttribute('hidden')) {
+      return;
+    }
+    
+    const numero = parseInt(e.key);
+    if (numero >= 1 && numero <= 9) {
+      const botoes = chatOptions.querySelectorAll('.duda-option-btn');
+      if (botoes[numero - 1]) {
+        botoes[numero - 1].click();
+      }
+    }
+  });
+
+  // Inicializar
+  atualizarProgresso();
+  voiceBtn.textContent = estado.vozAtiva ? '🔊' : '🔇';
+
+})();
+</script>
+
 </body>
 </html>
