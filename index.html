@@ -1021,6 +1021,266 @@
   color: var(--yellow);
   font-weight: 800;
 }
+  
+
+    /* ===== ASSISTENTE GUIADO — ÁRVORE DE DECISÃO (100% JAVASCRIPT) ===== */
+    .guidebot-launcher {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      z-index: 8500;
+      border: none;
+      border-radius: 999px;
+      background: var(--yellow);
+      color: var(--text-dark);
+      min-height: 56px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
+      transition: transform .25s var(--ease-spring), box-shadow .25s ease;
+    }
+    .guidebot-launcher:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 36px rgba(0,0,0,.32); }
+    .guidebot-launcher:focus-visible,
+    .guidebot-close:focus-visible,
+    .guidebot-reset:focus-visible,
+    .guidebot-back:focus-visible,
+    .guidebot-option:focus-visible,
+    .guidebot-action:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+    .guidebot-launcher-icon { font-size: 1.25rem; }
+    .guidebot-launcher .guidebot-pulse {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      top: 2px;
+      right: 5px;
+      box-shadow: 0 0 0 0 rgba(6,214,160,.65);
+      animation: guidebotPulse 2.2s infinite;
+    }
+    @keyframes guidebotPulse {
+      0% { box-shadow: 0 0 0 0 rgba(6,214,160,.6); }
+      70% { box-shadow: 0 0 0 11px rgba(6,214,160,0); }
+      100% { box-shadow: 0 0 0 0 rgba(6,214,160,0); }
+    }
+
+    .guidebot-panel {
+      position: fixed;
+      left: 24px;
+      bottom: 92px;
+      z-index: 8600;
+      width: min(390px, calc(100vw - 32px));
+      max-height: min(650px, calc(100vh - 125px));
+      background: #fff;
+      color: var(--text-dark);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 22px 60px rgba(0,0,0,.34);
+      border: 2px solid rgba(255,255,255,.55);
+      display: none;
+      flex-direction: column;
+      transform-origin: bottom left;
+    }
+    .guidebot-panel.open { display: flex; animation: guidebotOpen .28s var(--ease-out-expo); }
+    @keyframes guidebotOpen {
+      from { opacity: 0; transform: translateY(15px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .guidebot-header {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-deeper));
+      color: #fff;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex-shrink: 0;
+    }
+    .guidebot-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--text-dark);
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.3);
+      flex-shrink: 0;
+    }
+    .guidebot-title-wrap { min-width: 0; flex: 1; }
+    .guidebot-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .98rem; line-height: 1.1; }
+    .guidebot-status { font-size: .72rem; opacity: .78; margin-top: 3px; font-weight: 700; }
+    .guidebot-header-actions { display: flex; align-items: center; gap: 5px; }
+    .guidebot-reset, .guidebot-close {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(255,255,255,.14);
+      cursor: pointer;
+      font-size: 1rem;
+      display: grid;
+      place-items: center;
+    }
+    .guidebot-reset:hover, .guidebot-close:hover { background: rgba(255,255,255,.24); }
+
+    .guidebot-privacy {
+      padding: 9px 14px;
+      background: #eef8ff;
+      border-bottom: 1px solid #d6eaf8;
+      font-size: .72rem;
+      line-height: 1.4;
+      font-weight: 700;
+      color: #36566f;
+      flex-shrink: 0;
+    }
+
+    .guidebot-messages {
+      padding: 15px 14px 8px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 180px;
+      background: #f7fbfe;
+      scroll-behavior: smooth;
+    }
+    .guidebot-message {
+      max-width: 88%;
+      padding: 11px 13px;
+      border-radius: 16px;
+      font-size: .9rem;
+      line-height: 1.5;
+      white-space: normal;
+      animation: guidebotMessage .22s ease both;
+    }
+    @keyframes guidebotMessage { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+    .guidebot-message.bot {
+      align-self: flex-start;
+      background: #fff;
+      border: 1px solid #dbeaf4;
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 3px 10px rgba(13,43,78,.06);
+    }
+    .guidebot-message.user {
+      align-self: flex-end;
+      background: var(--blue-dark);
+      color: #fff;
+      border-bottom-right-radius: 5px;
+    }
+    .guidebot-message strong { font-weight: 900; }
+    .guidebot-message .guidebot-mini { display:block; font-size:.76rem; opacity:.72; margin-top:6px; }
+
+    .guidebot-options {
+      padding: 11px 12px 13px;
+      display: grid;
+      gap: 8px;
+      background: #fff;
+      border-top: 1px solid #e1edf5;
+      overflow-y: auto;
+      max-height: 250px;
+      flex-shrink: 0;
+    }
+    .guidebot-option, .guidebot-action, .guidebot-back {
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 11px 12px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .86rem;
+      line-height: 1.3;
+      cursor: pointer;
+      text-align: left;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .guidebot-option {
+      color: var(--text-dark);
+      background: #f2f8fc;
+      border: 1.5px solid #d7e8f3;
+    }
+    .guidebot-option:hover { background: #e4f3fc; border-color: #a9d2ea; transform: translateY(-1px); }
+    .guidebot-action {
+      color: var(--text-dark);
+      background: var(--yellow);
+      border: 1.5px solid #e2b83e;
+      text-align: center;
+    }
+    .guidebot-action:hover { filter: brightness(.98); transform: translateY(-1px); }
+    .guidebot-back {
+      color: #46637a;
+      background: transparent;
+      border: 1.5px dashed #c9d9e4;
+      text-align: center;
+    }
+    .guidebot-back:hover { background: #f7fafc; }
+    .guidebot-option small { display:block; font-weight:700; opacity:.65; margin-top:2px; }
+
+    .guidebot-footer-note {
+      padding: 7px 12px 10px;
+      font-size: .68rem;
+      line-height: 1.35;
+      text-align: center;
+      color: #6a7c8a;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    /* CTA do assistente dentro do destaque inicial */
+    .guidebot-hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 13px;
+      color: #fff;
+      font-weight: 900;
+      font-size: .88rem;
+      text-decoration: none;
+      background: rgba(255,255,255,.15);
+      border: 1.5px solid rgba(255,255,255,.32);
+      border-radius: 999px;
+      padding: 9px 15px;
+      cursor: pointer;
+    }
+    .guidebot-hero-link:hover { background: rgba(255,255,255,.23); }
+
+    @media (max-width: 600px) {
+      .guidebot-launcher {
+        left: 12px;
+        bottom: 14px;
+        min-height: 52px;
+        padding: 0 15px;
+        font-size: .86rem;
+      }
+      .guidebot-panel {
+        left: 8px;
+        right: 8px;
+        bottom: 74px;
+        width: auto;
+        max-height: calc(100dvh - 92px);
+        border-radius: 20px;
+      }
+      .guidebot-messages { min-height: 150px; }
+      .guidebot-options { max-height: 230px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .guidebot-launcher .guidebot-pulse { animation: none !important; }
+      .guidebot-panel.open, .guidebot-message { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -1120,6 +1380,7 @@
         <a href="#quem-tem-direito" class="btn-primary"><i class="fas fa-search"></i> Ver meus direitos</a>
         <a href="#calculadora" class="btn-secondary"><i class="fas fa-calculator"></i> Calcular meu prazo</a>
       </div>
+      <button type="button" class="guidebot-hero-link" onclick="openGuideBot()"><i class="fas fa-comments"></i> Não sabe por onde começar? Use a ajuda guiada</button>
       <div class="reading-time-badge" aria-label="Tempo estimado de leitura">
         📖 Leitura completa: ~10 min  |  🎯 Quiz + Calculadora incluídos
       </div>
@@ -1800,6 +2061,35 @@
     <p>© 2026 Direito Unifagoc – Material educativo gratuito. Não substitui orientação jurídica profissional.</p>
   </div>
 </footer>
+
+
+
+<!-- ===== ASSISTENTE GUIADO: ÁRVORE DE DECISÃO, SEM IA / SEM API ===== -->
+<button type="button" class="guidebot-launcher" id="guidebotLauncher" aria-haspopup="dialog" aria-controls="guidebotPanel" aria-expanded="false" onclick="toggleGuideBot()">
+  <span class="guidebot-launcher-icon">💬</span>
+  <span>Precisa de ajuda?</span>
+  <span class="guidebot-pulse" aria-hidden="true"></span>
+</button>
+
+<div class="guidebot-panel" id="guidebotPanel" role="dialog" aria-modal="false" aria-labelledby="guidebotTitle" aria-hidden="true">
+  <div class="guidebot-header">
+    <div class="guidebot-avatar" aria-hidden="true">⚖️</div>
+    <div class="guidebot-title-wrap">
+      <div class="guidebot-title" id="guidebotTitle">Ajuda guiada</div>
+      <div class="guidebot-status">Respostas simples • sem IA • sem cadastro</div>
+    </div>
+    <div class="guidebot-header-actions">
+      <button type="button" class="guidebot-reset" onclick="resetGuideBot()" title="Recomeçar conversa" aria-label="Recomeçar conversa">↺</button>
+      <button type="button" class="guidebot-close" onclick="closeGuideBot()" title="Fechar ajuda" aria-label="Fechar ajuda">✕</button>
+    </div>
+  </div>
+
+  <div class="guidebot-privacy">🔒 Não informe CPF, senha, dados bancários ou documentos. Esta ajuda funciona apenas com escolhas na tela e não envia suas respostas para nenhum serviço externo.</div>
+
+  <div class="guidebot-messages" id="guidebotMessages" aria-live="polite" aria-atomic="false"></div>
+  <div class="guidebot-options" id="guidebotOptions"></div>
+  <div class="guidebot-footer-note">Informação educativa. Situações específicas podem exigir análise do INSS, da empresa ou de profissional habilitado.</div>
+</div>
 
 <button type="button" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
@@ -2885,6 +3175,405 @@ function resetChecklist() {
   } catch(e) {}
   renderChecklist();
 })();
+
+
+
+/* ========== ASSISTENTE GUIADO — ÁRVORE DE DECISÃO ========== */
+const GUIDE_BOT = {
+  start: {
+    text: 'Olá! 👋 Vou te ajudar a encontrar a informação certa sobre <strong>salário-maternidade</strong>. Você não precisa conhecer nenhuma lei. O que você quer saber?',
+    options: [
+      { label: '👶 Quero saber se posso ter direito', next: 'direito_perfil' },
+      { label: '📱 Quero saber como pedir', next: 'como_pedir' },
+      { label: '📂 Quero saber quais documentos separar', next: 'docs_perfil' },
+      { label: '🚶‍♀️ Estou desempregada', next: 'desempregada' },
+      { label: '👨‍👧 Adoção, pai ou outra configuração familiar', next: 'familias' },
+      { label: '❓ Tenho outra dúvida', next: 'outras_duvidas' }
+    ]
+  },
+
+  direito_perfil: {
+    text: 'Para te orientar melhor, escolha a opção que mais parece com a sua situação atual:',
+    options: [
+      { label: '👩‍💼 Trabalho com carteira assinada', next: 'perfil_clt' },
+      { label: '💼 Sou MEI ou trabalho por conta própria', next: 'perfil_mei' },
+      { label: '🌾 Trabalho no campo / atividade rural', next: 'perfil_rural' },
+      { label: '🚶‍♀️ Estou desempregada ou parei de contribuir', next: 'desempregada' },
+      { label: '👨‍👧 É caso de adoção', next: 'perfil_adocao' },
+      { label: '🤷 Não sei em qual opção me encaixo', next: 'nao_sei_perfil' }
+    ]
+  },
+
+  perfil_clt: {
+    text: 'Se você tem <strong>carteira assinada</strong>, o site informa que o salário-maternidade normalmente dura <strong>120 dias</strong> e não exige carência mínima de INSS para esse perfil.<span class="guidebot-mini">A regra pode variar conforme situações especiais. Você pode abrir a explicação completa abaixo.</span>',
+    actions: [
+      { label: '👀 Ver explicação completa', target: 'quem-tem-direito' },
+      { label: '📂 Ver documentos', next: 'docs_clt' },
+      { label: '📱 Como solicitar', next: 'como_pedir' }
+    ]
+  },
+
+  perfil_mei: {
+    text: 'Para <strong>MEI, autônoma ou contribuinte individual</strong>, o site explica que existem regras próprias e que o benefício é solicitado ao INSS. A página também traz as informações atualizadas sobre contribuição e carência.',
+    actions: [
+      { label: '👀 Ver regras para MEI/autônoma', target: 'quem-tem-direito' },
+      { label: '📂 Ver documentos', next: 'docs_mei' },
+      { label: '📱 Como solicitar', next: 'como_pedir' }
+    ]
+  },
+
+  perfil_rural: {
+    text: 'Quem trabalha no <strong>campo</strong> também pode ter direito ao salário-maternidade. A documentação para comprovar a atividade rural é diferente, por isso vale conferir o checklist específico.',
+    actions: [
+      { label: '🌾 Ver regras completas', target: 'quem-tem-direito' },
+      { label: '📂 Ver documentos para rural', next: 'docs_rural' },
+      { label: '📋 Abrir checklist', target: 'checklist' }
+    ]
+  },
+
+  desempregada: {
+    text: 'Ter parado de trabalhar ou de pagar o INSS <strong>não significa perder a proteção imediatamente</strong>. Existe um período de proteção chamado <strong>período de graça</strong>. Como o prazo depende do histórico de contribuições e da situação de desemprego, o melhor caminho é usar a calculadora do próprio site.',
+    actions: [
+      { label: '🧮 Ver minha situação na calculadora', target: 'calculadora' },
+      { label: '⏳ Entender o período de graça', target: 'periodo-graca' },
+      { label: '📂 Ver documentos', next: 'docs_desempregada' }
+    ]
+  },
+
+  perfil_adocao: {
+    text: 'O site também explica o salário-maternidade em caso de <strong>adoção ou guarda judicial para fins de adoção</strong>. Há informações específicas sobre duração e documentos.',
+    actions: [
+      { label: '👨‍👧 Ver direitos na adoção', target: 'homens' },
+      { label: '📂 Ver documentos', next: 'docs_adocao' },
+      { label: '📱 Como solicitar', next: 'como_pedir' }
+    ]
+  },
+
+  nao_sei_perfil: {
+    text: 'Sem problema. Pense apenas em <strong>como você trabalha hoje</strong>: se recebe com carteira assinada, escolha CLT; se trabalha por conta própria ou tem MEI, escolha MEI/autônoma; se vive de atividade rural, escolha rural. Se parou de trabalhar ou de pagar o INSS, escolha desempregada.',
+    options: [
+      { label: '👩‍💼 Recebo com carteira assinada', next: 'perfil_clt' },
+      { label: '💼 Trabalho por conta própria / tenho MEI', next: 'perfil_mei' },
+      { label: '🌾 Minha atividade é rural', next: 'perfil_rural' },
+      { label: '🚶‍♀️ Não estou trabalhando / parei de pagar INSS', next: 'desempregada' },
+      { label: '📖 Prefiro ver todas as situações', target: 'quem-tem-direito' }
+    ]
+  },
+
+  como_pedir: {
+    text: 'O site organiza o pedido em <strong>5 passos simples</strong>: separar documentos, acessar o Meu INSS, buscar “Salário-Maternidade”, preencher e enviar o pedido e depois acompanhar o andamento.',
+    actions: [
+      { label: '📱 Abrir passo a passo', target: 'como-pedir' },
+      { label: '📂 Ver documentos primeiro', next: 'docs_perfil' },
+      { label: '✅ Abrir checklist de preparação', target: 'checklist' }
+    ]
+  },
+
+  docs_perfil: {
+    text: 'Os documentos mudam conforme a situação. Qual destas opções combina mais com você?',
+    options: [
+      { label: '👩‍💼 Carteira assinada', next: 'docs_clt' },
+      { label: '💼 MEI / autônoma', next: 'docs_mei' },
+      { label: '🌾 Trabalhadora rural', next: 'docs_rural' },
+      { label: '🚶‍♀️ Desempregada', next: 'docs_desempregada' },
+      { label: '👨‍👧 Adoção', next: 'docs_adocao' }
+    ]
+  },
+
+  docs_clt: {
+    text: 'Para o perfil <strong>CLT</strong>, o site orienta separar os documentos pessoais, a certidão de nascimento ou documento equivalente e a documentação do vínculo de trabalho. O checklist pode ser marcado item por item.',
+    actions: [
+      { label: '✅ Abrir checklist CLT', target: 'checklist', checklist: 'clt' },
+      { label: '📖 Ver regras de documentos', target: 'regras' }
+    ]
+  },
+
+  docs_mei: {
+    text: 'Para <strong>MEI/autônoma</strong>, além dos documentos pessoais e do evento que gerou o benefício, o site orienta conferir os comprovantes relacionados às contribuições ao INSS.',
+    actions: [
+      { label: '✅ Abrir checklist MEI/autônoma', target: 'checklist', checklist: 'mei' },
+      { label: '📖 Ver regras de documentos', target: 'regras' }
+    ]
+  },
+
+  docs_rural: {
+    text: 'Para <strong>trabalhadora rural</strong>, o site destaca a necessidade de documentação que demonstre a atividade rural, além dos documentos pessoais e do nascimento ou adoção.',
+    actions: [
+      { label: '✅ Abrir checklist Rural', target: 'checklist', checklist: 'rural' },
+      { label: '📖 Ver regras de documentos', target: 'regras' }
+    ]
+  },
+
+  docs_desempregada: {
+    text: 'Para quem está <strong>desempregada</strong>, é importante reunir os documentos pessoais e os que ajudem a verificar o histórico de trabalho/contribuição. Como o prazo de proteção pode variar, use também a calculadora.',
+    actions: [
+      { label: '✅ Abrir checklist Desempregada', target: 'checklist', checklist: 'desempregada' },
+      { label: '🧮 Usar calculadora', target: 'calculadora' }
+    ]
+  },
+
+  docs_adocao: {
+    text: 'Em caso de <strong>adoção</strong>, o site orienta conferir os documentos pessoais e o termo/documento judicial relativo à adoção ou guarda, conforme o caso.',
+    actions: [
+      { label: '✅ Abrir checklist Adoção', target: 'checklist', checklist: 'adocao' },
+      { label: '👨‍👧 Ver informações para adoção', target: 'homens' }
+    ]
+  },
+
+  familias: {
+    text: 'O benefício não se limita à maternidade biológica. O site tem uma seção específica sobre <strong>adoção, pai ou responsável adotante, casais e outras configurações familiares</strong>.',
+    actions: [
+      { label: '👨‍👧 Abrir seção sobre famílias', target: 'homens' },
+      { label: '📂 Documentos para adoção', next: 'docs_adocao' },
+      { label: '❓ Ver perguntas frequentes', target: 'faq' }
+    ]
+  },
+
+  outras_duvidas: {
+    text: 'Qual assunto você quer entender?',
+    options: [
+      { label: '⏱️ Por quanto tempo dura?', next: 'duracao' },
+      { label: '💰 Quanto posso receber?', next: 'valor_perfil' },
+      { label: '🩺 Aborto ou natimorto', next: 'aborto_natimorto' },
+      { label: '🏢 A empresa negou ou atrasou', next: 'empresa_negou' },
+      { label: '📖 Não entendi uma palavra', next: 'glossario' },
+      { label: '☎️ Quero falar com o INSS', next: 'contato_inss' }
+    ]
+  },
+
+  duracao: {
+    text: 'A duração padrão apresentada no site é de <strong>120 dias</strong>. Há situações específicas, como empresas participantes do Programa Empresa Cidadã, que podem ter regras diferentes.',
+    actions: [
+      { label: '📖 Ver todas as regras de duração', target: 'regras' },
+      { label: '❓ Ver perguntas frequentes', target: 'faq' }
+    ]
+  },
+
+  valor_perfil: {
+    text: 'O valor depende da forma de trabalho. Qual é o seu perfil?',
+    options: [
+      { label: '👩‍💼 CLT', next: 'valor_clt' },
+      { label: '🏬 MEI', next: 'valor_mei' },
+      { label: '💼 Autônoma', next: 'valor_autonoma' },
+      { label: '🌾 Rural', next: 'valor_rural' }
+    ]
+  },
+
+  valor_clt: {
+    text: 'Para <strong>empregada CLT</strong>, o site informa que o valor corresponde ao salário que a trabalhadora recebia.',
+    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
+  },
+  valor_mei: {
+    text: 'Para <strong>MEI</strong>, o site informa o pagamento com base em <strong>1 salário mínimo nacional vigente</strong>.',
+    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
+  },
+  valor_autonoma: {
+    text: 'Para <strong>autônoma</strong>, o site explica que o cálculo considera a média das contribuições ao INSS.',
+    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
+  },
+  valor_rural: {
+    text: 'Para <strong>trabalhadora rural segurada especial</strong>, o site apresenta como referência um salário mínimo por mês.',
+    actions: [{ label: '💰 Ver detalhes de valores', target: 'regras' }]
+  },
+
+  aborto_natimorto: {
+    text: 'O site possui uma explicação específica para <strong>aborto não criminoso e natimorto</strong>, incluindo duração do afastamento e necessidade de documentação médica.',
+    actions: [{ label: '💙 Abrir essa explicação', target: 'regras' }]
+  },
+
+  empresa_negou: {
+    text: 'Se a <strong>empresa negar ou atrasar</strong> o benefício, o site orienta procurar os canais de proteção trabalhista, como Ministério do Trabalho, sindicato e, quando necessário, a Justiça do Trabalho.',
+    actions: [{ label: '⚖️ Ver orientação completa', target: 'regras' }]
+  },
+
+  glossario: {
+    text: 'Tudo bem. O site tem um <strong>glossário</strong> que traduz palavras previdenciárias e jurídicas para explicações mais simples.',
+    actions: [{ label: '📖 Abrir glossário', target: 'glossario' }]
+  },
+
+  contato_inss: {
+    text: 'Você pode consultar os canais oficiais do INSS. O site destaca o telefone <strong>135</strong> e o aplicativo/site <strong>Meu INSS</strong>.',
+    actions: [
+      { label: '📞 Ligar para 135', href: 'tel:135' },
+      { label: '📱 Ver passo a passo do Meu INSS', target: 'como-pedir' },
+      { label: '📍 Ver atendimento presencial', target: 'localizador' }
+    ]
+  }
+};
+
+let guideBotCurrent = 'start';
+let guideBotHistory = [];
+let guideBotStarted = false;
+
+function guideBotEls() {
+  return {
+    panel: document.getElementById('guidebotPanel'),
+    launcher: document.getElementById('guidebotLauncher'),
+    messages: document.getElementById('guidebotMessages'),
+    options: document.getElementById('guidebotOptions')
+  };
+}
+
+function toggleGuideBot() {
+  const { panel } = guideBotEls();
+  if (!panel) return;
+  if (panel.classList.contains('open')) closeGuideBot();
+  else openGuideBot();
+}
+
+function openGuideBot() {
+  const { panel, launcher } = guideBotEls();
+  if (!panel || !launcher) return;
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  launcher.setAttribute('aria-expanded', 'true');
+  if (!guideBotStarted) {
+    guideBotStarted = true;
+    renderGuideBotNode('start', false);
+  }
+  setTimeout(() => {
+    const first = panel.querySelector('.guidebot-option, .guidebot-action');
+    if (first) first.focus({ preventScroll: true });
+  }, 100);
+}
+
+function closeGuideBot() {
+  const { panel, launcher } = guideBotEls();
+  if (!panel || !launcher) return;
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+  launcher.setAttribute('aria-expanded', 'false');
+  launcher.focus({ preventScroll: true });
+}
+
+function resetGuideBot() {
+  const { messages } = guideBotEls();
+  guideBotCurrent = 'start';
+  guideBotHistory = [];
+  guideBotStarted = true;
+  if (messages) messages.innerHTML = '';
+  renderGuideBotNode('start', false);
+}
+
+function guideBotAddMessage(html, who) {
+  const { messages } = guideBotEls();
+  if (!messages) return;
+  const div = document.createElement('div');
+  div.className = 'guidebot-message ' + who;
+  div.innerHTML = html;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function renderGuideBotNode(nodeId, addHistory = true, userLabel = '') {
+  const node = GUIDE_BOT[nodeId];
+  const { options } = guideBotEls();
+  if (!node || !options) return;
+
+  if (userLabel) guideBotAddMessage(escapeGuideBotText(userLabel), 'user');
+  if (addHistory && guideBotCurrent && guideBotCurrent !== nodeId) guideBotHistory.push(guideBotCurrent);
+  guideBotCurrent = nodeId;
+
+  window.setTimeout(() => {
+    guideBotAddMessage(node.text, 'bot');
+    renderGuideBotChoices(node);
+  }, userLabel ? 120 : 0);
+}
+
+function renderGuideBotChoices(node) {
+  const { options } = guideBotEls();
+  options.innerHTML = '';
+  const choices = node.options || node.actions || [];
+
+  choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = choice.target || choice.href ? 'guidebot-action' : 'guidebot-option';
+    btn.innerHTML = choice.label;
+    btn.addEventListener('click', () => handleGuideBotChoice(choice));
+    options.appendChild(btn);
+  });
+
+  if (guideBotHistory.length) {
+    const back = document.createElement('button');
+    back.type = 'button';
+    back.className = 'guidebot-back';
+    back.textContent = '← Voltar à pergunta anterior';
+    back.addEventListener('click', guideBotBack);
+    options.appendChild(back);
+  }
+}
+
+function handleGuideBotChoice(choice) {
+  const labelText = stripGuideBotHTML(choice.label || 'Continuar');
+
+  if (choice.next) {
+    renderGuideBotNode(choice.next, true, labelText);
+    return;
+  }
+
+  if (choice.href) {
+    guideBotAddMessage(escapeGuideBotText(labelText), 'user');
+    window.location.href = choice.href;
+    return;
+  }
+
+  if (choice.target) {
+    guideBotAddMessage(escapeGuideBotText(labelText), 'user');
+    guideBotAddMessage('Certo! Vou te levar direto para essa parte da página. 👇', 'bot');
+
+    if (choice.checklist && typeof selecionarPerfilChecklist === 'function') {
+      try {
+        const perfilBtn = document.querySelector(`.checklist-perfil-btn[data-perfil="${choice.checklist}"]`);
+        selecionarPerfilChecklist(choice.checklist, perfilBtn || null);
+      } catch(e) {}
+    }
+
+    const target = document.getElementById(choice.target);
+    if (target) {
+      setTimeout(() => {
+        closeGuideBot();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.setAttribute('tabindex', '-1');
+        setTimeout(() => target.focus({ preventScroll: true }), 650);
+      }, 300);
+    }
+  }
+}
+
+function guideBotBack() {
+  if (!guideBotHistory.length) return;
+  const prev = guideBotHistory.pop();
+  guideBotCurrent = prev;
+  const node = GUIDE_BOT[prev];
+  if (!node) return;
+  guideBotAddMessage('← Voltar', 'user');
+  setTimeout(() => {
+    guideBotAddMessage(node.text, 'bot');
+    renderGuideBotChoices(node);
+  }, 100);
+}
+
+function escapeGuideBotText(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function stripGuideBotHTML(html) {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  return (div.textContent || div.innerText || '').trim();
+}
+
+/* Fecha com ESC sem interferir no restante do site */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const panel = document.getElementById('guidebotPanel');
+    if (panel && panel.classList.contains('open')) closeGuideBot();
+  }
+});
+
 
 /* ========== VLIBRAS ========== */
 let vlibrasAtivo = false;
