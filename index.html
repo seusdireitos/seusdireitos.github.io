@@ -2971,13 +2971,14 @@ function ativarVLibras() {
         <h3 id="duda-chat-title">Duda</h3>
         <p class="duda-status">
           <span class="duda-status-dot" aria-hidden="true"></span>
-          <span id="duda-status-text">Ajuda guiada · sem cadastro</span>
+          <span id="duda-status-text">Conversa guiada · funciona sem IA externa</span>
         </p>
       </div>
     </div>
     <div class="duda-header-actions">
       <button id="duda-search-btn" aria-label="Buscar tópicos" title="Buscar">🔍</button>
       <button id="duda-favorites-btn" aria-label="Ver favoritos" title="Favoritos">⭐</button>
+      <button id="duda-reset-btn" aria-label="Reiniciar conversa" title="Reiniciar conversa">↻</button>
       <button id="duda-voice-btn" aria-label="Ativar/desativar leitura em voz" title="Voz">🔊</button>
       <button id="duda-close-btn" aria-label="Fechar chat" title="Fechar">✕</button>
     </div>
@@ -2992,9 +2993,25 @@ function ativarVLibras() {
     <div id="duda-search-results"></div>
   </div>
 
+  <div id="duda-context-bar" hidden>
+    <span id="duda-context-text"></span>
+    <button type="button" id="duda-context-clear" aria-label="Limpar informações entendidas pela Duda" title="Limpar contexto">×</button>
+  </div>
+
   <div id="duda-chat-messages" aria-live="polite" aria-atomic="false"></div>
 
   <div id="duda-chat-options"></div>
+
+  <form id="duda-composer" autocomplete="off">
+    <label class="sr-only" for="duda-input">Digite sua dúvida para a Duda</label>
+    <div class="duda-composer-row">
+      <input id="duda-input" type="text" inputmode="text" maxlength="320"
+        placeholder="Digite sua dúvida do seu jeito..."
+        aria-label="Digite sua dúvida sobre salário-maternidade">
+      <button id="duda-send-btn" type="submit" aria-label="Enviar mensagem" title="Enviar">➤</button>
+    </div>
+    <div class="duda-composer-hint">Ex.: “fui demitida faz 8 meses e estou grávida”</div>
+  </form>
 
   <footer id="duda-chat-footer">
     <div class="duda-progress">
@@ -3004,7 +3021,7 @@ function ativarVLibras() {
       </div>
     </div>
     <div id="duda-legal-notice" role="note">
-      🔒 Ajuda educativa. Não informe CPF, senha ou dados bancários. Suas escolhas ficam só neste aparelho. Em caso de dúvida, confirme no INSS (135).
+      🔒 Não informe CPF, senha, dados bancários ou documentos. O que você digita nesta conversa não é enviado para uma IA externa nem salvo no histórico do site.
     </div>
   </footer>
 </div>
@@ -3033,7 +3050,6 @@ function ativarVLibras() {
     --duda-shadow: rgba(0,0,0,0.1);
     --duda-radius: 16px;
     --duda-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
   }
 
   #duda-toggle-btn {
@@ -3577,6 +3593,79 @@ function ativarVLibras() {
     font-size: 10.5px;
   }
 
+
+  /* ===== DUDA CONVERSACIONAL / ELIZA LOCAL ===== */
+  #duda-context-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    background: #eef7fd;
+    color: #164c70;
+    border-bottom: 1px solid #cfe8f7;
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+  #duda-context-bar[hidden] { display: none !important; }
+  #duda-context-text { flex: 1; min-width: 0; }
+  #duda-context-clear {
+    flex: 0 0 auto; width: 25px; height: 25px; border-radius: 50%; border: 0;
+    background: rgba(33,118,174,.12); color: var(--duda-primary-dark); cursor: pointer;
+    font-size: 17px; line-height: 1;
+  }
+  #duda-context-clear:hover, #duda-context-clear:focus {
+    background: var(--duda-primary); color: white; outline: 2px solid rgba(33,118,174,.25);
+  }
+
+  #duda-composer {
+    background: var(--duda-bg);
+    padding: 10px 12px 8px;
+    border-top: 1px solid var(--duda-border);
+  }
+  .duda-composer-row { display: flex; gap: 8px; align-items: center; }
+  #duda-input {
+    flex: 1; min-width: 0; height: 46px; border: 1.5px solid var(--duda-border);
+    border-radius: 23px; padding: 0 16px; font: inherit; font-size: 14px;
+    color: var(--duda-text); background: var(--duda-bg-secondary); outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+  }
+  #duda-input:focus {
+    border-color: var(--duda-primary); background: var(--duda-bg);
+    box-shadow: 0 0 0 3px rgba(33,118,174,.12);
+  }
+  #duda-send-btn {
+    width: 46px; height: 46px; flex: 0 0 46px; border: 0; border-radius: 50%;
+    background: var(--yellow, #FFD166); color: #0d2b4e; font-size: 20px; font-weight: 900;
+    cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.12); transition: transform .2s, box-shadow .2s;
+  }
+  #duda-send-btn:hover, #duda-send-btn:focus { transform: translateY(-2px) scale(1.03); box-shadow: 0 7px 16px rgba(0,0,0,.16); outline: 2px solid rgba(255,209,102,.45); }
+  .duda-composer-hint { margin: 6px 7px 0; font-size: 10.5px; color: var(--duda-text-secondary); line-height: 1.35; }
+
+  /* As escolhas viram sugestões, mas continuam grandes para quem prefere apenas tocar. */
+  #duda-chat-options { max-height: 170px; }
+  .duda-option-btn { border-radius: 14px; padding: 10px 13px; min-height: 43px; }
+
+  .duda-msg.bot::before {
+    content: 'Duda'; display: block; font-size: 9.5px; font-weight: 900; letter-spacing: .5px;
+    text-transform: uppercase; color: var(--duda-primary); opacity: .68; margin-bottom: 4px;
+  }
+  .duda-msg.user::before {
+    content: 'Você'; display: block; font-size: 9px; font-weight: 900; letter-spacing: .5px;
+    text-transform: uppercase; color: rgba(255,255,255,.78); margin-bottom: 3px;
+  }
+  .duda-understood {
+    display: inline-block; margin-top: 7px; padding: 4px 8px; border-radius: 9px;
+    background: rgba(33,118,174,.08); color: var(--duda-primary-dark); font-size: 10.5px; font-weight: 700;
+  }
+
+  @media (max-width: 480px) {
+    #duda-composer { padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)); }
+    #duda-chat-options { max-height: 145px; }
+    .duda-composer-hint { display: none; }
+  }
+
+  body.high-contrast #duda-input { border: 2px solid #fff; }
+
 </style>
 
 <script>
@@ -3720,7 +3809,7 @@ function ativarVLibras() {
     },
 
     diagnostico_3_desemp_2: {
-      mensagem: "🎉 <strong>VOCÊ AINDA TEM DIREITO!</strong>\n\nEntre 1 e 2 anos sem contribuir, você pode estar no Período de Graça de <strong>24 meses</strong> se:\n\n✅ Tem <strong>mais de 10 anos</strong> de contribuição ao INSS\n\n📊 <strong>Como saber:</strong>\n• Some todos os meses trabalhados na vida\n• Se tiver +120 meses (10 anos) → prazo é 24 meses\n\n<strong>Pergunta 3 de 3:</strong>\nQuer calcular seu prazo exato?",
+      mensagem: "ℹ️ <strong>AINDA PODE HAVER DIREITO.</strong>\n\nEntre 1 e 2 anos sem contribuir, você pode estar no Período de Graça de <strong>24 meses</strong> se:\n\n✅ Tem <strong>mais de 10 anos</strong> de contribuição ao INSS\n\n📊 <strong>Como saber:</strong>\n• Some todos os meses trabalhados na vida\n• Se tiver +120 meses (10 anos) → prazo é 24 meses\n\n<strong>Pergunta 3 de 3:</strong>\nQuer calcular seu prazo exato?",
       opcoes: [
         { texto: "🧮 Usar Calculadora do site", acao: "abrir_calculadora" },
         { texto: "📋 Ver documentos", proximo: "documentos" },
@@ -3763,7 +3852,7 @@ function ativarVLibras() {
     },
 
     diagnostico_3_rural_sim: {
-      mensagem: "🎉 <strong>EXCELENTE! VOCÊ TEM DIREITO!</strong>\n\nComo <strong>segurada especial</strong> (trabalhadora rural):\n\n✅ <strong>Não precisa</strong> ter contribuído mensalmente\n✅ Basta <strong>comprovar atividade rural</strong>\n✅ <strong>120 dias</strong> de benefício\n✅ Valor: <strong>1 salário mínimo vigente</strong>\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
+      mensagem: "🎉 <strong>HÁ FORTE INDÍCIO DE DIREITO!</strong>\n\nComo <strong>segurada especial</strong> (trabalhadora rural):\n\n✅ <strong>Não precisa</strong> ter contribuído mensalmente\n✅ Basta <strong>comprovar atividade rural</strong>\n✅ <strong>120 dias</strong> de benefício\n✅ Valor: <strong>1 salário mínimo vigente</strong>\n\n<strong>Pergunta 3 de 3:</strong>\nQuer saber mais?",
       opcoes: [
         { texto: "📋 Documentos necessários", proximo: "documentos_rural" },
         { texto: "📱 Como pedir", proximo: "como_pedir" },
@@ -4145,7 +4234,16 @@ function ativarVLibras() {
     topicosVisitados: new Set(),
     favoritos: [],
     vozAtiva: false,
-    historico: []
+    historico: [],
+    contexto: {
+      perfil: null,
+      evento: null,
+      mesesSemContribuir: null,
+      contribuicao: null
+    },
+    pendente: null,
+    ultimaIntencao: null,
+    falhasInterpretacao: 0
   };
 
   // Carregar estado salvo
@@ -4181,6 +4279,12 @@ function ativarVLibras() {
   const progressText = document.getElementById('duda-progress-text');
   const progressFill = document.getElementById('duda-progress-fill');
   const progressBar = document.querySelector('.duda-progress-bar');
+  const composer = document.getElementById('duda-composer');
+  const inputLivre = document.getElementById('duda-input');
+  const resetBtn = document.getElementById('duda-reset-btn');
+  const contextBar = document.getElementById('duda-context-bar');
+  const contextText = document.getElementById('duda-context-text');
+  const contextClear = document.getElementById('duda-context-clear');
 
   // ==========================================
   // FUNÇÕES AUXILIARES
@@ -4203,12 +4307,11 @@ function ativarVLibras() {
       chatWindow.removeAttribute('hidden');
       toggleBtn.setAttribute('aria-expanded', 'true');
       if (chatMessages.children.length === 0) {
-        mostrarEstado('inicio');
+        iniciarConversa();
       }
       setTimeout(() => {
-        const primeiroBotao = chatOptions.querySelector('button');
-        if (primeiroBotao) primeiroBotao.focus();
-      }, 400);
+        if (inputLivre) inputLivre.focus();
+      }, 250);
     } else {
       chatWindow.setAttribute('hidden', '');
       toggleBtn.setAttribute('aria-expanded', 'false');
@@ -4219,7 +4322,14 @@ function ativarVLibras() {
   function adicionarMensagem(texto, tipo, favoritar = false) {
     const msg = document.createElement('div');
     msg.className = 'duda-msg ' + tipo;
-    msg.innerHTML = texto.replace(/\n/g, '<br>');
+    if (tipo === 'user') {
+      msg.textContent = texto;
+    } else {
+      msg.innerHTML = texto.replace(/\n/g, '<br>');
+    }
+
+    estado.historico.push({ tipo, texto: String(texto).replace(/<[^>]*>/g, '').slice(0, 600) });
+    if (estado.historico.length > 24) estado.historico.shift();
     
     if (favoritar && tipo === 'bot') {
       const favBtn = document.createElement('button');
@@ -4272,8 +4382,14 @@ function ativarVLibras() {
   }
 
   function handleOpcao(opcao) {
+    if (opcao.conversa) {
+      processarEntrada(opcao.conversa, opcao.texto);
+      return;
+    }
+
     adicionarMensagem(opcao.texto, 'user');
     limparOpcoes();
+    estado.pendente = null;
 
     // Ações especiais
     if (opcao.acao) {
@@ -4425,6 +4541,10 @@ function ativarVLibras() {
     
     progressText.textContent = `Progresso: ${visitados}/${total} tópicos`;
     progressFill.style.width = `${percentual}%`;
+    if (progressBar) {
+      progressBar.setAttribute('aria-valuemax', String(total));
+      progressBar.setAttribute('aria-valuenow', String(visitados));
+    }
   }
 
   function toggleFavorito(msgElement, texto) {
@@ -4508,6 +4628,515 @@ function ativarVLibras() {
   }
 
   // ==========================================
+  // DUDA CONVERSACIONAL — INTERPRETADOR LOCAL (ESTILO ELIZA)
+  // ==========================================
+  const INTENCOES = [
+    { id:'conceito', peso:6, termos:['o que e salario maternidade','o que significa salario maternidade','para que serve salario maternidade'] },
+    { id:'quem_paga', peso:6, termos:['quem paga','empresa paga','inss paga','quem vai pagar'] },
+    { id:'renda_extra', peso:6, termos:['renda extra','posso trabalhar na licenca','trabalhar durante a licenca','outra renda durante a licenca'] },
+    { id:'imposto_renda', peso:6, termos:['imposto de renda','desconta ir','paga imposto','tributado'] },
+    { id:'antes_parto', peso:6, termos:['antes do parto','comecar antes','28 dias antes','afastar antes do parto'] },
+    { id:'empresa_cidada', peso:6, termos:['empresa cidada','180 dias','licenca de 180'] },
+    { id:'carencia', peso:6, termos:['carencia','dez meses','10 meses','quantas contribuicoes','quantos meses de inss'] },
+    { id:'nao_recebi', peso:6, termos:['nao recebi','nao caiu','nao pagaram','ainda nao pagou','sem pagamento'] },
+    { id:'gravidez', peso:4, termos:['estou gravida','to gravida','sou gestante','gravida'] },
+    { id:'pos_parto', peso:4, termos:['meu bebe nasceu','bebe ja nasceu','ja tive o bebe','dei a luz'] },
+    { id:'documentos', peso:5, termos:['documento','documentos','documentacao','o que levar','o que preciso levar','rg','cpf','certidao'] },
+    { id:'como_pedir', peso:5, termos:['como pedir','como solicitar','fazer pedido','dar entrada','solicitar beneficio','meu inss','como faco'] },
+    { id:'valor', peso:5, termos:['quanto recebo','quanto vou receber','qual valor','valor do beneficio','quanto paga','salario maternidade valor'] },
+    { id:'duracao', peso:5, termos:['quantos dias','quanto tempo dura','duracao','120 dias','tempo de licenca'] },
+    { id:'prazo', peso:5, termos:['prazo para pedir','ate quando','quanto tempo tenho para pedir','prescricao'] },
+    { id:'periodo_graca', peso:5, termos:['periodo de graca','ainda estou segurada','qualidade de segurada','parei de contribuir','parei de pagar inss','sem contribuir'] },
+    { id:'estabilidade', peso:5, termos:['estabilidade','podem me demitir','posso ser demitida','demitida gravida','mandada embora gravida'] },
+    { id:'empresa', peso:5, termos:['empresa nao pagou','nao recebi da empresa','rh nao pagou','empresa negou','patrao nao pagou'] },
+    { id:'negado', peso:5, termos:['pedido negado','inss negou','beneficio negado','indeferido','indeferimento'] },
+    { id:'adocao', peso:4, termos:['adocao','adotei','vou adotar','guarda judicial','adotiva','adotivo'] },
+    { id:'aborto', peso:4, termos:['aborto','perdi o bebe','perda gestacional','natimorto','bebe nasceu morto'] },
+    { id:'pai', peso:4, termos:['pai tem direito','licenca paternidade','sou pai','homem tem direito','pai adotivo'] },
+    { id:'agencia', peso:4, termos:['agencia','inss uba','onde fica o inss','atendimento presencial','endereco inss','ir no inss'] },
+    { id:'direito', peso:4, termos:['tenho direito','posso receber','sera que tenho direito','quero saber se tenho direito','me encaixo','beneficio para mim'] },
+    { id:'mei', peso:3, termos:['mei','microempreendedora','micro empreendedor','das mei','tenho cnpj','autonoma','trabalho por conta'] },
+    { id:'clt', peso:3, termos:['clt','carteira assinada','registrada','emprego formal','fichada','trabalho registrada'] },
+    { id:'rural', peso:3, termos:['rural','roca','campo','agricultura','lavradora','sitio','fazenda','segurada especial'] },
+    { id:'desempregada', peso:3, termos:['desempregada','fui demitida','me demitiram','mandada embora','sem emprego','nao estou trabalhando','parei de trabalhar'] },
+    { id:'confusao', peso:6, termos:['nao entendi','nao estou entendendo','muito complicado','nao sei nada','me explica simples','nao sei o que fazer','estou perdida'] },
+    { id:'agradecimento', peso:5, termos:['obrigada','obrigado','valeu','agradeco','muito bom','entendi agora'] },
+    { id:'saudacao', peso:4, termos:['oi','ola','bom dia','boa tarde','boa noite','e ai','opa'] }
+  ];
+
+  const PALAVRAS_NUMERO = { um:1, uma:1, dois:2, duas:2, tres:3, quatro:4, cinco:5, seis:6, sete:7, oito:8, nove:9, dez:10, onze:11, doze:12 };
+
+  function normalizarTexto(texto) {
+    return String(texto || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\b(to|tô)\b/g, 'estou')
+      .replace(/\btava\b/g, 'estava')
+      .replace(/\bta\b/g, 'esta')
+      .replace(/\bq\b/g, 'que')
+      .replace(/\bvc\b/g, 'voce')
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function distanciaEdicao(a, b) {
+    if (a === b) return 0;
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    const v0 = Array.from({length:b.length+1}, (_,i)=>i);
+    const v1 = new Array(b.length+1);
+    for (let i=0; i<a.length; i++) {
+      v1[0]=i+1;
+      for (let j=0; j<b.length; j++) {
+        const custo = a[i] === b[j] ? 0 : 1;
+        v1[j+1] = Math.min(v1[j]+1, v0[j+1]+1, v0[j]+custo);
+      }
+      for (let j=0; j<v0.length; j++) v0[j]=v1[j];
+    }
+    return v1[b.length];
+  }
+
+  function contemAproximado(normalizado, termo) {
+    if (normalizado.includes(termo)) return 1;
+    if (termo.includes(' ')) return 0;
+    if (termo.length < 5) return 0;
+    const tokens = normalizado.split(' ');
+    for (const t of tokens) {
+      if (Math.abs(t.length-termo.length) > 2 || t.length < 4) continue;
+      const d = distanciaEdicao(t, termo);
+      if (d <= 1 || (termo.length >= 8 && d <= 2)) return 0.72;
+    }
+    return 0;
+  }
+
+  function pontuarIntencoes(normalizado) {
+    return INTENCOES.map(def => {
+      let score = 0;
+      for (const termo of def.termos) {
+        const achou = contemAproximado(normalizado, termo);
+        if (achou) score += def.peso * achou + (termo.includes(' ') ? 1.4 : 0);
+      }
+      return { id:def.id, score };
+    }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+  }
+
+  function tem(normalizado, termos) {
+    return termos.some(t => contemAproximado(normalizado, t) > 0);
+  }
+
+  function extrairMeses(normalizado) {
+    let m = normalizado.match(/(?:faz|ha|a|parei faz|demitida faz)?\s*(\d{1,2})\s*mes(?:es)?/);
+    if (m) return Math.min(120, parseInt(m[1],10));
+    m = normalizado.match(/(?:faz|ha|a|parei faz|demitida faz)?\s*(\d{1,2})\s*ano(?:s)?/);
+    if (m) return Math.min(120, parseInt(m[1],10)*12);
+    for (const [palavra, n] of Object.entries(PALAVRAS_NUMERO)) {
+      if (normalizado.includes(`${palavra} mes`) || normalizado.includes(`${palavra} meses`)) return n;
+      if (normalizado.includes(`${palavra} ano`) || normalizado.includes(`${palavra} anos`)) return n*12;
+    }
+    if (normalizado.includes('menos de 1 ano')) return 6;
+    if (normalizado.includes('entre 1 e 2')) return 18;
+    if (normalizado.includes('entre 2 e 3')) return 30;
+    if (normalizado.includes('mais de 3')) return 42;
+    return null;
+  }
+
+  function atualizarContextoDaMensagem(normalizado) {
+    const c = estado.contexto;
+    if (tem(normalizado,['carteira assinada','clt','registrada','emprego formal','fichada'])) c.perfil='clt';
+    else if (tem(normalizado,['mei','microempreendedora','autonoma','trabalho por conta','cnpj'])) c.perfil='mei';
+    else if (tem(normalizado,['trabalhadora rural','rural','roca','agricultura','lavradora','segurada especial'])) c.perfil='rural';
+    else if (tem(normalizado,['desempregada','fui demitida','me demitiram','mandada embora','sem emprego','nao estou trabalhando'])) c.perfil='desempregada';
+
+    if (tem(normalizado,['gravida','gestante','estou esperando','ainda estou gravida'])) c.evento='gravida';
+    if (tem(normalizado,['bebe nasceu','ja nasceu','tive o bebe','dei a luz','parto foi'])) c.evento='pos_parto';
+    if (tem(normalizado,['adocao','adotei','vou adotar','guarda judicial'])) c.evento='adocao';
+    if (tem(normalizado,['aborto','perdi o bebe','perda gestacional'])) c.evento='aborto';
+    if (tem(normalizado,['natimorto','bebe nasceu morto'])) c.evento='natimorto';
+
+    const meses = extrairMeses(normalizado);
+    if (meses !== null && (c.perfil === 'desempregada' || tem(normalizado,['parei','demit','sem contribuir','sem pagar']))) c.mesesSemContribuir=meses;
+
+    if (tem(normalizado,['estou pagando','pago inss','pago o inss','pago das','contribuo','em dia'])) c.contribuicao='ativa';
+    if (tem(normalizado,['parei de pagar','nao pago inss','deixei de pagar','parei de contribuir'])) c.contribuicao='parou';
+
+    if (c.perfil) estado.perfil=c.perfil;
+    atualizarBarraContexto();
+  }
+
+  function atualizarBarraContexto() {
+    const c=estado.contexto;
+    const itens=[];
+    const perfis={clt:'carteira assinada',mei:'MEI/autônoma',rural:'trabalho rural',desempregada:'desempregada'};
+    const eventos={gravida:'grávida',pos_parto:'bebê já nasceu',adocao:'adoção/guarda',aborto:'aborto/perda gestacional',natimorto:'natimorto'};
+    if (c.perfil) itens.push(perfis[c.perfil]||c.perfil);
+    if (c.evento) itens.push(eventos[c.evento]||c.evento);
+    if (c.mesesSemContribuir !== null) itens.push(`${c.mesesSemContribuir} mês${c.mesesSemContribuir===1?'':'es'} sem contribuir`);
+    if (itens.length) {
+      contextText.textContent='Entendi até agora: '+itens.join(' • ');
+      contextBar.removeAttribute('hidden');
+    } else contextBar.setAttribute('hidden','');
+  }
+
+  function limparContextoConversa() {
+    estado.contexto={perfil:null,evento:null,mesesSemContribuir:null,contribuicao:null};
+    estado.perfil=null;
+    estado.pendente=null;
+    estado.ultimaIntencao=null;
+    estado.falhasInterpretacao=0;
+    atualizarBarraContexto();
+  }
+
+  function sugestoesIniciais() {
+    return [
+      {texto:'👶 Quero saber se tenho direito', conversa:'quero saber se tenho direito'},
+      {texto:'🚶‍♀️ Fui demitida', conversa:'fui demitida'},
+      {texto:'🏬 Sou MEI/autônoma', conversa:'sou mei'},
+      {texto:'📋 Quais documentos?', conversa:'quais documentos preciso'},
+      {texto:'📱 Como faço o pedido?', conversa:'como pedir o salario maternidade'}
+    ];
+  }
+
+  function iniciarConversa() {
+    limparContextoConversa();
+    adicionarMensagem('Olá! Sou a <strong>Duda</strong> 🌼.<br><br>Você pode <strong>escrever sua dúvida do seu jeito</strong>, como se estivesse conversando com uma pessoa. Não precisa usar termos jurídicos nem escrever “certinho”.<br><br>Exemplos: <em>“fui demitida faz 8 meses e estou grávida”</em>, <em>“sou MEI e meu bebê nasceu”</em> ou <em>“quais documentos eu levo?”</em>.', 'bot');
+    renderizarOpcoes(sugestoesIniciais());
+  }
+
+  function reiniciarConversa() {
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    chatMessages.innerHTML='';
+    limparOpcoes();
+    limparContextoConversa();
+    iniciarConversa();
+    setTimeout(()=>inputLivre && inputLivre.focus(),100);
+  }
+
+  function responderConversa(texto, opcoes=[], favoritar=true, atraso=420) {
+    mostrarDigitando();
+    setTimeout(()=>{
+      removerDigitando();
+      adicionarMensagem(texto,'bot',favoritar);
+      renderizarOpcoes(opcoes);
+      if (inputLivre) inputLivre.focus();
+    }, atraso);
+  }
+
+  function perguntarPerfil(finalidade='direito') {
+    estado.pendente={tipo:'perfil', finalidade};
+    const verbos={direito:'ver se você pode ter direito',documentos:'mostrar os documentos certos',valor:'explicar como o valor é definido'};
+    responderConversa(`Para ${verbos[finalidade]||'te orientar'}, me diga qual situação mais parece com a sua:`,[
+      {texto:'💼 Carteira assinada (CLT)', conversa:'tenho carteira assinada'},
+      {texto:'🏬 MEI / autônoma', conversa:'sou mei'},
+      {texto:'🌾 Trabalho rural', conversa:'sou trabalhadora rural'},
+      {texto:'🚶‍♀️ Estou desempregada', conversa:'estou desempregada'},
+      {texto:'🤷 Não sei', conversa:'nao sei em qual perfil me encaixo'}
+    ],false);
+  }
+
+  function perguntarEventoClt() {
+    estado.pendente={tipo:'evento_clt'};
+    responderConversa('Entendi que você trabalha com carteira assinada. Agora me diga: qual é a situação hoje?',[
+      {texto:'🤰 Ainda estou grávida', conversa:'ainda estou gravida'},
+      {texto:'👶 Meu bebê já nasceu', conversa:'meu bebe ja nasceu'},
+      {texto:'💙 Tive aborto ou natimorto', conversa:'tive aborto ou natimorto'}
+    ],false);
+  }
+
+  function perguntarQualidadeMei() {
+    estado.pendente={tipo:'qualidade_mei'};
+    responderConversa('Certo. Para MEI/autônoma, hoje não há carência mínima, mas é importante saber se você <strong>mantinha a qualidade de segurada</strong> na data do parto, aborto ou adoção.<br><br>Você estava contribuindo para o INSS ou ainda estava protegida pelo INSS nessa época?',[
+      {texto:'✅ Sim', conversa:'sim eu estava contribuindo ou segurada'},
+      {texto:'❌ Não', conversa:'nao eu nao estava contribuindo nem segurada'},
+      {texto:'🤔 Não sei', conversa:'nao sei se eu tinha qualidade de segurada'}
+    ],false);
+  }
+
+  function perguntarTempoDesemprego() {
+    estado.pendente={tipo:'tempo_desemprego'};
+    responderConversa('Entendi. Há quanto tempo você tinha parado de contribuir para o INSS? Pode escrever algo como <strong>“8 meses”</strong> ou escolher uma opção:',[
+      {texto:'📅 Menos de 1 ano', conversa:'menos de 1 ano'},
+      {texto:'📅 Entre 1 e 2 anos', conversa:'entre 1 e 2 anos'},
+      {texto:'📅 Entre 2 e 3 anos', conversa:'entre 2 e 3 anos'},
+      {texto:'📅 Mais de 3 anos', conversa:'mais de 3 anos'},
+      {texto:'🤷 Não sei', conversa:'nao sei quanto tempo'}
+    ],false);
+  }
+
+  function responderDesempregoPorMeses(meses) {
+    if (meses < 12) {
+      responderConversa(`Você me contou que parou de contribuir há cerca de <strong>${meses} mês${meses===1?'':'es'}</strong>. Isso fica dentro do período geral de 12 meses de manutenção da qualidade de segurada, mas a data exata deve ser conferida.<br><br>Vale a pena verificar seu caso na calculadora do site.`,[
+        {texto:'🧮 Conferir na calculadora', acao:'abrir_calculadora'},
+        {texto:'📋 Ver documentos', proximo:'resultado_desemp_docs'},
+        {texto:'⏳ Entender período de graça', proximo:'periodo_graca'}
+      ]);
+    } else if (meses < 24) {
+      responderConversa(`Com cerca de <strong>${meses} meses</strong> sem contribuir, a resposta depende do seu histórico previdenciário. Em algumas situações, o período de proteção pode chegar a 24 meses.<br><br>Para evitar uma conclusão errada, use a calculadora e confira seu histórico.`,[
+        {texto:'🧮 Calcular meu prazo', acao:'abrir_calculadora'},
+        {texto:'⏳ Entender as regras', proximo:'periodo_graca'},
+        {texto:'📞 Confirmar no 135', acao:'ligar_135'}
+      ]);
+    } else if (meses < 36) {
+      responderConversa(`Com cerca de <strong>${meses} meses</strong> sem contribuir, ainda pode existir proteção em situações específicas, como histórico longo de contribuições e comprovação de desemprego.<br><br>É importante calcular com mais dados antes de concluir.`,[
+        {texto:'🧮 Calcular meu prazo', acao:'abrir_calculadora'},
+        {texto:'⏳ Entender período de graça', proximo:'periodo_graca'},
+        {texto:'📞 Confirmar no 135', acao:'ligar_135'}
+      ]);
+    } else {
+      responderConversa(`Com cerca de <strong>${meses} meses</strong> sem contribuir, o período de proteção comum pode já ter terminado. Mesmo assim, uma contribuição posterior, períodos anteriores ou outra categoria de segurada podem mudar a análise.<br><br>Por isso, não vou fechar uma resposta só com esse dado.`,[
+        {texto:'🧮 Conferir na calculadora', acao:'abrir_calculadora'},
+        {texto:'📞 Confirmar no 135', acao:'ligar_135'},
+        {texto:'🌾 Trabalho rural', conversa:'tambem trabalho rural'}
+      ]);
+    }
+  }
+
+  function continuarPeloPerfil(finalidade='direito') {
+    const p=estado.contexto.perfil || estado.perfil;
+    if (!p) return perguntarPerfil(finalidade);
+    if (finalidade==='documentos') {
+      const mapa={clt:'resultado_clt_docs',mei:'resultado_mei_docs',rural:'documentos_rural',desempregada:'resultado_desemp_docs'};
+      return mostrarEstado(mapa[p]||'documentos');
+    }
+    if (finalidade==='valor') {
+      const mapa={clt:'resultado_clt_valor',mei:'resultado_mei_valor',rural:'resultado_rural_valor',desempregada:'resultado_desemp_valor'};
+      return mostrarEstado(mapa[p]||'documentos');
+    }
+    if (p==='clt') {
+      if (estado.contexto.evento==='gravida') return mostrarEstado('diagnostico_3_clt_gravida');
+      if (estado.contexto.evento==='pos_parto') return mostrarEstado('diagnostico_3_clt_pos');
+      if (['aborto','natimorto'].includes(estado.contexto.evento)) return mostrarEstado('diagnostico_3_clt_aborto');
+      return perguntarEventoClt();
+    }
+    if (p==='mei') return perguntarQualidadeMei();
+    if (p==='desempregada') {
+      if (estado.contexto.mesesSemContribuir !== null) return responderDesempregoPorMeses(estado.contexto.mesesSemContribuir);
+      return perguntarTempoDesemprego();
+    }
+    if (p==='rural') return mostrarEstado('diagnostico_2_rural');
+  }
+
+  function respostaPendente(normalizado) {
+    const pend=estado.pendente;
+    if (!pend) return false;
+
+    if (pend.tipo==='perfil') {
+      if (normalizado.includes('nao sei')) {
+        estado.pendente=null;
+        responderConversa('Sem problema. Vou usar palavras do dia a dia:<br><br>• <strong>Carteira assinada</strong>: você trabalha registrada para uma empresa.<br>• <strong>MEI/autônoma</strong>: trabalha por conta própria ou tem MEI.<br>• <strong>Rural</strong>: trabalha na roça/campo.<br>• <strong>Desempregada</strong>: não está trabalhando e pode ter contribuído antes.<br><br>Qual dessas mais se aproxima?',[
+          {texto:'💼 Trabalho registrada', conversa:'tenho carteira assinada'},
+          {texto:'🏬 Trabalho por conta própria', conversa:'sou mei autonoma'},
+          {texto:'🌾 Trabalho no campo', conversa:'sou trabalhadora rural'},
+          {texto:'🚶‍♀️ Não estou trabalhando', conversa:'estou desempregada'}
+        ],false);
+        estado.pendente={tipo:'perfil',finalidade:pend.finalidade};
+        return true;
+      }
+      if (estado.contexto.perfil) {
+        estado.pendente=null;
+        if (pend.finalidade==='quem_paga') { responderIntencao('quem_paga', normalizado); }
+        else continuarPeloPerfil(pend.finalidade);
+        return true;
+      }
+    }
+
+    if (pend.tipo==='evento_clt') {
+      if (estado.contexto.evento) {
+        estado.pendente=null;
+        continuarPeloPerfil('direito');
+        return true;
+      }
+    }
+
+    if (pend.tipo==='qualidade_mei') {
+      if (tem(normalizado,['sim','estava contribuindo','estava segurada','em dia'])) {
+        estado.pendente=null; mostrarEstado('diagnostico_3_mei_sim'); return true;
+      }
+      if (tem(normalizado,['nao sei','tenho duvida','nao tenho certeza'])) {
+        estado.pendente=null; mostrarEstado('diagnostico_3_mei_duvida'); return true;
+      }
+      if (tem(normalizado,['nao','nao estava','parei'])) {
+        estado.pendente=null; mostrarEstado('diagnostico_3_mei_nao'); return true;
+      }
+    }
+
+    if (pend.tipo==='tempo_desemprego') {
+      if (normalizado.includes('nao sei')) {
+        estado.pendente=null;
+        responderConversa('Tudo bem. Sem a data, não é seguro calcular. Você pode conferir a última contribuição no <strong>CNIS</strong>, dentro do Meu INSS, ou usar a calculadora quando souber a data aproximada.',[
+          {texto:'📱 Como consultar no Meu INSS', proximo:'como_pedir'},
+          {texto:'🧮 Abrir calculadora', acao:'abrir_calculadora'},
+          {texto:'📞 Ligar 135', acao:'ligar_135'}
+        ]);
+        return true;
+      }
+      const meses=extrairMeses(normalizado);
+      if (meses!==null) {
+        estado.contexto.mesesSemContribuir=meses; atualizarBarraContexto(); estado.pendente=null;
+        responderDesempregoPorMeses(meses); return true;
+      }
+    }
+    return false;
+  }
+
+  function responderIntencao(intencao, normalizado) {
+    estado.ultimaIntencao=intencao;
+    switch(intencao) {
+      case 'conceito':
+        responderConversa('O <strong>salário-maternidade</strong> é um benefício ligado ao afastamento por parto, adoção/guarda para adoção e outras situações previstas. As regras de pagamento e comprovação mudam conforme o tipo de segurada.',[
+          {texto:'👶 Quero saber se tenho direito', conversa:'quero saber se tenho direito'},
+          {texto:'💰 Quanto posso receber?', conversa:'quanto vou receber'},
+          {texto:'📱 Como pedir?', conversa:'como pedir'}
+        ]); return;
+      case 'quem_paga': {
+        const p=estado.contexto.perfil||estado.perfil;
+        if (!p) {
+          estado.pendente={tipo:'perfil',finalidade:'quem_paga'};
+          return responderConversa('Isso depende da sua situação de trabalho. Qual opção mais parece com a sua?',[
+            {texto:'💼 Carteira assinada', conversa:'tenho carteira assinada'},
+            {texto:'🏬 MEI / autônoma', conversa:'sou mei'},
+            {texto:'🌾 Trabalho rural', conversa:'sou trabalhadora rural'},
+            {texto:'🚶‍♀️ Desempregada', conversa:'estou desempregada'}
+          ],false);
+        }
+        const pagador = p==='clt' ? 'Na situação comum de empregada CLT, o pagamento é feito pela <strong>empresa</strong>, conforme as regras aplicáveis.' : 'No perfil que você me informou, o benefício é tratado diretamente pelo <strong>INSS</strong>.';
+        responderConversa(pagador,[{texto:'📱 Como pedir?', conversa:'como pedir'},{texto:'📋 Documentos', conversa:'quais documentos'}]); return;
+      }
+      case 'renda_extra': return mostrarEstado('faq_renda');
+      case 'imposto_renda': return mostrarEstado('faq_ir');
+      case 'antes_parto': return mostrarEstado('faq_antes');
+      case 'empresa_cidada': return mostrarEstado('empresa_cidada');
+      case 'carencia': return mostrarEstado('faq_mei_carencia');
+      case 'nao_recebi': {
+        const p=estado.contexto.perfil||estado.perfil;
+        if (p==='clt') return mostrarEstado('problema_empresa');
+        responderConversa('Se o pagamento não apareceu, primeiro precisamos saber <strong>quem deveria pagar no seu caso</strong> e se o pedido já foi analisado. Se o benefício é pelo INSS, consulte o andamento no Meu INSS; se é CLT, verifique também com o RH.',[
+          {texto:'🔗 Abrir Meu INSS', acao:'abrir_meu_inss'},
+          {texto:'💼 Sou CLT', conversa:'sou clt e nao recebi'},
+          {texto:'📞 Ligar 135', acao:'ligar_135'}
+        ]); return;
+      }
+      case 'gravidez':
+        if (!estado.contexto.perfil) return perguntarPerfil('direito');
+        return continuarPeloPerfil('direito');
+      case 'pos_parto':
+        if (!estado.contexto.perfil) return perguntarPerfil('direito');
+        return continuarPeloPerfil('direito');
+      case 'saudacao':
+        responderConversa('Olá! 😊 Pode me contar o que aconteceu ou fazer sua pergunta do seu jeito. Eu vou tentar organizar as informações com você.', sugestoesIniciais(), false); return;
+      case 'agradecimento':
+        responderConversa('Que bom que ajudou. 💛 Se quiser, pode continuar perguntando ou me contar mais sobre sua situação.',[
+          {texto:'👶 Ver se tenho direito', conversa:'quero saber se tenho direito'},
+          {texto:'📋 Ver documentos', conversa:'quais documentos preciso'},
+          {texto:'📱 Como pedir', conversa:'como pedir'}
+        ],false); return;
+      case 'confusao':
+        estado.pendente={tipo:'perfil',finalidade:'direito'};
+        responderConversa('Vamos deixar bem simples: <strong>uma pergunta por vez</strong>.<br><br>Hoje você está trabalhando com carteira assinada, trabalha por conta própria/MEI, trabalha no campo ou está sem trabalhar?',[
+          {texto:'💼 Carteira assinada', conversa:'tenho carteira assinada'},
+          {texto:'🏬 Por conta própria / MEI', conversa:'sou mei'},
+          {texto:'🌾 Trabalho no campo', conversa:'sou trabalhadora rural'},
+          {texto:'🚶‍♀️ Estou sem trabalhar', conversa:'estou desempregada'}
+        ],false); return;
+      case 'documentos': return continuarPeloPerfil('documentos');
+      case 'como_pedir': return mostrarEstado('como_pedir');
+      case 'valor': return continuarPeloPerfil('valor');
+      case 'duracao':
+        responderConversa('A duração depende do motivo:<br><br>👶 <strong>Parto:</strong> 120 dias.<br>👨‍👧 <strong>Adoção/guarda para adoção:</strong> 120 dias, com adotado de até 12 anos.<br>💙 <strong>Natimorto:</strong> 120 dias.<br>🩺 <strong>Aborto espontâneo ou previsto em lei:</strong> 14 dias, conforme avaliação médica.',[
+          {texto:'💰 E quanto eu recebo?', conversa:'quanto vou receber'},
+          {texto:'📱 Como pedir?', conversa:'como pedir'},
+          {texto:'📋 Documentos', conversa:'quais documentos'}
+        ]); return;
+      case 'prazo': return mostrarEstado('faq_prazo');
+      case 'periodo_graca': return mostrarEstado('periodo_graca');
+      case 'estabilidade':
+        responderConversa('Se você é empregada gestante, existe proteção contra dispensa sem justa causa durante o período de estabilidade gestacional. Como situações específicas podem mudar a análise, use isso como orientação inicial.',[
+          {texto:'💼 Ver regras para CLT', conversa:'sou clt e quero saber meus direitos'},
+          {texto:'🚨 Minha empresa me demitiu', conversa:'fui demitida gravida'},
+          {texto:'📞 Falar com o 135', acao:'ligar_135'}
+        ]); return;
+      case 'empresa': return mostrarEstado('problema_empresa');
+      case 'negado':
+        responderConversa('Se o pedido foi negado, o primeiro passo é conferir <strong>o motivo do indeferimento</strong> no Meu INSS. Como o caminho depende do motivo, não vou presumir a causa.<br><br>Você pode verificar o processo e, se precisar, confirmar a orientação pelo 135 ou buscar atendimento jurídico.',[
+          {texto:'🔗 Abrir Meu INSS', acao:'abrir_meu_inss'},
+          {texto:'📞 Ligar 135', acao:'ligar_135'},
+          {texto:'📍 Ver atendimento em Ubá', acao:'ir_secao_agencias'}
+        ]); return;
+      case 'adocao':
+        estado.contexto.evento='adocao'; atualizarBarraContexto(); return mostrarEstado('faq_adocao_maior');
+      case 'aborto':
+        estado.contexto.evento = normalizado.includes('natimorto') || normalizado.includes('nasceu morto') ? 'natimorto' : 'aborto'; atualizarBarraContexto(); return mostrarEstado('documentos_aborto');
+      case 'pai': return mostrarEstado('licenca_paternidade');
+      case 'agencia':
+        responderConversa('Para Ubá e arredores, o site mantém a referência da agência do INSS de Ubá. Posso levar você diretamente até essa parte.',[
+          {texto:'📍 Ver agência do INSS de Ubá', acao:'ir_secao_agencias'},
+          {texto:'📞 Ligar 135', acao:'ligar_135'}
+        ],false); return;
+      case 'direito': return continuarPeloPerfil('direito');
+      case 'clt':
+      case 'mei':
+      case 'rural':
+      case 'desempregada': return continuarPeloPerfil('direito');
+    }
+  }
+
+  function fallbackConversacional(normalizado, ranking) {
+    estado.falhasInterpretacao++;
+    const sugest=[];
+    const mapa={documentos:'📋 Documentos',como_pedir:'📱 Como pedir',valor:'💰 Valor',periodo_graca:'⏳ Período de graça',direito:'👶 Tenho direito?',mei:'🏬 MEI/autônoma',clt:'💼 CLT',rural:'🌾 Rural',desempregada:'🚶‍♀️ Desempregada',adocao:'👨‍👧 Adoção'};
+    (ranking||[]).slice(0,3).forEach(r=>{
+      if (r.score>=2 && mapa[r.id]) sugest.push({texto:mapa[r.id], conversa:mapa[r.id].replace(/^[^ ]+\s/,'')});
+    });
+    if (!sugest.length) sugest.push(...sugestoesIniciais().slice(0,4));
+    const reflexao = normalizado.match(/\b(?:eu )?(sou|estou|tenho|fui|parei|preciso)\s+(.{3,70})/);
+    if (reflexao && estado.falhasInterpretacao===1) {
+      const trecho = reflexao[2].split(' ').slice(0,10).join(' ');
+      responderConversa(`Entendi que você está me dizendo algo sobre <strong>“${trecho}”</strong>. Para eu não interpretar errado, qual destas opções se aproxima mais do que você quer descobrir?`, sugest, false);
+      return;
+    }
+    const texto = estado.falhasInterpretacao>1
+      ? 'Ainda não consegui entender com segurança. Você pode escrever uma frase curta, por exemplo: <strong>“sou MEI”</strong>, <strong>“fui demitida”</strong>, <strong>“quais documentos?”</strong> ou tocar em uma opção abaixo.'
+      : 'Acho que entendi parte do que você quis dizer, mas não quero adivinhar uma resposta jurídica. Qual destas opções chega mais perto da sua dúvida?';
+    responderConversa(texto,sugest,false);
+  }
+
+  function processarEntrada(texto, exibicao=null) {
+    const original=String(texto||'').trim();
+    if (!original) return;
+    adicionarMensagem(exibicao || original,'user');
+    limparOpcoes();
+    if (inputLivre) inputLivre.value='';
+
+    const n=normalizarTexto(original);
+    atualizarContextoDaMensagem(n);
+
+    if (respostaPendente(n)) return;
+
+    const ranking=pontuarIntencoes(n);
+    let intencao=ranking.length ? ranking[0].id : null;
+
+    // Perguntas explícitas têm prioridade sobre a simples menção do perfil.
+    const prioridades=['conceito','quem_paga','renda_extra','imposto_renda','antes_parto','empresa_cidada','carencia','nao_recebi','documentos','como_pedir','valor','duracao','prazo','periodo_graca','estabilidade','empresa','negado','direito','confusao'];
+    for (const p of prioridades) {
+      const achou=ranking.find(x=>x.id===p && x.score>=3.2);
+      if (achou) { intencao=p; break; }
+    }
+
+    // Combinação natural: "fui demitida há X meses e estou grávida".
+    if (estado.contexto.perfil==='desempregada' && estado.contexto.mesesSemContribuir!==null && (n.includes('gravida') || n.includes('bebe') || intencao==='direito' || intencao==='desempregada')) {
+      estado.falhasInterpretacao=0;
+      responderDesempregoPorMeses(estado.contexto.mesesSemContribuir);
+      return;
+    }
+
+    if (intencao && (ranking[0]?.score || 0) >= 2.2) {
+      estado.falhasInterpretacao=0;
+      responderIntencao(intencao,n);
+    } else {
+      fallbackConversacional(n,ranking);
+    }
+  }
+
+  // ==========================================
   // EVENT LISTENERS
   // ==========================================
   toggleBtn.addEventListener('click', toggleChat);
@@ -4521,6 +5150,15 @@ function ativarVLibras() {
   favoritesBtn.addEventListener('click', mostrarFavoritos);
   closeFavoritesBtn.addEventListener('click', () => {
     favoritesPanel.setAttribute('hidden', '');
+  });
+  resetBtn.addEventListener('click', reiniciarConversa);
+  contextClear.addEventListener('click', () => {
+    limparContextoConversa();
+    responderConversa('Certo. Limpei o que eu tinha entendido sobre sua situação. Pode me contar novamente do seu jeito.', sugestoesIniciais(), false, 250);
+  });
+  composer.addEventListener('submit', (e) => {
+    e.preventDefault();
+    processarEntrada(inputLivre.value);
   });
   voiceBtn.addEventListener('click', () => {
     estado.vozAtiva = !estado.vozAtiva;
@@ -4539,6 +5177,9 @@ function ativarVLibras() {
     }
     
     if (!chatWindow.hasAttribute('hidden') && !searchPanel.hasAttribute('hidden')) {
+      return;
+    }
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) {
       return;
     }
     
