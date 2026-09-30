@@ -1773,7 +1773,7 @@
     <div class="footer-brand">
       <h3>DIREITOS PREVIDENCIÁRIOS</h3>
       <p>Este material educativo foi elaborado pelos alunos do 9º período do curso de Direito da <strong>UNIFAGOC</strong> — Centro Universitário Governador Ozanam Coelho.</p>
-      <p style="margin-top:10px;font-size:0.8rem;opacity:0.52;"><strong>Prof.ª Orientadora</strong>: <span class="orientadora">Ludimila Marinho Castro</span></p>
+      <p style="margin-top:10px;font-size:0.8rem;opacity:0.62;line-height:1.55;"><strong>Prof.ªs Orientadoras</strong>: <span class="orientadora">Drielly Faria de Paula Leão</span> e <span class="orientadora">Ludimila Marinho Castro</span></p>
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
         <a href="tel:135" style="background:var(--yellow);color:var(--text-dark);padding:8px 16px;border-radius:50px;font-weight:900;font-size:0.85rem;text-decoration:none;"><i class="fas fa-phone-alt"></i> Ligue 135</a>
         <a href="https://meu.inss.gov.br/#/login" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.15);color:#fff;padding:8px 16px;border-radius:50px;font-weight:800;font-size:0.85rem;text-decoration:none;border:1.5px solid rgba(255,255,255,0.3);"><i class="fas fa-mobile-alt"></i> Meu INSS</a>
@@ -2948,13 +2948,13 @@ function ativarVLibras() {
 
 <button 
   id="duda-toggle-btn" 
-  aria-label="Abrir chat de dúvidas com a Duda"
+  aria-label="Abrir ajuda guiada sobre Salário-Maternidade"
   aria-expanded="false"
   aria-controls="duda-chat-window"
-  title="Tire suas dúvidas sobre Salário-Maternidade">
-  <span class="duda-icon">💬</span>
-  <span class="duda-badge">Dúvidas?</span>
-  <span class="duda-notification" hidden>1</span>
+  title="Precisa de ajuda?">
+  <span class="duda-icon" aria-hidden="true">💬</span>
+  <span class="duda-launcher-label">Precisa de ajuda?</span>
+  <span class="duda-launcher-pulse" aria-hidden="true"></span>
 </button>
 
 <div 
@@ -3038,82 +3038,65 @@ function ativarVLibras() {
 
   #duda-toggle-btn {
     position: fixed !important;
-    bottom: max(22px, calc(env(safe-area-inset-bottom, 0px) + 10px));
-    left: max(22px, calc(env(safe-area-inset-left, 0px) + 10px));
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--duda-primary), var(--duda-secondary));
-    color: white;
+    left: 24px;
+    bottom: 24px;
+    z-index: 9998;
     border: none;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(33, 118, 174, 0.38);
-    z-index: 2147483000;
-    transition: opacity .25s ease, transform .25s ease, box-shadow .25s ease;
-    display: flex !important;
+    border-radius: 999px;
+    background: var(--yellow, #FFD166);
+    color: var(--text-dark, #0d2b4e);
+    min-height: 56px;
+    width: auto;
+    height: auto;
+    padding: 0 20px;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    animation: duda-bounce 2s infinite;
+    gap: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    transition: transform .25s var(--ease-spring, ease), box-shadow .25s ease;
     isolation: isolate;
   }
-  body.duda-chat-open #duda-toggle-btn {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(10px) scale(0.92);
-  }
   #duda-toggle-btn:hover,
-  #duda-toggle-btn:focus {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 12px 32px rgba(33, 118, 174, 0.55);
-    outline: 3px solid white;
+  #duda-toggle-btn:focus-visible {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(0,0,0,.32);
+    outline: 3px solid #fff;
     outline-offset: 3px;
   }
-  @keyframes duda-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
   .duda-icon {
-    font-size: 32px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    font-size: 1.25rem;
+    line-height: 1;
+    filter: none;
   }
-  .duda-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: var(--duda-success);
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 12px;
+  .duda-launcher-label {
+    display: inline-block;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    animation: duda-pulse 2s infinite;
   }
-  @keyframes duda-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  .duda-notification {
+  .duda-launcher-pulse {
     position: absolute;
-    top: -4px;
-    left: -4px;
-    background: var(--duda-danger);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    width: 24px;
-    height: 24px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    background: var(--green, #06D6A0);
+    top: 2px;
+    right: 5px;
+    box-shadow: 0 0 0 0 rgba(6,214,160,.65);
+    animation: dudaLauncherPulse 2.2s infinite;
+  }
+  @keyframes dudaLauncherPulse {
+    0% { box-shadow: 0 0 0 0 rgba(6,214,160,.6); }
+    70% { box-shadow: 0 0 0 11px rgba(6,214,160,0); }
+    100% { box-shadow: 0 0 0 0 rgba(6,214,160,0); }
   }
 
   #duda-chat-window {
     position: fixed;
-    bottom: 100px;
+    bottom: 92px;
     left: 24px;
     width: 420px;
     max-width: calc(100vw - 32px);
@@ -3540,17 +3523,21 @@ function ativarVLibras() {
   }
 
   @media (max-width: 480px) {
-    #duda-chat-window {
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      max-height: 100vh;
-      border-radius: 0;
-    }
     #duda-toggle-btn {
-      bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 6px));
-      left: max(16px, calc(env(safe-area-inset-left, 0px) + 6px));
+      left: 12px;
+      bottom: 14px;
+      min-height: 52px;
+      padding: 0 15px;
+      font-size: 0.86rem;
+    }
+    #duda-chat-window {
+      left: 8px;
+      right: 8px;
+      bottom: 74px;
+      width: auto;
+      height: auto;
+      max-height: calc(100dvh - 92px);
+      border-radius: 20px;
     }
   }
 
@@ -3563,7 +3550,7 @@ function ativarVLibras() {
   /* Integração com a acessibilidade e impressão do site */
   @media (prefers-reduced-motion: reduce) {
     #duda-toggle-btn, #duda-chat-window, .duda-msg, .duda-typing span,
-    .duda-status-dot, .duda-badge, #duda-progress-fill {
+    .duda-status-dot, .duda-launcher-pulse, #duda-progress-fill {
       animation: none !important;
       transition: none !important;
       scroll-behavior: auto !important;
@@ -4214,7 +4201,6 @@ function ativarVLibras() {
     const isHidden = chatWindow.hasAttribute('hidden');
     if (isHidden) {
       chatWindow.removeAttribute('hidden');
-      document.body.classList.add('duda-chat-open');
       toggleBtn.setAttribute('aria-expanded', 'true');
       if (chatMessages.children.length === 0) {
         mostrarEstado('inicio');
@@ -4225,7 +4211,6 @@ function ativarVLibras() {
       }, 400);
     } else {
       chatWindow.setAttribute('hidden', '');
-      document.body.classList.remove('duda-chat-open');
       toggleBtn.setAttribute('aria-expanded', 'false');
       toggleBtn.focus();
     }
