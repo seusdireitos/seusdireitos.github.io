@@ -17,6 +17,11 @@ ESTA VERSÃO — CORREÇÃO DE 01/10/2026
 O acionador nativo do VLibras está oculto, inclusive na versão com Shadow DOM.
 Use o botão de Libras da barra de acessibilidade para abrir o tradutor.
 A Duda tem respostas curtas por perfil para valor, documentos e pedido.
+Nesta versão local, acompanha respostas curtas, meses escritos por extenso,
+algumas abreviações e correções explícitas de perfil. O processamento das
+mensagens fica no navegador, sem API ou modelo externo. A conversa usa
+memória temporária: recarregar a página apaga o contexto. Recursos como
+mapa e VLibras e links oficiais ainda precisam de internet.
 Ela preserva o assunto após uma pergunta de esclarecimento e permite
 consultar trechos maiores quando o visitante desejar. Continua sendo um
 assistente automático local, com respostas preparadas e busca no site.

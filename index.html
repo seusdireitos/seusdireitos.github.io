@@ -7346,6 +7346,118 @@ function ativarVLibras() {
 
 </script>
     <script>
+/* Continuidade da conversa: processamento inteiramente no navegador. */
+(function () {
+  'use strict';
+  const proto = DudaEngine.Engine.prototype;
+  const baseAsk = proto.ask, baseNext = proto.next, baseTopic = proto.detectTopic;
+  const normalize = DudaEngine.normalize;
+  const nums = {um:1,uma:1,dois:2,duas:2,tres:3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9,dez:10,onze:11,doze:12};
+  const useful = ['Quanto vou receber?', 'Quais documentos?', 'Como pedir?'];
+
+  function rewrite(input) {
+    return normalize(input)
+      .replace(/\b(vc|vcs)\b/g,'voce').replace(/\bto\b/g,'estou')
+      .replace(/\b(gravda|gravdia)\b/g,'gravida')
+      .replace(/\b(desempregda|despregada)\b/g,'desempregada')
+      .replace(/\b(documetos|documntos|documentacao)\b/g,'documentos')
+      .replace(/\b(paga|pagah)\b/g,'pagar')
+      .replace(/me mandaro embora/g,'me mandaram embora')
+      .replace(/\bregistrada\b/g,'carteira assinada');
+  }
+  function months(input) {
+    const m=input.match(/(?:^|\s)(\d+|um|uma|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|onze|doze)\s*(mes(?:es)?|anos?)(?:\s|$)/);
+    if (!m) return null;
+    // Faixas e comparações não viram datas exatas por adivinhação.
+    if (/mais de|menos de|entre|quase/.test(input)) return null;
+    return (nums[m[1]] || Number(m[1])) * (m[2].startsWith('ano')?12:1);
+  }
+  proto.detectTopic = function (input) {
+    const n=rewrite(input);
+    if (/quanto.*(tempo|mes).*(receb|pag)|quantos meses.*(receb|pag)/.test(n)) return 'duracao';
+    if (/qto|quanto cai|quanto vem|quanto da|vou ganhar/.test(n) && !/tempo|dias|meses/.test(n)) return 'valor';
+    if (/o que.*(levo|levar|separar)|quais papeis/.test(n)) return 'documentos';
+    if (/por onde comeco|onde comeco|como faco|como consigo pedir/.test(n)) return 'pedido';
+    if (/quanto tempo|quantos meses/.test(n) && this.lastTopic==='duracao') return 'duracao';
+    return baseTopic.call(this,n);
+  };
+  proto.next = function () {
+    const answer=baseNext.call(this);
+    if (!this.context.profile) this.waiting='profile';
+    else if (!this.context.event && !this.waiting) this.waiting='event';
+    return answer;
+  };
+  proto.ask = function (input) {
+    let n=rewrite(input);
+    if (DudaEngine.sensitive(n) || /\b\d{11}\b|\b\d{3} \d{3} \d{3} \d{2}\b|minha senha|meu cpf/.test(n)) return baseAsk.call(this,n);
+    if (/^(s|ss|sim sim|isso mesmo|exatamente|ta certo)$/.test(n)) n='sim';
+    if (/^(n|nn|nao nao)$/.test(n)) n='nao';
+    if (/^(oi duda|ola duda|e ai|oi tudo bem|ola tudo bem)$/.test(n)) n='oi';
+    if (/^(obg|obgd|valeu|muito obrigada|muito obrigado)$/.test(n)) n='obrigada';
+    if (/^(tchau|ate mais|boa noite obrigada)$/.test(n))
+      return {text:'Até mais! Se precisar, é só abrir a Duda novamente.'};
+    if (/^(quem e voce|voce e uma pessoa|voce e uma ia)$/.test(n))
+      return {text:'Sou a Duda, assistente automática deste site. Uso informações preparadas e busco nos textos da página para ajudar com salário-maternidade.',suggest:useful};
+
+    // Respostas breves são interpretadas somente em relação à pergunta pendente.
+    if (this.waiting==='months' && !this.detectTopic(n)) {
+      if (/^(nao sei|nao lembro|nao me lembro|nao tenho certeza)$/.test(n)) {
+        this.waiting=null;
+        return {text:'Tudo bem. A carteira de trabalho e o CNIS podem ajudar a encontrar essa data. Podemos começar pelos documentos.',suggest:['Quais documentos?','O que é CNIS?'],links:[['Abrir Meu INSS','https://meu.inss.gov.br/']]};
+      }
+      const duration=months(n);
+      if (duration!==null && !/gravid|nasceu|bebe|filh|adoc/.test(n)) n=duration+' meses';
+    }
+    if (this.waiting==='event') {
+      if (/^(ja nasceu|nasceu|ja tive|ja ganhei|parto|nascimento)$/.test(n)) n='meu bebe ja nasceu';
+      if (/^(ainda gravida|ainda estou|gravida|gestante)$/.test(n)) n='estou gravida';
+      if (/^(adotei|adocao|adotando)$/.test(n)) n='adocao';
+    }
+    if (/^(parei|parei de pagar|parei faz.*|parei ha.*)/.test(n) && this.context.profile==='mei') {
+      this.context.contributing=false;
+      const duration=months(n);
+      if (duration!==null) this.context.months=duration;
+      if (!this.detectTopic(n)) return this.next();
+    }
+    if (/^(nao trabalho|estou sem trabalho|to sem trabalho)$/.test(n)) n='estou desempregada';
+    if (/^(nao sei|nao lembro)$/.test(n) && (this.topicPending || this.waiting==='profile')) {
+      this.topicPending=null;this.waiting=null;
+      return {text:'Sem problema. Sua carteira de trabalho e o extrato do INSS ajudam a identificar sua situação. Posso te mostrar onde conferir.',suggest:['O que é CNIS?','Como pedir?'],links:[['INSS — 135','tel:135']]};
+    }
+    if (/nunca trabalhei|nunca contribui|nunca paguei/.test(n)) {
+      this.pending=null;this.topicPending=null;this.waiting=null;
+      return {text:'Nesse caso, precisamos entender seu histórico antes de indicar um caminho. Você já trabalhou no campo ou teve algum vínculo com o INSS?',suggest:['Trabalho na roça','Não sei minha situação'],links:[['Conferir com o INSS — 135','tel:135']]};
+    }
+    if (n==='nao sei minha situacao') {
+      return {text:'Você pode conferir seu histórico no CNIS ou pedir orientação pelo 135. Não precisa enviar seus documentos aqui.',suggest:['O que é CNIS?'],links:[['INSS — 135','tel:135']]};
+    }
+
+    // Correções explícitas descartam só informações incompatíveis com o novo perfil.
+    if (/na verdade|corrigindo|quis dizer|me enganei/.test(n)) {
+      const corrected=DudaEngine.facts(n);
+      if (corrected.profile && corrected.profile!==this.context.profile) {
+        delete this.context.months;delete this.context.contributing;
+      }
+      if (Object.keys(corrected).length) {
+        Object.assign(this.context,corrected);this.pending=null;
+        return this.topicPending || this.lastTopic
+          ? this.topicReply(this.topicPending || this.lastTopic) : this.next();
+      }
+      return {text:'Pode me dizer qual informação precisa mudar?'};
+    }
+    // Mantém um caminho de saída para "sim" sem uma pergunta binária pendente.
+    if (/^(sim|nao)$/.test(n) && !this.pending && this.waiting!=='contributing')
+      return {text:'Só para eu não entender errado: a que você está respondendo? Pode escrever uma frase curta.',suggest:useful};
+
+    const answer=baseAsk.call(this,n);
+    if (/nao entendi|mais simples|complicado/.test(n) && !this.lastTopic)
+      return {text:'Vamos por partes. O que você quer entender primeiro?',suggest:useful};
+    return answer;
+  };
+})();
+
+</script>
+    <script>
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id),
