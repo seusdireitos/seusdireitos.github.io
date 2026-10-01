@@ -194,7 +194,7 @@ header.scrolled {
   cursor: pointer;
 }
 .logo-title {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 0.5px;
@@ -230,7 +230,7 @@ nav a:hover {
 .pdf-btn {
   background: linear-gradient(135deg, #ef4444, #b91c1c);
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-weight: 900;
   font-size: 0.95rem;
   padding: 14px 28px;
@@ -343,7 +343,7 @@ nav .pdf-btn,
   font-weight: 900;
   margin-top: 6px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 0.95rem;
 }
 
@@ -907,7 +907,7 @@ nav .pdf-btn,
   }
 }
 .hero-text h1 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: clamp(2rem, 5vw, 3.6rem);
   font-weight: 900;
   line-height: 1.05;
@@ -1011,7 +1011,7 @@ nav .pdf-btn,
   padding: 16px 8px;
 }
 .stat-num {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   color: var(--yellow);
@@ -1029,7 +1029,7 @@ nav .pdf-btn,
 .btn-primary {
   background: var(--yellow);
   color: var(--text-dark);
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-weight: 900;
   font-size: 1rem;
   padding: 15px 30px;
@@ -1045,7 +1045,7 @@ nav .pdf-btn,
 .btn-secondary {
   background: rgba(255, 255, 255, 0.16);
   color: var(--white);
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-weight: 800;
   font-size: 1rem;
   padding: 15px 30px;
@@ -1091,7 +1091,7 @@ section {
   margin-bottom: 12px;
 }
 .section-title {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: clamp(1.7rem, 4vw, 2.7rem);
   font-weight: 900;
   margin-bottom: 12px;
@@ -1135,7 +1135,7 @@ section {
   background: rgba(255, 255, 255, 0.06);
 }
 .who-card .num {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 3.2rem;
   font-weight: 900;
   opacity: 0.12;
@@ -1207,7 +1207,7 @@ section {
   display: block;
 }
 .info-card .i-value {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 2rem;
   font-weight: 900;
   color: var(--yellow);
@@ -1308,14 +1308,14 @@ section {
   color: var(--text-dark);
 }
 .grace-block h4 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.05rem;
   font-weight: 900;
 }
 .grace-block .period {
   font-size: 2.2rem;
   font-weight: 900;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
 }
 .grace-block p {
   font-size: 0.87rem;
@@ -1338,7 +1338,7 @@ section {
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
 .calc-box h3 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.35rem;
   font-weight: 900;
   margin-bottom: 8px;
@@ -1495,7 +1495,7 @@ section {
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1550,7 +1550,7 @@ section {
   display: block;
 }
 .calc-result-titulo {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.4rem;
   font-weight: 900;
   margin-bottom: 8px;
@@ -1636,7 +1636,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-weight: 900;
   font-size: 1.2rem;
   margin: 0 auto 12px;
@@ -1745,7 +1745,7 @@ section {
   color: #6ee7b7;
 }
 .myth-statement {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 900;
   line-height: 1.4;
@@ -1866,7 +1866,7 @@ section {
   transition: width 0.5s ease;
 }
 .quiz-question {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.25rem;
   font-weight: 900;
   margin-bottom: 26px;
@@ -1908,7 +1908,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-weight: 900;
   font-size: 0.85rem;
   flex-shrink: 0;
@@ -1951,7 +1951,7 @@ section {
   flex-wrap: wrap;
 }
 .quiz-score-big {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 4rem;
   font-weight: 900;
   color: var(--yellow);
@@ -2021,7 +2021,7 @@ footer {
   margin-bottom: 32px;
 }
 .footer-brand h3 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.1rem;
   font-weight: 900;
   margin-bottom: 10px;
@@ -2193,7 +2193,7 @@ footer {
   transform: scaleX(1);
 }
 .glossary-term {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 900;
   color: var(--yellow);
@@ -2249,7 +2249,7 @@ footer {
   box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.3);
 }
 .timeline-year {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 0.82rem;
   font-weight: 900;
   color: var(--yellow);
@@ -2301,7 +2301,7 @@ footer {
   margin-bottom: 12px;
 }
 .inss-text h3 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.3rem;
   font-weight: 900;
   margin-bottom: 10px;
@@ -2346,7 +2346,7 @@ footer {
   margin: 0 auto;
 }
 .checklist-box h3 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-size: 1.2rem;
   font-weight: 900;
   margin-bottom: 6px;
@@ -2450,7 +2450,7 @@ footer {
   width: 0%;
 }
 .checklist-pct {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   font-weight: 900;
   font-size: 0.9rem;
   color: var(--green);

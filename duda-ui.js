@@ -100,7 +100,8 @@
           typeof revealMyth === "function"
         )
           revealMyth(el);
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (window.SiteVisual) window.SiteVisual.revealSection(el);
+        el.scrollIntoView({ behavior: document.body.classList.contains("motion-paused") ? "auto" : "smooth", block: "center" });
         setOpen(false);
       }
     } else location.href = href;

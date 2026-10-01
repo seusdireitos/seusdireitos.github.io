@@ -21,21 +21,18 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://seusdireitos.github.io/" />
     <title>Direitos Previdenciários – Salário-Maternidade</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Montserrat:wght@700;900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/site.css" />
-    <link rel="stylesheet" href="assets/css/duda.css" />
-  <link rel="stylesheet" href="assets/css/pesquisa.css">
+    
+    
+    
+    <link rel="stylesheet" href="all.min.css">
+    <link rel="stylesheet" href="site.css" />
+    <link rel="stylesheet" href="duda.css" />
+  <link rel="stylesheet" href="pesquisa.css">
+<link rel="stylesheet" href="visual.css">
+<link rel="stylesheet" href="fonts.css">
 </head>
-  <body>
+  <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11a9 9 0 0 1-9 9H4l-3 2 2-6A9 9 0 1 1 21 11z"/></symbol><symbol id="icon-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V4h8v3M3 12h18M10 12v3h4v-3"/></symbol><symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 19h2"/></symbol><symbol id="icon-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h5l3 3h7a2 2 0 0 1 2 2l-2 12H2z"/></symbol><symbol id="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol></svg>
+<a class="skip-content" href="#atalhos">Ir para o conteúdo</a>
     <div
       id="reading-progress"
       role="progressbar"
@@ -99,7 +96,7 @@
       </svg>
     </div>
 
-    <div class="a11y-bar" role="toolbar" aria-label="Acessibilidade">
+    <div id="a11y-tools" class="a11y-bar" hidden role="toolbar" aria-label="Acessibilidade">
       <button
         type="button"
         class="a11y-btn"
@@ -158,6 +155,7 @@
       </button>
     </div>
 
+    <button type="button" id="a11y-toggle" class="a11y-toggle" aria-label="Opções de acessibilidade" aria-controls="a11y-tools" aria-expanded="false">♿</button>
     <div class="alert-banner" id="alertBanner" role="alert">
       <span>⚠️</span>
       <span
@@ -181,22 +179,12 @@
           onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
         >
           <span class="logo-title">DIREITOS PREVIDENCIÁRIOS</span>
-          <span class="logo-sub">Salário-Maternidade — DIREITO — UNIFAGOC</span>
+          <span class="logo-sub">Salário-Maternidade · Ubá e região</span>
         </div>
-        <nav>
-          <a href="#quem-tem-direito">Quem tem direito</a>
-          <a href="#regras">Regras</a>
-          <a href="#periodo-graca">Graça</a>
-          <a href="#calculadora">Calculadora</a>
-          <a href="#faq">FAQ</a>
-          <a href="#glossario">Glossário</a>
-          <a href="#timeline">História</a>
-          <a href="#mitos">Mitos</a>
-          <a href="#quiz">Quiz</a>
-          <button type="button" class="pdf-btn nav-pdf-btn" onclick="savePDF()">
-            📥 PDF
-          </button>
-        </nav>
+        <nav aria-label="Navegação principal">
+<a href="#quem-tem-direito">Tenho direito?</a><a href="#como-pedir">Como pedir</a><a href="#checklist">Documentos</a>
+<details class="nav-more"><summary>Mais <span aria-hidden="true">⌄</span></summary><div class="nav-more-panel"><a href="#calculadora">Calculadora</a><a href="#regras">Regras</a><a href="#periodo-graca">Parei de contribuir</a><a href="#faq">Dúvidas frequentes</a><a href="#glossario">Glossário</a><a href="#homens">Todas as famílias</a><a href="#localizador">Ajuda em Ubá</a><a href="#timeline">História</a><a href="#mitos">Mitos e verdades</a><a href="#quiz">Quiz</a><a href="pesquisa.html">Pesquisa</a><button type="button" onclick="savePDF()">Salvar em PDF</button></div></details></nav>
+<button class="simple-toggle" type="button" aria-pressed="false">Modo simples</button>
         <button
           type="button"
           class="hamburger"
@@ -209,6 +197,7 @@
       </div>
     </header>
     <div class="mobile-menu" id="mobileMenu">
+<a href="#checklist">Documentos</a><a href="pesquisa.html">Pesquisa interativa</a>
       <a href="#quem-tem-direito"
         ><i class="fas fa-users"></i> Quem tem direito</a
       >
@@ -233,61 +222,26 @@
     </div>
 
     <section class="hero" id="inicio">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <div class="hero-badge">
-            <span class="dot"></span> Material educativo gratuito · DIREITO -
-            UNIFAGOC 2026
-          </div>
-          <h1>Descubra seu direito ao <span>Salário-Maternidade</span></h1>
-          <p>
-            Um guia simples e claro para trabalhadores(as) e famílias
-            conhecerem, entenderem e defenderem seus direitos previdenciários.
-          </p>
-          <div class="hero-cta">
-            <a href="#quem-tem-direito" class="btn-primary"
-              ><i class="fas fa-search"></i> Ver meus direitos</a
-            >
-            <a href="#calculadora" class="btn-secondary"
-              ><i class="fas fa-calculator"></i> Calcular meu prazo</a
-            >
-          </div>
-          <div
-            class="reading-time-badge"
-            aria-label="Tempo estimado de leitura"
-          >
-            📖 Leitura completa: ~10 min | 🎯 Quiz + Calculadora incluídos
-          </div>
-        </div>
-        <div class="hero-cards">
-          <div class="hero-card accent">
-            <span class="icon">🍼</span>
-            <h3>120 dias garantidos</h3>
-            <p>Para CLT, sem carência mínima de INSS.</p>
-          </div>
-          <div class="hero-card">
-            <span class="icon">⏳</span>
-            <h3>Período de Graça</h3>
-            <p>Proteção por até 36 meses após demissão.</p>
-          </div>
-          <div class="hero-card">
-            <span class="icon">🛡️</span>
-            <h3>Estabilidade garantida</h3>
-            <p>
-              Em regra, há proteção contra demissão sem justa causa durante a
-              estabilidade.
-            </p>
-          </div>
-          <div class="hero-card accent">
-            <span class="icon">📱</span>
-            <h3>Pedido pela internet</h3>
-            <p>Solicite pelo app Meu INSS sem sair de casa.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="hero-orb orb-one" aria-hidden="true"></div><div class="hero-orb orb-two" aria-hidden="true"></div>
+<div class="hero-inner">
+<div class="hero-text"><div class="hero-badge"><span class="dot"></span> Informação gratuita, perto de você</div>
+<h1>Entenda <span>seus direitos.</span><br>Cuide do <span>seu futuro.</span></h1>
+<p>Informação simples sobre salário-maternidade, para você e sua família.</p>
+<div class="hero-cta"><a href="#quem-tem-direito" class="btn-primary">Descobrir minha situação <span aria-hidden="true">→</span></a><button type="button" class="btn-secondary open-duda">Conversar com a Duda</button></div>
+<p class="hero-local">Ubá e arredores · Sem cadastro</p></div>
+<div class="hero-art"><div class="art-orbit" aria-hidden="true"></div><img src="acolhimento.webp" alt="Ilustração de uma mãe acolhendo seu bebê" width="667" height="1000" fetchpriority="high"><span class="art-heart" aria-hidden="true">♡</span></div>
+</div></section>
+<section id="atalhos" class="start-section" data-no-duda><div class="section-inner"><span class="eyebrow fade-in">VAMOS POR PARTES</span><h2 class="section-title fade-in">Por onde você quer <span>começar?</span></h2><div class="start-grid">
+<a class="start-card fade-in" href="#quem-tem-direito"><svg class="ui-icon" aria-hidden="true"><use href="#icon-bag"/></svg><h3>Tenho direito?</h3><p>Entenda as situações mais comuns e encontre a sua.</p><span class="card-arrow" aria-hidden="true">→</span></a>
+<a class="start-card fade-in delay-1" href="#como-pedir"><svg class="ui-icon" aria-hidden="true"><use href="#icon-phone"/></svg><h3>Como pedir</h3><p>Veja o passo a passo para solicitar o benefício.</p><span class="card-arrow" aria-hidden="true">→</span></a>
+<a class="start-card fade-in delay-2" href="#checklist"><svg class="ui-icon" aria-hidden="true"><use href="#icon-folder"/></svg><h3>Documentos</h3><p>Organize o que você precisa separar para o pedido.</p><span class="card-arrow" aria-hidden="true">→</span></a>
+<a class="start-card fade-in delay-3" href="#localizador"><svg class="ui-icon" aria-hidden="true"><use href="#icon-pin"/></svg><h3>Ajuda em Ubá</h3><p>Encontre os canais de atendimento e a agência.</p><span class="card-arrow" aria-hidden="true">→</span></a>
+</div></div></section>
+<section class="journey-section" id="seu-caminho" data-no-duda><div class="section-inner"><h2 class="section-title fade-in">Seu próximo passo, <span>sem complicação.</span></h2><ol class="journey-grid"><li class="fade-in"><span>1</span><div><h3>Entenda sua situação</h3><p>Conheça os requisitos e tire suas dúvidas.</p></div></li><li class="fade-in delay-1"><span>2</span><div><h3>Separe os documentos</h3><p>Use o checklist para se organizar com calma.</p></div></li><li class="fade-in delay-2"><span>3</span><div><h3>Faça o pedido</h3><p>Confira o canal e acompanhe a solicitação.</p></div></li></ol></div></section>
+<div id="simple-status" class="simple-status" hidden role="status">Modo simples: mostramos o essencial. <button type="button" class="simple-toggle" aria-pressed="true">Ver conteúdo completo</button></div>
 
-    <div class="stats-bar">
+
+    <div class="stats-bar" data-advanced>
       <div class="stats-inner">
         <div class="stat-item fade-in">
           <div class="stat-num" data-target="120">0</div>
@@ -308,7 +262,7 @@
       </div>
     </div>
 
-    <section class="who-section" id="quem-tem-direito">
+    <section class="who-section light-section" id="quem-tem-direito">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -420,7 +374,7 @@
       </div>
     </section>
 
-    <section id="numeros">
+    <section data-advanced class="light-section" id="numeros">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -485,7 +439,7 @@
       </div>
     </section>
 
-    <section class="rules-section" id="regras">
+    <section data-advanced class="rules-section light-section" id="regras">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -669,7 +623,7 @@
       </div>
     </section>
 
-    <section id="periodo-graca">
+    <section data-advanced class="light-section" id="periodo-graca">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -744,7 +698,7 @@
       </div>
     </section>
 
-    <section class="calc-section" id="calculadora">
+    <section data-advanced class="calc-section" id="calculadora">
       <div class="section-inner">
         <span
           class="section-badge fade-in"
@@ -920,7 +874,7 @@
       </div>
     </section>
 
-    <section id="homens">
+    <section data-advanced class="light-section" id="homens">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -1080,7 +1034,7 @@
       </div>
     </section>
 
-    <section class="how-section" id="como-pedir">
+    <section class="how-section light-section" id="como-pedir">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -1170,7 +1124,7 @@
 
     <div class="section-divider"></div>
 
-    <section class="checklist-section" id="checklist">
+    <section class="checklist-section light-section" id="checklist">
       <div class="section-inner">
         <span class="section-badge fade-in"
           ><i class="fas fa-check-double"></i> Preparação</span
@@ -1274,7 +1228,7 @@
 
     <div class="section-divider"></div>
 
-    <section id="faq">
+    <section class="light-section" id="faq">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -1422,7 +1376,7 @@
       </div>
     </section>
 
-    <section class="glossary-section" id="glossario">
+    <section data-advanced class="glossary-section light-section" id="glossario">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -1567,7 +1521,7 @@
       </div>
     </section>
 
-    <section id="localizador" style="background: var(--blue-main)">
+    <section class="light-section" id="localizador" style="background: var(--blue-main)">
       <div class="section-inner">
         <span class="section-badge fade-in"
           ><i class="fas fa-map-marker-alt"></i> Atendimento</span
@@ -1686,7 +1640,7 @@
       </div>
     </section>
 
-    <section id="timeline" style="background: var(--blue-dark)">
+    <section data-advanced class="light-section" id="timeline" style="background: var(--blue-dark)">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -1808,7 +1762,7 @@
       </div>
     </section>
 
-    <section class="myths-section" id="mitos">
+    <section data-advanced class="myths-section light-section" id="mitos">
       <div class="section-inner">
         <div class="section-header">
           <div class="section-header-left">
@@ -2024,7 +1978,7 @@
       </div>
     </section>
 
-    <section class="quiz-section" id="quiz">
+    <section data-advanced class="quiz-section" id="quiz">
       <div class="section-inner">
         <span
           class="section-badge fade-in"
@@ -2109,7 +2063,7 @@
     </section>
 
 
-<section id="pesquisa" class="research-teaser" aria-labelledby="pesquisa-title" data-no-duda>
+<section data-advanced id="pesquisa" class="research-teaser" aria-labelledby="pesquisa-title" data-no-duda>
   <div class="r-teaser-inner">
     <div><span class="r-kicker">O QUE AS PESSOAS NOS CONTARAM</span><h2 id="pesquisa-title">Informação começa<br>com <span>escuta.</span></h2><p>17 pessoas participaram da nossa pesquisa sobre salário-maternidade. Veja o que elas conhecem, quais dúvidas aparecem e o que gostariam de melhorar.</p><a class="r-primary" href="pesquisa.html">Explorar a pesquisa interativa →</a><p class="r-teaser-note">Uma amostra de participantes, sem representar toda a população.</p></div>
     <div class="r-teaser-cards"><div><strong data-count="76.5" data-suffix="%">76,5%</strong><p>não disseram conhecer bem o benefício</p><small>13 de 17 respostas</small></div><div><strong data-count="29.4" data-suffix="%">29,4%</strong><p>marcaram 120 dias como prazo padrão</p><small>5 de 17 respostas</small></div></div>
@@ -2191,7 +2145,7 @@
             rel="noopener noreferrer"
             class="logo-link"
           >
-            <span class="sr-only">UNIFAGOC</span>
+            <span class="footer-wordmark">UNIFAGOC</span>
           </a>
         </div>
       </div>
@@ -2218,7 +2172,7 @@
       aria-controls="duda-panel"
       aria-expanded="false"
     >
-      <span aria-hidden="true">💬</span> Precisa de ajuda?
+      <svg width="19" height="19" aria-hidden="true"><use href="#icon-chat"/></svg> Precisa de ajuda?
       <span class="duda-dot" aria-hidden="true"></span>
     </button>
     <aside id="duda-panel" role="dialog" aria-labelledby="duda-title" hidden>
@@ -2261,10 +2215,11 @@
         <button type="button" id="duda-clear">Limpar favoritos</button></small
       >
     </aside>
-    <script src="assets/js/site.js"></script>
-    <script src="assets/js/duda-engine.js"></script>
-    <script src="assets/js/duda-ui.js"></script>
-<script src="assets/js/pesquisa-data.js"></script>
-<script src="assets/js/pesquisa.js"></script>
+    <script src="site.js"></script>
+    <script src="duda-engine.js"></script>
+    <script src="duda-ui.js"></script>
+<script src="pesquisa-data.js"></script>
+<script src="pesquisa.js"></script>
+<script src="visual.js"></script>
   </body>
 </html>

@@ -226,6 +226,7 @@ function animateCounters() {
     let current = 0;
     const step = target / (1800 / 16);
     const t = setInterval(() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || document.body.classList.contains("motion-paused")) { el.textContent = prefix + (prefix === "R$ " ? target.toLocaleString("pt-BR") : target); clearInterval(t); return; }
       current = Math.min(current + step, target);
       const val = Math.round(current);
       el.textContent =

@@ -3,7 +3,9 @@
 'use strict';
 const data=window.PesquisaData;
 if(!data)return;
-const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let savedMotion=false;try{savedMotion=localStorage.getItem('salmat_motion_paused')==='true';}catch(e){}
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches||savedMotion;
+if(reduced)document.body.classList.add('research-motion-paused');
 const number=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:1});
 const percentage=(count,n)=>number.format(count/n*100)+'%';
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n;};
