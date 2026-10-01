@@ -28,7 +28,7 @@ Ubá e arredores, as duas orientadoras e a identidade azul/amarela foram mantido
 - Sintaxe dos três arquivos JavaScript verificada com node --check.
 - Testes do interpretador: confirmação de desemprego/parto/oito meses, negação de gravidez, temas fora do site, dados pessoais, violência, CNIS com erro de digitação, documentos, duração e endereço.
 - Referências locais de HTML/CSS revisadas, com ressalva dos dois arquivos de imagem originais não anexados.
-- Não foi possível executar a inspeção visual no navegador: a instalação do navegador automatizado falhou no ambiente. Recomenda-se conferir o layout no celular e no navegador usado na hospedagem antes de substituir a versão pública.
+- Nesta atualização, a inspeção visual foi concluída em computador e celular. Os 11 gráficos foram testados no navegador, incluindo bases, tabelas, ordenação, seleção, exportação CSV, links diretos e movimento reduzido. A abertura da Duda também foi testada, com correção da leitura dos itens do checklist. Não houve erro JavaScript nos testes.
 
 ## Fontes consultadas em 30/09/2026
 
@@ -36,3 +36,12 @@ Ubá e arredores, as duas orientadoras e a identidade azul/amarela foram mantido
 - https://www.gov.br/inss/pt-br/saiba-mais/seus-direitos-e-deveres/qualidade-de-segurado
 
 Foram ajustados textos sobre carência, qualidade de segurada e estimativas de período de graça. Esta entrega não equivale a auditoria integral de todas as hipóteses jurídicas do portal.
+
+
+## Pesquisa interativa
+
+O final do site agora traz um convite para pesquisa.html. Essa página reúne 11 gráficos de perguntas fechadas e as 6 sugestões abertas do PDF anexado. É possível mudar o tema e a pergunta, alternar pessoas/percentuais, ordenar as barras, selecionar uma categoria, abrir a tabela e baixar os dados em CSV.
+
+Novos arquivos: pesquisa.html; assets/css/pesquisa.css; assets/js/pesquisa-data.js; assets/js/pesquisa.js; assets/docs/pesquisa-campo.pdf. Publique todos junto com a pasta original.
+
+Os resultados são agregados: não há filtros que cruzem sexo, idade ou ocupação, pois o PDF não fornece respostas individuais. Os denominadores variáveis, a múltipla escolha e a inconsistência no encaminhamento da pergunta sobre solicitação são informados junto aos gráficos. Rótulos cortados na fonte foram preservados com reticências. Animações respeitam a preferência por movimento reduzido. O resumo da pesquisa não é usado como fonte de regras jurídicas pela Duda.

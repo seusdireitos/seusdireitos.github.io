@@ -11,7 +11,7 @@
     return c.textContent.replace(/\s+/g, " ").trim();
   }
   const docs = [];
-  document.querySelectorAll("section[id]").forEach((section) => {
+  document.querySelectorAll("section[id]:not([data-no-duda])").forEach((section) => {
     const cards = section.querySelectorAll(
       ".accordion-item,.faq-item,.who-card,.men-card,.glossary-card,.grace-block,.myth-card,.step-card,.inss-box,.timeline-item,.info-card",
     );
@@ -55,7 +55,7 @@
         id: "checklist",
         section: "checklist",
         title: "Documentos para " + profile,
-        text: items.map((i) => i.label).join("\n"),
+        text: (Array.isArray(items) ? items : items.itens || []).map((i) => i.label).join("\n"),
       }),
     );
   const engine = new DudaEngine.Engine(docs);
