@@ -13,7 +13,14 @@ Os nomes devem ficar exatamente como acima, em letras minúsculas.
 O index.html deve substituir o anterior na raiz, sem pasta intermediária.
 Se o Pages já publica este repositório, mantenha sua configuração atual.
 
-ESTA VERSÃO
+ESTA VERSÃO — CORREÇÃO DE 01/10/2026
+O acionador nativo do VLibras está oculto, inclusive na versão com Shadow DOM.
+Use o botão de Libras da barra de acessibilidade para abrir o tradutor.
+A Duda tem respostas curtas por perfil para valor, documentos e pedido.
+Ela preserva o assunto após uma pergunta de esclarecimento e permite
+consultar trechos maiores quando o visitante desejar. Continua sendo um
+assistente automático local, com respostas preparadas e busca no site.
+
 As duas páginas contêm seus próprios estilos e scripts, preservando a ordem
 de execução e as animações do ZIP enviado. Não precisam da pasta assets.
 As imagens fundo.png e 120X30.png foram recuperadas do seu site público e

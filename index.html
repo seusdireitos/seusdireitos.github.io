@@ -2818,6 +2818,17 @@ nav a.active {
   font-weight: 800;
 }
 
+/* O botão nativo permanece oculto mesmo após a injeção dos estilos do plugin. */
+html body #site-vlibras [vw-access-button],
+html body #site-vlibras .vw-access-button,
+html body [vw-access-button][data-site-hidden] {
+ display:none!important; visibility:hidden!important; opacity:0!important;
+ pointer-events:none!important;
+}
+
+/* VLibras atual: o acionador fica em um Shadow DOM; oculta-se só seu host. */
+html body #vlibras-access-wrapper { display:none!important; visibility:hidden!important; pointer-events:none!important; }
+
 </style>
     <style>
 #duda-toggle {
@@ -3041,7 +3052,7 @@ body.high-contrast .duda-message {
 
     <div id="toast" role="status" aria-live="polite"></div>
 
-    <div vw class="enabled">
+    <div id="site-vlibras" vw class="enabled">
       <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper>
         <div class="vw-plugin-top-wrapper"></div>
@@ -6735,60 +6746,37 @@ function resetChecklist() {
 /* ========== VLIBRAS ========== */
 let vlibrasAtivo = false;
 
-/* Observa quando o painel do VLibras abre e o reposiciona para o canto inferior direito */
-function observarPainelVLibras() {
-  const config = {
-    attributes: true,
-    attributeFilter: ["class", "style"],
-    subtree: true,
-  };
-  const obs = new MutationObserver(() => {
-    const wrapper =
-      document.querySelector("[vw-plugin-wrapper]") ||
-      document.querySelector(".vw-plugin-wrapper");
-    if (!wrapper) return;
-
-    const setWidgetStyle = (name, value, priority) => {
-      if (
-        wrapper.style.getPropertyValue(name) !== value ||
-        wrapper.style.getPropertyPriority(name) !== priority
-      )
-        wrapper.style.setProperty(name, value, priority);
-    };
-    /* Quando o painel está visível (VLibras adiciona classe ativa), reposiciona */
-    setWidgetStyle("position", "fixed", "important");
-    setWidgetStyle("bottom", "0", "important");
-    setWidgetStyle("right", "0", "important");
-    setWidgetStyle("left", "auto", "important");
-    setWidgetStyle("top", "auto", "important");
-    setWidgetStyle("transform", "none", "important");
-    setWidgetStyle("z-index", "9000", "important");
-    setWidgetStyle("max-width", "100vw", "important");
+// O plugin pode reconstruir o acionador depois do carregamento.
+function ocultarAcionadorVLibras() {
+  document.querySelectorAll('#vlibras-access-wrapper, [vw-access-button], .vw-access-button').forEach(btn => {
+    if (!btn.hasAttribute('data-site-hidden')) btn.setAttribute('data-site-hidden', '');
+    if (btn.getAttribute('aria-hidden') !== 'true') btn.setAttribute('aria-hidden', 'true');
+    if (btn.getAttribute('tabindex') !== '-1') btn.setAttribute('tabindex', '-1');
+    for (const [key, value] of Object.entries({display:'none',visibility:'hidden',opacity:'0','pointer-events':'none'})) {
+      if (btn.style.getPropertyValue(key) !== value || btn.style.getPropertyPriority(key) !== 'important')
+        btn.style.setProperty(key, value, 'important');
+    }
   });
-
-  const root = document.querySelector("[vw]");
-  if (root) obs.observe(root, config);
 }
-observarPainelVLibras();
-
+ocultarAcionadorVLibras();
+new MutationObserver(ocultarAcionadorVLibras).observe(document.body, {
+ childList:true, subtree:true, attributes:true, attributeFilter:['class','style']
+});
 function ativarVLibras() {
-  const btn = document.querySelector("[vw-access-button]");
-  if (!btn) {
-    mostrarToast("⚠️ VLibras ainda carregando. Aguarde um instante.");
+  // Versão atual: abre o aplicativo pela API do próprio widget.
+  if (typeof window.VLibrasWidget?.open === 'function') {
+    window.VLibrasWidget.open();
+    ocultarAcionadorVLibras();
     return;
   }
-  /* Torna clicável momentaneamente fora da área visível */
-  btn.style.cssText =
-    "display:block!important;visibility:visible!important;opacity:0!important;position:fixed!important;top:-9999px!important;left:-9999px!important;";
+  const btn = document.querySelector('[vw-access-button]');
+  if (!window.VLibras || !btn || !btn.querySelector('img,svg')) {
+    mostrarToast('O tradutor de Libras ainda está carregando. Tente novamente em instantes.');
+    return;
+  }
+  // Um clique programático funciona com o acionador oculto.
   btn.click();
-  setTimeout(() => {
-    btn.style.cssText =
-      "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
-  }, 150);
-  vlibrasAtivo = !vlibrasAtivo;
-  const a11yBtn = document.querySelector('.a11y-btn[onclick*="ativarVLibras"]');
-  if (a11yBtn) a11yBtn.classList.toggle("active", vlibrasAtivo);
-  mostrarToast(vlibrasAtivo ? "🤟 VLibras ativado!" : "🤟 VLibras desativado.");
+  ocultarAcionadorVLibras();
 }
 
 </script>
@@ -7015,13 +7003,19 @@ function ativarVLibras() {
       this.pending = null;
       this.lastQuery = "";
       this.lastResults = [];
+      this.lastTopic = null;
+      this.topicPending = null;
     }
     reset() {
       this.context = {};
       this.pending = null;
       this.lastQuery = "";
       this.lastResults = [];
+      this.lastTopic = null;
+      this.topicPending = null;
       this.waiting = null;
+      this.lastTopic = null;
+      this.topicPending = null;
     }
     ask(input) {
       const n = normalize(input);
@@ -7038,7 +7032,8 @@ function ativarVLibras() {
         };
       }
       const risk = sensitive(input);
-      if (risk)
+      if (risk) {
+        this.pending = null; this.topicPending = null; this.waiting = null;
         return {
           text:
             risk === "violencia"
@@ -7065,11 +7060,12 @@ function ativarVLibras() {
             "Como fazer o pedido?",
           ],
         };
+      }
       if (this.pending) {
         if (/^(sim|isso|correto|confirmo|certo)$/.test(n)) {
           Object.assign(this.context, this.pending);
           this.pending = null;
-          return this.next();
+          return this.topicReply?.(this.topicPending) || this.next();
         }
         if (/^(nao|corrigir|errado)$/.test(n)) {
           this.pending = null;
@@ -7089,16 +7085,24 @@ function ativarVLibras() {
       }
       if (Object.keys(f).length >= 2) {
         this.pending = f;
+        this.topicPending = this.detectTopic?.(input) || this.topicPending;
         this.lastQuery = input;
         return {
           text:
             "Só para confirmar o que entendi:\n" +
             this.describe(f) +
-            "\nEstá correto? Os tempos são aproximados e não calculam a data de perda da proteção.",
+            "\nEntendi certo?",
           suggest: ["Sim", "Corrigir"],
         };
       }
       Object.assign(this.context, f);
+      const topic = this.detectTopic?.(input);
+      if (topic) return this.topicReply(topic);
+      if (this.topicPending && f.profile) return this.topicReply(this.topicPending);
+      if (/nao entendi|mais simples|complicado/.test(n) && this.lastTopic)
+        return this.topicReply(this.lastTopic, true);
+      if (/^(e depois|mais detalhes|me explica melhor)$/.test(n) && this.lastTopic)
+        return this.topicReply(this.lastTopic);
       if (
         /^(tenho direito|tenho direito ao beneficio|posso receber salario maternidade)$/.test(
           n,
@@ -7159,7 +7163,7 @@ function ativarVLibras() {
       this.lastResults = results;
       if (!results.length || results[0].coverage < 0.34)
         return {
-          text: "Não encontrei uma resposta segura para essa pergunta no site. Tente indicar o assunto ou escolha uma opção. Não consigo responder sobre temas que o site não aborda.",
+          text: "Não consegui ligar sua pergunta a uma informação do site. Você quer saber sobre o valor, os documentos ou como fazer o pedido?",
           suggest: [
             "Tenho direito?",
             "Documentos",
@@ -7177,7 +7181,7 @@ function ativarVLibras() {
           choices: results.slice(0, 3),
         };
       return {
-        text: "Encontrei esta informação no site:",
+        text: "Este trecho pode ajudar com a sua dúvida:",
         docs: results.slice(0, 1),
         related: results.slice(1, 3),
       };
@@ -7185,7 +7189,7 @@ function ativarVLibras() {
     describe(c = this.context) {
       return (
         [
-          c.profile && "Situação: " + c.profile,
+          c.profile && "Você informou: " + ({clt:"trabalho com carteira assinada", mei:"MEI ou trabalho por conta própria", rural:"trabalho no campo", desempregada:"sem emprego atualmente"}[c.profile] || c.profile),
           c.event && "Evento: " + c.event,
           c.months != null &&
             "Tempo informado sem trabalhar/contribuir: aproximadamente " +
@@ -7228,9 +7232,10 @@ function ativarVLibras() {
         };
       return {
         text:
-          "O que você contou:\n" +
-          this.describe() +
-          "\n\nIsso serve para orientar a consulta, sem confirmar o benefício. A qualidade de segurada precisa ser verificada na data do evento; tempo aproximado não substitui CNIS e datas exatas.",
+          (c.profile === "desempregada" || c.contributing === false
+            ? "Parar de trabalhar ou de pagar o INSS não significa perder a proteção imediatamente. Precisamos conferir se ela ainda existia na data do parto ou da adoção."
+            : "Já tenho uma ideia da sua situação. O próximo passo é conferir os documentos e por onde fazer o pedido.") +
+          "\n\nPor onde você prefere continuar?",
         suggest: [
           "Quais documentos?",
           "Como pedir?",
@@ -7248,6 +7253,96 @@ function ativarVLibras() {
   root.DudaEngine = { Engine, normalize, tokens, rank, facts, sensitive };
   if (typeof module !== "undefined") module.exports = root.DudaEngine;
 })(typeof window !== "undefined" ? window : globalThis);
+
+</script>
+    <script>
+/* Respostas revisadas, locais e por assunto. Referências: INSS, consultado em 01/10/2026.
+ * A busca no conteúdo continua como alternativa para os demais assuntos. */
+(function () {
+  'use strict';
+  const proto = DudaEngine.Engine.prototype;
+  const official = 'https://www.gov.br/inss/pt-br/direitos-e-deveres/salario-maternidade/';
+  const profiles = ['Carteira assinada', 'Sou MEI', 'Trabalho na roça', 'Estou desempregada'];
+  proto.detectTopic = function (input) {
+    const n = DudaEngine.normalize(input);
+    if (/document|papeis|papelada|preciso levar/.test(n)) return 'documentos';
+    if (/quanto.*(receb|ganh|pag)|qual.*valor|\bvalor\b|quanto recebo/.test(n)) return 'valor';
+    if (/quanto tempo dura|quantos dias|duracao|por quanto tempo/.test(n)) return 'duracao';
+    if (/como.*(pedir|solicitar|peco)|dar entrada|onde.*(pedir|solicitar)|fazer o pedido/.test(n)) return 'pedido';
+    if (/carencia|quantas contribuicoes|uma contribuicao|1 contribuicao/.test(n)) return 'carencia';
+    if (/o que.*(graca|protecao)|periodo de graca/.test(n)) return 'graca';
+    if (/\bcnis\b|\bcniz\b/.test(n)) return 'cnis';
+    return null;
+  };
+  proto.topicReply = function (topic, simple = false) {
+    if (!topic) return null;
+    this.lastTopic = topic;
+    this.waiting = null;
+    const c = this.context;
+    const needsProfile = ['valor', 'documentos', 'pedido'].includes(topic);
+    if (needsProfile && !c.profile && c.event !== 'adoção') {
+      this.topicPending = topic;
+      const lead = {valor:'O valor depende de como você está vinculada ao INSS.',documentos:'Eu te ajudo a separar o que levar.',pedido:'Vou te indicar por onde começar.'}[topic];
+      return {text:lead + '\n\nVocê trabalha com carteira assinada, é MEI, trabalha no campo ou está desempregada?',suggest:profiles};
+    }
+    this.topicPending = null;
+    const reply = { text:'', suggest:[], links:[], source:official+'salario-maternidade' };
+    if (topic === 'valor') {
+      reply.source = official+'valor-do-salario-maternidade';
+      const texts = {
+        clt:'Como você trabalha com carteira assinada, em regra o valor mensal corresponde à sua remuneração integral. Se recebe comissões ou valores variáveis, o cálculo precisa considerar isso.',
+        mei:'Para MEI, o valor depende dos registros de contribuição. Se você só contribui pelo DAS sobre o mínimo, o benefício normalmente fica no salário mínimo. Outros vínculos podem mudar o cálculo.',
+        desempregada:'No seu caso, o valor depende das contribuições anteriores. A regra usa a soma de até 12 salários de contribuição, dentro dos últimos 15 meses, dividida por 12, respeitado o mínimo legal.',
+        rural:'Para quem trabalha no campo como segurada especial, o valor é de um salário mínimo por mês. Se você tem emprego rural com carteira, a regra é outra.'
+      };
+      reply.text = texts[c.profile] || 'Na adoção, o valor também depende da categoria e das contribuições. Qual é a sua situação de trabalho?';
+      reply.suggest = c.profile ? ['Como pedir?', 'Quais documentos?'] : profiles;
+      if (!c.profile) this.topicPending = topic;
+    }
+    if (topic === 'documentos') {
+      reply.text = 'Comece pelo documento de identificação e CPF. Se o bebê já nasceu, separe também a certidão de nascimento.';
+      if (c.event === 'adoção') reply.text = 'Para adoção ou guarda para adotar, separe o documento de identificação, CPF e o termo judicial correspondente.';
+      else if (c.profile === 'clt') reply.text += '\n\nDeixe a carteira de trabalho à mão e confirme com o RH os documentos para o afastamento.';
+      else if (c.profile === 'mei') reply.text += '\n\nVale conferir o CNIS e guardar os comprovantes das contribuições.';
+      else if (c.profile === 'desempregada') reply.text += '\n\nSepare a carteira de trabalho, a rescisão e o CNIS para conferir o período em que você ainda tinha proteção.';
+      else if (c.profile === 'rural') reply.text += '\n\nSepare também os documentos que comprovam sua atividade rural.';
+      reply.text += '\n\nA lista pode mudar conforme o caso. O checklist ajuda a organizar tudo.';
+      reply.links = [['Abrir meu checklist', '#checklist']];
+      reply.suggest = ['Como pedir?', 'O que é CNIS?'];
+    }
+    if (topic === 'pedido') {
+      reply.text = c.profile === 'clt' && c.event !== 'adoção'
+        ? 'Em regra, você começa pelo RH da empresa. Avise sobre o afastamento e peça a lista de documentos. Há exceções com pedido direto ao INSS, como empregada de MEI e trabalho intermitente.'
+        : 'Você pode começar pelo Meu INSS: entre na sua conta gov.br e procure “Salário-Maternidade”. Siga as orientações e guarde o protocolo. Se tiver dificuldade, o 135 pode orientar.';
+      reply.links = [['Ver o passo a passo','#como-pedir'],['Abrir Meu INSS','https://meu.inss.gov.br/']];
+      reply.suggest = ['Quais documentos?', 'Quanto vou receber?'];
+    }
+    if (topic === 'duracao') {
+      reply.text = 'No parto, o salário-maternidade normalmente dura 120 dias. Algumas situações têm regras próprias. Você está perguntando sobre nascimento ou adoção?';
+      if (c.event === 'parto' || c.event === 'gravidez') reply.text = 'No caso de parto, normalmente são 120 dias. Existem situações específicas que podem alterar esse período, como internação prolongada.';
+      reply.suggest = ['Como pedir?', 'Quais documentos?'];
+    }
+    if (topic === 'carencia') {
+      reply.text = 'Não há mais uma quantidade mínima de contribuições exigida como carência para esse benefício. Mas é preciso ter proteção do INSS na data relevante. Uma contribuição isolada não garante a aprovação.';
+      reply.suggest = ['Tenho direito?', 'O que é período de graça?'];
+    }
+    if (topic === 'graca') {
+      reply.text = 'É o tempo em que você pode continuar protegida pelo INSS mesmo depois de parar de pagar. A duração varia conforme seu histórico; por isso, só saber há quantos meses você parou não fecha a análise.';
+      reply.links = [['Ver a explicação','#periodo-graca'],['Abrir calculadora','#calculadora']];
+      reply.suggest = ['Tenho direito?', 'O que é CNIS?'];
+    }
+    if (topic === 'cnis') {
+      reply.text = 'O CNIS é o extrato que reúne seus empregos e contribuições ao INSS. Ele ajuda a conferir se os registros estão certos. No Meu INSS, procure “Extrato de Contribuição (CNIS)”.';
+      reply.links = [['Abrir Meu INSS','https://meu.inss.gov.br/']];
+      reply.suggest = ['Quais documentos?', 'Como pedir?'];
+    }
+    if (simple) {
+      const short = {valor:'O valor muda conforme seu trabalho e suas contribuições. Para quem tem carteira assinada, em regra ele acompanha a remuneração.',documentos:'Separe sua identificação e os documentos do nascimento ou da adoção. No checklist você encontra o que conferir para o seu caso.',pedido:c.profile==='clt'?'Comece perguntando ao RH como solicitar a licença. Algumas categorias precisam pedir ao INSS.':'Abra o Meu INSS e procure “Salário-Maternidade”. Se precisar de ajuda, ligue 135.',duracao:'No parto, geralmente são 120 dias. Casos específicos podem ter outro prazo.',carencia:'Não é exigido um número mínimo de pagamentos. Mas você precisa estar protegida pelo INSS.',graca:'Mesmo depois de parar de pagar, você pode continuar protegida por algum tempo.',cnis:'É a lista dos seus empregos e pagamentos ao INSS. Você encontra no Meu INSS.'};
+      reply.text = short[topic];
+    }
+    return reply;
+  };
+})();
 
 </script>
     <script>
@@ -7359,6 +7454,7 @@ function ativarVLibras() {
     } else location.href = href;
   }
   function tools(text, parent, doc) {
+    const responseTopic = doc ? null : engine.lastTopic;
     const row = document.createElement("div");
     row.className = "duda-tools";
     button(
@@ -7377,17 +7473,9 @@ function ativarVLibras() {
     );
     button(
       "Explicar mais simples",
-      () =>
-        render({
-          text: text
-            .replace(/qualidade de segurada/gi, "proteção pelo INSS")
-            .replace(/fato gerador/gi, "parto, adoção ou outro evento")
-            .replace(/carência/gi, "número mínimo de contribuições")
-            .replace(
-              /período de graça/gi,
-              "tempo de proteção mesmo após parar de pagar",
-            ),
-        }),
+      () => render(responseTopic
+        ? engine.topicReply(responseTopic, true)
+        : {text: "Vamos por partes. Qual parte ficou difícil de entender?", suggest: ["Quanto vou receber?", "Quais documentos?", "Como pedir?"]}),
       row,
     );
     if (doc)
@@ -7414,12 +7502,20 @@ function ativarVLibras() {
   }
   function docCard(doc, parent) {
     const title = document.createElement("strong");
-    title.textContent = doc.title;
+    title.textContent = doc.title.replace(/[▼▾]/g, '').trim();
     parent.append(title);
     const p = document.createElement("p");
-    p.textContent =
-      doc.text.length > 700 ? doc.text.slice(0, 700) + "…" : doc.text;
+    const cleaned = doc.text.replace(doc.title, '').replace(/[▼▾]/g, '').trim();
+    const excerpt = cleaned.length > 280 ? cleaned.slice(0, 280).replace(/\s+\S*$/, '') + '…' : cleaned;
+    p.textContent = excerpt;
     parent.append(p);
+    if (cleaned.length > 280) {
+      const details = document.createElement('details');
+      const summary = document.createElement('summary');
+      summary.textContent = 'Ler a explicação completa';
+      const full = document.createElement('p'); full.textContent = cleaned;
+      details.append(summary, full); parent.append(details);
+    }
     const row = document.createElement("div");
     row.className = "duda-actions";
     button("Ver texto completo no site", () => openTarget("#" + doc.id), row);
@@ -7469,6 +7565,11 @@ function ativarVLibras() {
         button(d.title, () => render({ docs: [d] }), det),
       );
       box.append(det);
+    }
+    if (answer.source) {
+      const a = document.createElement('a'); a.className = 'duda-source';
+      a.textContent = 'Conferir no INSS'; a.href = answer.source;
+      a.target = '_blank'; a.rel = 'noopener noreferrer'; box.append(a);
     }
     if (!answer.docs) tools(answer.text || "", box);
     log.append(box);
@@ -7549,7 +7650,7 @@ function ativarVLibras() {
   });
   function welcome() {
     render({
-      text: "Olá! Sou a Duda, ajuda automática deste site. Pode escrever sua dúvida do seu jeito. Consulto os textos do site e posso ajudar a encontrar documentos, regras e atendimento em Ubá.",
+      text: "Oi! Sou a Duda, assistente automática deste site. Pode me contar sua dúvida do seu jeito. Vamos por partes: o que você quer saber sobre salário-maternidade?",
       suggest: [
         "Estou desempregada",
         "Sou MEI",
