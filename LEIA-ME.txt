@@ -1,0 +1,27 @@
+PUBLICAÇÃO NO GITHUB PAGES
+
+1. Extraia este ZIP no computador.
+2. Abra o repositório seusdireitos/seusdireitos.github.io.
+3. Na pasta principal do repositório, escolha Add file > Upload files.
+4. Arraste os TRÊS arquivos: index.html, pesquisa.html e pesquisa-campo.pdf.
+   Envie os arquivos extraídos, não o ZIP nem a pasta que os contém.
+5. Confirme em Commit changes, na mesma branch usada pelo GitHub Pages.
+6. Aguarde a publicação terminar em Actions e abra https://seusdireitos.github.io/.
+   No computador, Ctrl+F5 força a atualização da página.
+
+Os nomes devem ficar exatamente como acima, em letras minúsculas.
+O index.html deve substituir o anterior na raiz, sem pasta intermediária.
+Se o Pages já publica este repositório, mantenha sua configuração atual.
+
+ESTA VERSÃO
+As duas páginas contêm seus próprios estilos e scripts, preservando a ordem
+de execução e as animações do ZIP enviado. Não precisam da pasta assets.
+As imagens fundo.png e 120X30.png foram recuperadas do seu site público e
+incorporadas à página inicial. Não é necessário enviá-las separadamente.
+O PDF permanece separado para consulta e download na página da pesquisa.
+Fontes, ícones, mapa e VLibras continuam usando os serviços externos originais.
+A Duda e os gráficos usam JavaScript local, sem servidor ou chave de API.
+O arquivo .nojekyll é opcional; o site também funciona sem ele.
+
+Este pacote não altera automaticamente o repositório ou o site público.
+Guarde seu ZIP original como fonte modular para futuras edições do código.
